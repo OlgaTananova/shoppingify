@@ -1,0 +1,34 @@
+:root {
+  --white-color: rgb(255, 255, 255);
+  --grey-color: rgba(250, 250, 254, 1);
+  --orange-color: rgba(249, 161, 9, 1);
+  --black-grey-color: rgba(69, 69, 69, 1);
+  --red-color: rgba(235, 87, 87, 1);
+
+}
+
+.page {
+  max-width: 1440px;
+  min-width: 375px;
+  margin: 0 auto 0 auto;
+  background-color: var(--grey-color);
+  color: rgb(0,0,0);
+  font-family: 'Quicksand', Arial, sans-serif;
+  font-weight: 500;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+  display: flex;
+}
+
+.app {
+  display: grid;
+  margin: auto;
+  grid-template-columns: repeat(4, auto);
+  grid-template-rows: repeat(2, auto);
+  outline: 1px solid red;
+}
+

@@ -1,0 +1,19 @@
+.header {
+  outline: 1px solid red;
+  display: flex;
+  grid-column: 2/3;
+  grid-row: 1/2;
+  margin: 37px 56px 0 80px;
+}
+
+.header__heading {
+  font-size: 26px;
+  line-height: 1.2;
+  font-weight: 700;
+  align-self: flex-start;
+  margin: 0;
+}
+
+.header__heading-name {
+  color: var(--orange-color);
+}

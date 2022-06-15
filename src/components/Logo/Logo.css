@@ -1,0 +1,14 @@
+.logo {
+  width: 93px;
+  background-color: var(--white-color);
+  grid-column: 1/2;
+  grid-row: 1/2;
+  display: flex;
+}
+
+.logo-img {
+  margin: 37px auto 0;
+  width: 39px;
+  object-fit: contain;
+  object-position: top;
+}

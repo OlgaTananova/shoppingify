@@ -1,0 +1,32 @@
+.search-form {
+  width: 275px;
+  align-self: flex-start;
+  margin: 28px 94px 0 0;
+  background-color: var(--white-color);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  border-radius: 12px;
+  font-size: 12px;
+  line-height: 1.35;
+  padding: 17px 19px 17px 63px;
+  border: none;
+  position: relative;
+  overflow: hidden;
+  background-image: url('../../images/search_FILL0_wght400_GRAD0_opsz48.svg');
+  background-repeat: no-repeat;
+  background-size: 18px 18px;
+  background-position: 19px 17px;
+  transition: all .3ms ease;
+  grid-column: 3/4;
+  grid-row: 1/2;
+  box-sizing: border-box;
+}
+
+.search-form::placeholder {
+  color: rgba(189, 189, 189, 1);
+}
+
+.search-form:focus {
+  outline: none;
+  border: 2px solid var(--orange-color);
+}
+
