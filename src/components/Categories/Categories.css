@@ -1,0 +1,10 @@
+.categories {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  grid-row: 2/3;
+  grid-column: 2/4;
+  outline: 1px solid blueviolet;
+  padding: 20px 90px 60px 80px;
+  background-color: var(--grey-color);
+}

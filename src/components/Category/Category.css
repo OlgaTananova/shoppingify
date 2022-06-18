@@ -1,0 +1,24 @@
+.category {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  background-color: var(--grey-color);
+}
+
+.category__heading {
+  font-size: 18px;
+  margin: 0;
+  line-height: 1.25;
+  font-weight: 700;
+}
+
+.category__item-list {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 140px));
+  margin: 0;
+  padding: 0;
+  column-gap: 20px;
+  row-gap: 45px;
+}

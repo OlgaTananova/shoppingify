@@ -7,3 +7,24 @@
   justify-content: center;
   height: calc(100vh - 100px);
 }
+
+.auth-bar__link {
+  width: 150px;
+  background-color: var(--orange-color);
+  border-radius: 12px;
+  text-align: center;
+  font-size: 16px;
+  line-height: 1.25;
+  color: var(--white-color);
+  padding: 20px 0;
+  text-decoration: none;
+  transition: all .3ms ease;
+}
+
+.auth-bar__link:hover {
+  opacity: .7;
+}
+
+.auth-bar__link_type_login {
+  margin-bottom: 30px;
+}

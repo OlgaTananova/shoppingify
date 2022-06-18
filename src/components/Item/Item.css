@@ -1,0 +1,36 @@
+.category__item {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--white-color);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  align-items: center;
+  padding: 0 15px;
+}
+
+.category__item-name {
+  font-size: 16px;
+  line-height: 1.25;
+  max-width: 90px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.category__item-button {
+  width: 14px;
+  height: 14px;
+  padding: 0;
+  border: none;
+  background-color: var(--white-color);
+  background-image: url('../../images/add_FILL0_wght400_GRAD0_opsz48.svg');
+  background-position: center;
+  background-size: contain;
+  transition: all .3ms ease;
+}
+
+.category__item-button:hover {
+  cursor: pointer;
+  opacity: .7;
+}

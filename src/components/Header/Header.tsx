@@ -5,8 +5,8 @@ const Header = () => {
         <header className={'header'}>
             <h1 className={'header__heading'}>
                 <span className={'header__heading-name'}>
-                    Shoppingify</span> allows you take your <br/>shopping list
-               gi wherever you go </h1>
+                    Shoppingify</span> allows you take your shopping list
+               wherever you go </h1>
         </header>
     )
 }

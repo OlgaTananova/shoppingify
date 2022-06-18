@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 const Authbar = () => {
     return (
         <div className={'auth-bar'}>
-            <Link className={'auth-bar__link'} to={'/login'}>Login</Link>
+            <Link className={'auth-bar__link auth-bar__link_type_login'} to={'/login'}>Login</Link>
             <Link className={'auth-bar__link'} to={'/signup'}>Sign-up</Link>
         </div>
     )

@@ -26,7 +26,7 @@
 }
 
 .search-form:focus {
-  outline: none;
-  border: 2px solid var(--orange-color);
+  outline: 2px solid var(--orange-color);
+  outline-offset: -2px;
 }
 

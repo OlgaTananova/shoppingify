@@ -8,6 +8,7 @@ import Logo from "../Logo/Logo";
 import SearchForm from "../SearchForm/SearchForm";
 import Shopping from "../Shopping/Shopping";
 import Footer from "../Footer/Footer";
+import Categories from "../Categories/Categories";
 
 function App() {
   return (
@@ -25,6 +26,21 @@ function App() {
                      <Navbar/>
                      <Header />
                      <SearchForm />
+                     <Shopping />
+                     <Categories />
+                 </> }/>
+             <Route path={'/history'} element={
+                 <>
+                     <Logo />
+                     <Navbar/>
+                     <Header />
+                     <SearchForm />
+                     <Shopping />
+                 </> }/>
+             <Route path={'/statistics'} element={
+                 <>
+                     <Logo />
+                     <Navbar/>
                      <Shopping />
                  </> }/>
          </Routes>
