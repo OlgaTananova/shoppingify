@@ -1,0 +1,28 @@
+.shopping-list {
+  width: 310px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.shopping-list__upper-section {
+  display: flex;
+}
+
+.shopping-list__heading {
+  margin: 0;
+  font-size: 24px;
+  line-height: 1.25;
+  color: var(--dark-brown-color);
+  border-radius: 12px;
+}
+
+.shopping-list__edit-btn {
+  width: 18px;
+  height: 18px;
+  background-image: url('../../images/edit_FILL0_wght400_GRAD0_opsz48.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  background-color: var(--light-orange-color);
+}

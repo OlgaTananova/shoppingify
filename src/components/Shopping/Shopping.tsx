@@ -1,21 +1,23 @@
 import './Shopping.css';
 import {useState} from "react";
 import AddItemForm from "../AddItemForm/AddItemForm";
+import ShoppingList from "../ShoppingList/ShoppingList";
 
 const Shopping =() => {
-    const [showAddItemPopup, setShowAddItemPopup] = useState<boolean>(false);
+    const [showAddItemForm, setShowAddItemForm] = useState<boolean>(false);
 
     const handleClick = () => {
-        setShowAddItemPopup((prev) => true)
+        setShowAddItemForm((prev) => true)
     }
 
     return (
         <div className={'shopping'}>
-            {showAddItemPopup&& <AddItemForm />}
+            {showAddItemForm&& <AddItemForm />}
             <div className={'add-item-section'}>
                 <h3 className={'add-item-section__heading'}>Didn't find what you need?</h3>
                 <button className={'add-item-section__btn'} type={'button'} onClick={handleClick}>Add item</button>
             </div>
+            <ShoppingList />
         </div>
     )
 }
