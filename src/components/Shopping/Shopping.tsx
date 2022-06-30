@@ -2,6 +2,7 @@ import './Shopping.css';
 import {useState} from "react";
 import AddItemForm from "../AddItemForm/AddItemForm";
 import ShoppingList from "../ShoppingList/ShoppingList";
+import AddItemToSLForm from "../AddItemToSLForm/AddItemToSLForm";
 
 const Shopping =() => {
     const [showAddItemForm, setShowAddItemForm] = useState<boolean>(false);
@@ -18,6 +19,10 @@ const Shopping =() => {
                 <button className={'add-item-section__btn'} type={'button'} onClick={handleClick}>Add item</button>
             </div>
             <ShoppingList />
+            <div className={'shopping-list__add-item-form-big-container'}>
+                <AddItemToSLForm />
+            </div>
+
         </div>
     )
 }

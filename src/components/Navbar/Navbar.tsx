@@ -1,9 +1,22 @@
 import './Navbar.css';
 import {Link, NavLink} from "react-router-dom";
+import {useEffect, useState} from "react";
 
 const Navbar = () => {
+    const [scroll, setScroll] = useState<number>(0);
+
+    const onScroll: EventListener = () => {
+        setScroll(window.scrollY);
+    }
+    useEffect(()=> {
+        const win: Window = window;
+        win.addEventListener('scroll', onScroll);
+        return (() =>
+            window.removeEventListener('scroll', onScroll)
+        )
+    },[])
     return (
-        <nav className={'navbar'}>
+        <nav className={`navbar ${scroll > 100? 'navbar_fullscreen': ''}`}>
             <ul className={'navbar__links'}>
                 <li className={'navbar__link navbar__link_type_items'}
                     title={'items'}><NavLink to={'/items'}

@@ -3,6 +3,22 @@ export interface Data {
     items: string[]
 }
 
+export interface ShoppingCategoryData {
+    category: string,
+    items: [string, number][]
+}
+
+export const shoppingList: ShoppingCategoryData[] = [
+    {
+        category: 'fruits and vegetables',
+        items: [['coconut', 1], ['apples', 2], ['bananas 1kg', 1]]
+    },
+    {
+        category: 'Meat and fish',
+        items: [['chicken', 4], ['beef', 1], ['salmon', 2]]
+    }
+]
+
 const data: Data[] = [
     {
         category: 'fruits and vegetables',

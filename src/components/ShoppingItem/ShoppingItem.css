@@ -1,0 +1,96 @@
+.shopping-list__item {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  position: relative;
+}
+
+.shopping-list__item-checkbox {
+  width: 24px;
+  height: 24px;
+  background-color: var(--light-orange-color);
+  border: 2px solid var(--orange-color);
+  border-radius: 4px;
+  margin: 0 16px 0 0;
+}
+
+.shopping-list__item-name {
+  font-size: 18px;
+  line-height: 1.22;
+  width: 200px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.shopping-list__item-quantity {
+  width: 68px;
+  height: 32px;
+  border-radius: 24px;
+  background-color: var(--light-orange-color);
+  border: 2px solid var(--orange-color);
+  color: var(--orange-color);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.shopping-list__edit-item-qty {
+  position: absolute;
+  right: 0;
+  top: auto;
+  height: 45px;
+  width: 173px;
+  background-color: var(--white-color);
+  border-radius: 12px;
+  display: flex;
+}
+
+.shopping-list__delete-item {
+  width: 37px;
+  height: 45px;
+  border-radius: 12px;
+  border: none;
+  background-color: var(--orange-color);
+  opacity: .8;
+  background-image: url('../../images/delete_FILL0_wght400_GRAD0_opsz48.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 11px 13px;
+}
+
+.shopping-list__delete-item:hover {
+  cursor: pointer;
+}
+
+.shopping-list__change-qty {
+  width: 30px;
+  height: 45px;
+  border: none;
+  border-radius: 12px;
+  background-color: var(--white-color);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 18px;
+}
+
+.shopping-list__change-qty:hover {
+  cursor: pointer;
+}
+
+.shopping-list__change-qty_decrease {
+  background-image: url('../../images/remove_FILL0_wght400_GRAD0_opsz48.svg');
+}
+
+.shopping-list__change-qty_increase {
+  background-image: url('../../images/add_FILL0_wght400_GRAD0_opsz48.svg');
+}
+
+.shopping-list__item-quantity_edit {
+  align-self: center;
+  background-color: var(--white-color);
+}
+
+.shopping-list__item-quantity_edit:hover {
+  cursor: pointer;
+}

@@ -1,6 +1,8 @@
 import './Item.css';
+import {MouseEventHandler, useState} from "react";
 
 const Item = ({item}: {item:string}) => {
+
     return (
         <li className={'category__item'}>
             <p className={'category__item-name'}>{item}</p>

@@ -7,6 +7,7 @@
 
 .shopping-list__upper-section {
   display: flex;
+  gap: 5px;
 }
 
 .shopping-list__heading {
@@ -15,14 +16,31 @@
   line-height: 1.25;
   color: var(--dark-brown-color);
   border-radius: 12px;
+  width: calc(100% - 35px);
+}
+
+.shopping-list__heading:focus {
+  outline: 1px solid var(--orange-color);
+}
+
+.shopping-list__heading:hover {
+  cursor: pointer;
 }
 
 .shopping-list__edit-btn {
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   background-image: url('../../images/edit_FILL0_wght400_GRAD0_opsz48.svg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
   background-color: var(--light-orange-color);
+  border: none;
+  transition: all .3ms ease;
+  align-self: center;
+}
+
+.shopping-list__edit-btn:hover {
+  cursor: pointer;
+  opacity: .7;
 }

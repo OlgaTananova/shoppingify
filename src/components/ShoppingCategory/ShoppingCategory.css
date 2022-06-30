@@ -1,0 +1,10 @@
+.shopping-list__category {
+  margin: 40px 0 25px;
+}
+
+.shopping-list__category-heading {
+  margin: 0 0 25px 0;
+  font-size: 14px;
+  line-height: 1.2;
+  color: var(--medium-grey-color);
+}
