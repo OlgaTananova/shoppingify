@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import {Routes, Route} from 'react-router-dom';
 import Authbar from '../Authbar/Authbar';
@@ -11,6 +11,8 @@ import Footer from "../Footer/Footer";
 import Categories from "../Categories/Categories";
 
 function App() {
+    const [isItemInfoOpen, setIsItemInfoOpen] = useState<boolean>(false);
+
   return (
       <div className={'app'}>
          <Routes>
@@ -26,22 +28,20 @@ function App() {
                      <Navbar/>
                      <Header />
                      <SearchForm />
-                     <Shopping />
-                     <Categories />
+                     <Shopping isItemInfoOpen={isItemInfoOpen} setIsItemInfoOpen={setIsItemInfoOpen} />
+                     <Categories setIsItemInfoOpen={setIsItemInfoOpen} />
                  </> }/>
              <Route path={'/history'} element={
                  <>
                      <Logo />
                      <Navbar/>
-                     <Header />
-                     <SearchForm />
-                     <Shopping />
+                     <Shopping isItemInfoOpen={isItemInfoOpen} setIsItemInfoOpen={setIsItemInfoOpen} />
                  </> }/>
              <Route path={'/statistics'} element={
                  <>
                      <Logo />
                      <Navbar/>
-                     <Shopping />
+                     <Shopping isItemInfoOpen={isItemInfoOpen} setIsItemInfoOpen={setIsItemInfoOpen} />
                  </> }/>
          </Routes>
       </div>

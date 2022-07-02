@@ -2,14 +2,14 @@ import './Categories.css';
 import data from '../../data';
 import Category from "../Category/Category";
 import AddNewCategory from "../AddNewCategory/AddNewCategory";
-const Categories = () => {
+import {Dispatch, SetStateAction} from "react";
+const Categories = ({setIsItemInfoOpen}: {setIsItemInfoOpen: Dispatch<SetStateAction<boolean>>}) => {
     return (
-
         <div className={'categories'}>
             <AddNewCategory />
             {data.map((category, index)=> {
                 return (
-                    <Category key={index} category={category}/>
+                    <Category setIsItemInfoOpen={setIsItemInfoOpen} key={index} category={category}/>
                 )
             })}
         </div>

@@ -1,0 +1,102 @@
+.item-info {
+  width: 389px;
+
+  background-color: var(--white-color);
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  padding: 35px 40px;
+  box-sizing: border-box;
+}
+
+.item-info__return-btn {
+  width: 55px;
+  background-color: var(--white-color);
+  border: none;
+  background-image: url('../../images/arrow_back_FILL0_wght400_GRAD0_opsz48.svg');
+  background-repeat: no-repeat;
+  background-position: left;
+  background-size: 17px;
+  font-size: 14px;
+  line-height: 1.25;
+  font-weight: 700;
+  color: var(--orange-color);
+  text-align: right;
+  padding: 0;
+  margin-bottom: 35px;
+  transition: all .3ms ease;
+}
+
+.item-info__return-btn:hover {
+  cursor: pointer;
+  opacity: .7;
+}
+
+.item-info__img {
+  width: 300px;
+  height: 220px;
+  border-radius: 25px;
+  object-position: center;
+  object-fit: cover;
+  margin-bottom: 54px;
+}
+
+.item-info__label {
+  margin-bottom: 11px;
+  font-size: 12px;
+  line-height: 1.25;
+  color: var(--grey-color2);
+}
+
+.item-info__name {
+  font-size: 24px;
+  line-height: 1.25;
+  padding: 0;
+  margin: 0 0 33px 0;
+}
+
+.item-info__category {
+  font-size: 18px;
+  line-height: 1.25;
+  margin: 0 0 36px 0;
+}
+
+.item-info__note {
+  font-size: 18px;
+  line-height: 1.25;
+  margin: 0 0 36px 0;
+}
+
+.item-info__buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.item-info__btn {
+  width: 124px;
+  border-radius: 12px;
+  border: none;
+  font-size: 16px;
+  line-height: 1.25;
+  padding: 20px 0;
+  transition: all .3ms ease;
+}
+
+.item-info__btn:hover {
+  cursor: pointer;
+  opacity: .7;
+}
+
+.item-info__btn_delete {
+  background-color: var(--white-color);
+  color: black;
+}
+
+.item-info__btn_submit {
+  background-color: var(--orange-color);
+  color: var(--white-color);
+}
