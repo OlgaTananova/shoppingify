@@ -1,7 +1,7 @@
 import './ShoppingItem.css';
 import {MouseEventHandler, useState} from "react";
 
-const ShoppingItem = ({item}: {item: [string, number]}) => {
+const ShoppingItem = ({item, isEditShoppingList}: {item: [string, number], isEditShoppingList: boolean}) => {
     const [isEditQtyMenuOpen, setIsEditQtyMenuOpen] = useState<boolean>(false);
 
     const handleClick: MouseEventHandler = ()=> {
@@ -11,7 +11,7 @@ const ShoppingItem = ({item}: {item: [string, number]}) => {
 
     return (
         <div className={'shopping-list__item'}>
-            <button type={'button'} className={'shopping-list__item-checkbox'}/>
+            {isEditShoppingList&&  <button type={'button'} className={'shopping-list__item-checkbox'}/>}
             <p className={'shopping-list__item-name'}>{item[0]}</p>
             <button type={'button'} onClick={handleClick} className={'shopping-list__item-quantity'}>{`${item[1]} pcs`}</button>
             {isEditQtyMenuOpen?
@@ -23,7 +23,6 @@ const ShoppingItem = ({item}: {item: [string, number]}) => {
                 </div>
                 :null
             }
-
         </div>
     )
 }

@@ -1,6 +1,7 @@
 :root {
   --white-color: rgb(255, 255, 255);
   --grey-color: rgba(250, 250, 254, 1);
+  --grey-color2: rgba(193, 193, 196, 1);
   --orange-color: rgba(249, 161, 9, 1);
   --black-grey-color: rgba(69, 69, 69, 1);
   --red-color: rgba(235, 87, 87, 1);
@@ -8,6 +9,7 @@
   --dark-brown-color: rgba(52, 51, 58, 1);
   --light-orange-color: rgba(255, 240, 222, 1);
   --medium-grey-color: rgba(130, 130, 130, 1);
+  --light-blue-color: rgba(86, 204, 242, 1);
 }
 
 .page {

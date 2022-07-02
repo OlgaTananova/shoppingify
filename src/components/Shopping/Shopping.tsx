@@ -6,9 +6,11 @@ import AddItemToSLForm from "../AddItemToSLForm/AddItemToSLForm";
 
 const Shopping =() => {
     const [showAddItemForm, setShowAddItemForm] = useState<boolean>(false);
+    const [isEditShoppingList, setIsEditShoppingList] = useState<boolean>(false);
+    const [isShoppingListEmpty, setIsShoppingListEmpty] = useState<boolean>(false);
 
     const handleClick = () => {
-        setShowAddItemForm((prev) => true)
+        setShowAddItemForm(true)
     }
 
     return (
@@ -18,9 +20,9 @@ const Shopping =() => {
                 <h3 className={'add-item-section__heading'}>Didn't find what you need?</h3>
                 <button className={'add-item-section__btn'} type={'button'} onClick={handleClick}>Add item</button>
             </div>
-            <ShoppingList />
+            <ShoppingList isShoppingListEmpty={isShoppingListEmpty} isEditShoppingList={isEditShoppingList} setIsEditShoppingList={setIsEditShoppingList} />
             <div className={'shopping-list__add-item-form-big-container'}>
-                <AddItemToSLForm />
+              <AddItemToSLForm isShoppingListEmpty={isShoppingListEmpty} isEditShoppingList={isEditShoppingList} setIsEditShoppingList={setIsEditShoppingList}/>
             </div>
 
         </div>
