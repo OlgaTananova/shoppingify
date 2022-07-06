@@ -1,0 +1,71 @@
+.shopping-list-card {
+  width: 960px;
+  display: flex;
+  flex-direction: column;
+}
+
+.shopping-list-card__heading {
+  margin: 0;
+  font-size: 26px;
+  line-height: 1.25;
+  font-weight: 700;
+}
+
+.shopping-list-card__date {
+  width: 112px;
+  background-image: url('../../images/calendar_month_FILL0_wght400_GRAD0_opsz48.svg');
+  background-size: 18px 20px;
+  background-repeat: no-repeat;
+  background-position: left;
+  padding: 5px 0 5px 30px;
+  font-size: 12px;
+  line-height: 1.25;
+  color: var(--grey-color2);
+  margin: 20px 0 55px;
+  box-sizing: border-box;
+}
+
+.shopping-list-card__category {
+  margin: 0 0 30px 0;
+  font-size: 18px;
+  line-height: 1.25;
+}
+
+.shopping-list-card__items {
+  width: 100%;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.shopping-list-card__item {
+  width: 182px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--white-color);
+  border-radius: 12px;
+  padding: 13px 16px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
+}
+
+.shopping-list-card__item-name {
+  max-width: 110px;
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.25;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.shopping-list-card__item-qty {
+  font-size: 12px;
+  line-height: 1.25;
+  font-weight: 700;
+  color: var(--orange-color);
+}

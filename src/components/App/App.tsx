@@ -7,8 +7,8 @@ import Header from "../Header/Header";
 import Logo from "../Logo/Logo";
 import SearchForm from "../SearchForm/SearchForm";
 import Shopping from "../Shopping/Shopping";
-import Footer from "../Footer/Footer";
 import Categories from "../Categories/Categories";
+import ShoppingHistory from "../ShoppingHistory/ShoppingHistory";
 
 function App() {
     const [isItemInfoOpen, setIsItemInfoOpen] = useState<boolean>(false);
@@ -35,6 +35,7 @@ function App() {
                  <>
                      <Logo />
                      <Navbar/>
+                     <ShoppingHistory />
                      <Shopping isItemInfoOpen={isItemInfoOpen} setIsItemInfoOpen={setIsItemInfoOpen} />
                  </> }/>
              <Route path={'/statistics'} element={

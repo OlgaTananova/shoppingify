@@ -9,6 +9,9 @@
   padding: 0 15px;
 }
 
+.category__item:hover {
+  cursor: pointer;
+}
 .category__item-name {
   font-size: 16px;
   line-height: 1.25;
