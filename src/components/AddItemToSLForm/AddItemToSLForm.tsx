@@ -17,10 +17,7 @@ const AddItemToSLForm = ({isEditShoppingList, setIsEditShoppingList, isShoppingL
                     </form>
                     :
                     <div>
-                        <button onClick={() => {
-                            setIsEditShoppingList(false)
-                        }}
-                                className={'shopping-list__complete-btn shopping-list__complete-btn_cancel'}
+                        <button className={'shopping-list__complete-btn shopping-list__complete-btn_cancel'}
                                 type={'reset'}>cancel
                         </button>
                         <button className={'shopping-list__complete-btn shopping-list__complete-btn_complete'}

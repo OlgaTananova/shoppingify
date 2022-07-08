@@ -1,0 +1,80 @@
+.cancel-shopping-list-popup {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left:0;
+  display: flex;
+}
+
+.cancel-shopping-list-popup_inactive {
+  display: none;
+}
+
+.cancel-shopping-list-popup__container {
+  width: 510px;
+  background-color: var(--white-color);
+  border-radius: 24px;
+  margin: auto;
+  position: relative;
+  padding: 21px 35px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.cancel-shopping-list-popup__close-btn {
+  position: absolute;
+  top: 21px;
+  right: 35px;
+  width: 20px;
+  height: 20px;
+  background-image: url('../../images/close_FILL0_wght400_GRAD0_opsz48.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  border: none;
+  background-color: var(--white-color);
+  padding: 0;
+  transition: all .3ms ease;
+}
+
+.cancel-shopping-list-popup__close-btn:hover {
+  cursor: pointer;
+  opacity: .7;
+}
+.cancel-shopping-list-popup__heading {
+  margin: 20px 0 35px 0;
+  font-size: 24px;
+  line-height: 1.25;
+  font-weight: 700;
+}
+
+.cancel-shopping-list-popup__buttons {
+  align-self: flex-end;
+}
+
+.cancel-shopping-list-popup__button {
+  width: 88px;
+  border: none;
+  background-color: var(--white-color);
+  padding: 20px 0;
+  font-size: 16px;
+  line-height: 1.25;
+  font-weight: 700;
+  border-radius: 12px;
+  transition: all .3ms ease;
+}
+
+.cancel-shopping-list-popup__button:hover {
+  cursor: pointer;
+  opacity: .7;
+}
+
+.cancel-shopping-list-popup__button_confirm {
+  background-color: var(--red-color);
+  color: var(--white-color);
+}
+
+
