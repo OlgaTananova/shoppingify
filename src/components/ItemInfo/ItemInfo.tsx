@@ -1,10 +1,11 @@
 import './ItemInfo.css';
-import {Dispatch, SetStateAction} from "react";
+import {useAppDispatch} from "../../store/hooks";
+import {setItemInfoClosed} from "../../store/itemInfoSlice";
 
-const ItemInfo = ({setIsItemInfoOpen}: {setIsItemInfoOpen: Dispatch<SetStateAction<boolean>>}) => {
-
+const ItemInfo = () => {
+    const dispatch = useAppDispatch();
     const handleClick = () => {
-        setIsItemInfoOpen(false)
+        dispatch(setItemInfoClosed())
     }
 
     return (

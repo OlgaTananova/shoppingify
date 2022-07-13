@@ -3,16 +3,15 @@ import {Data} from "../../data";
 import Item from '../Item/Item';
 import ShowMoreBtn from "../ShowMoreBtn/ShowMoreBtn";
 import {NUMBER_OF_ITEMS} from "../../constants";
-import {Dispatch, SetStateAction} from "react";
 
-const Category = ({category, setIsItemInfoOpen}: {category: Data, setIsItemInfoOpen: Dispatch<SetStateAction<boolean>>} ) => {
+const Category = ({category}: {category: Data} ) => {
     return(
         <div className={'category'}>
         <h3 className={'category__heading'}>{category.category}</h3>
             <ul className={'category__item-list'}>{
                 category.items.map((item, index) => {
                     return (
-                        <Item setIsItemInfoOpen={setIsItemInfoOpen} item={item} key={index}/>
+                        <Item  item={item} key={index}/>
                     )
                 })
             }

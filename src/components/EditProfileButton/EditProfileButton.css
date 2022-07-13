@@ -1,0 +1,34 @@
+.profile-form__button {
+  width: 150px;
+  padding: 15px 0;
+  border: none;
+  font-size: 16px;
+  line-height: 1.25;
+  box-shadow: 0 2px 12px rgb(0 0 0 / 5%);
+  border-radius: 12px;
+  transition: all .3ms ease;
+}
+
+.profile-form__button:hover {
+  cursor: pointer;
+  opacity: .7;
+}
+
+.profile-form__button_type_edit {
+  margin: 100px auto 20px;
+  background-color: var(--orange-color);
+  color: var(--white-color);
+}
+
+.profile-form__button_type_logout {
+  margin: 0 auto;
+  text-align: center;
+  color: var(--red-color);
+  text-decoration: none;
+}
+
+.profile-form__button_type_submit {
+  margin: 130px auto 20px;
+  background-color: var(--orange-color);
+  color: var(--white-color);
+}

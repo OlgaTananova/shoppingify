@@ -1,10 +1,13 @@
 import './Item.css';
 import {Dispatch, MouseEventHandler, SetStateAction, useState} from "react";
+import {useAppDispatch} from "../../store/hooks";
+import {setItemInfoOpened} from "../../store/itemInfoSlice";
 
-const Item = ({item, setIsItemInfoOpen}: {item:string, setIsItemInfoOpen: Dispatch<SetStateAction<boolean>>}) => {
+const Item = ({item}: {item:string}) => {
+    const dispatch = useAppDispatch();
 
     const handleClick: MouseEventHandler = () => {
-        setIsItemInfoOpen(true);
+        dispatch(setItemInfoOpened());
     }
     return (
         <li onClick={handleClick} className={'category__item'}>

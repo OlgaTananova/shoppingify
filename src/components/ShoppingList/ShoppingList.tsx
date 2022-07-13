@@ -1,17 +1,17 @@
 import './ShoppingList.css';
 import {ShoppingCategoryData, shoppingList} from "../../data";
 import ShoppingCategory from "../ShoppingCategory/ShoppingCategory";
-import {Dispatch, MouseEventHandler, SetStateAction, useState} from "react";
+import {MouseEventHandler} from "react";
+import {useAppDispatch, useAppSelector} from "../../store/hooks";
+import {setIsEditShoppingListTrue} from "../../store/shoppingSlice";
 
-const ShoppingList = ({
-                          isEditShoppingList,
-                          setIsEditShoppingList,
-                          isShoppingListEmpty
-                      }: { isEditShoppingList: boolean, setIsEditShoppingList: Dispatch<SetStateAction<boolean>>, isShoppingListEmpty: boolean }) => {
-
+const ShoppingList = () => {
+    const isEditShoppingList = useAppSelector(state => state.shopping.isEditShoppingList);
+    const isShoppingListEmpty = useAppSelector(state => state.shopping.isShoppingListEmpty);
+    const dispatch = useAppDispatch();
 
     const handleEditShoppingListClick: MouseEventHandler = () => {
-        setIsEditShoppingList(true);
+        dispatch(setIsEditShoppingListTrue());
     }
 
     return (isShoppingListEmpty?

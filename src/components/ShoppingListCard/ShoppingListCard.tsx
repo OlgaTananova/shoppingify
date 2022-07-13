@@ -1,12 +1,13 @@
 import './ShoppingListCard.css';
 import {shoppingList} from "../../data";
 import {Dispatch, MouseEventHandler, SetStateAction} from "react";
+import {useAppSelector} from "../../store/hooks";
 
 const ShoppingListCard = ({setIsShoppingListCardOpen}: {setIsShoppingListCardOpen: Dispatch<SetStateAction<boolean>>}) => {
-
     const handleClick: MouseEventHandler = () => {
       setIsShoppingListCardOpen(false);
     }
+
     return (
         <div className={'shopping-list-card'}>
             <button onClick={handleClick}

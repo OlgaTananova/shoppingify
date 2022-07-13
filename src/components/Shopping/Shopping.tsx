@@ -1,22 +1,24 @@
 import './Shopping.css';
-import {Dispatch, SetStateAction, useState} from "react";
+import {useState} from "react";
 import AddItemForm from "../AddItemForm/AddItemForm";
 import ShoppingList from "../ShoppingList/ShoppingList";
 import AddItemToSLForm from "../AddItemToSLForm/AddItemToSLForm";
 import ItemInfo from "../ItemInfo/ItemInfo";
+import {useAppDispatch, useAppSelector} from "../../store/hooks";
+import {openAddItemForm} from "../../store/shoppingSlice";
 
-const Shopping =({isItemInfoOpen, setIsItemInfoOpen}: {isItemInfoOpen: boolean, setIsItemInfoOpen: Dispatch<SetStateAction<boolean>>}) => {
-    const [showAddItemForm, setShowAddItemForm] = useState<boolean>(false);
-    const [isEditShoppingList, setIsEditShoppingList] = useState<boolean>(false);
-    const [isShoppingListEmpty, setIsShoppingListEmpty] = useState<boolean>(false);
+const Shopping =() => {
+    const isItemInfoOpen = useAppSelector(state => state.ItemInfo.isItemInfoOpen)
 
+    const dispatch = useAppDispatch();
+    const showAddItemForm = useAppSelector(state => state.shopping.isAddItemFormOpened);
     const handleClick = () => {
-        setShowAddItemForm(true)
+        dispatch(openAddItemForm());
     }
 
     return (
         <div className={'shopping'}>
-            {isItemInfoOpen && <ItemInfo setIsItemInfoOpen={setIsItemInfoOpen}/>}
+            {isItemInfoOpen && <ItemInfo />}
             {showAddItemForm && <AddItemForm/>}
             {(!isItemInfoOpen && !showAddItemForm) && <>
               <div className={'add-item-section'}>
@@ -26,13 +28,9 @@ const Shopping =({isItemInfoOpen, setIsItemInfoOpen}: {isItemInfoOpen: boolean, 
                         onClick={handleClick}>Add item
                 </button>
               </div>
-              <ShoppingList isShoppingListEmpty={isShoppingListEmpty}
-                            isEditShoppingList={isEditShoppingList}
-                            setIsEditShoppingList={setIsEditShoppingList}/>
+              <ShoppingList />
               <div className={'shopping-list__add-item-form-big-container'}>
-                <AddItemToSLForm isShoppingListEmpty={isShoppingListEmpty}
-                                 isEditShoppingList={isEditShoppingList}
-                                 setIsEditShoppingList={setIsEditShoppingList}/>
+                <AddItemToSLForm />
               </div>
             </>}
         </div>

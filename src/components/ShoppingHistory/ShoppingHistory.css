@@ -37,6 +37,8 @@
   box-sizing: border-box;
   align-items: center;
   transition: all .3ms ease;
+  margin: 0 0 20px 0;
+  text-decoration: none;
 }
 
 .shopping-history__shopping-list:hover {
@@ -53,6 +55,7 @@
   font-size: 16px;
   line-height: 1.25;
   margin: 0;
+  color: black;
 }
 
 .shopping-history__shopping-list__date {

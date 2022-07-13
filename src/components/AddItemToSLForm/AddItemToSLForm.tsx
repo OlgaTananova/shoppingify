@@ -1,7 +1,9 @@
 import './AddItemToSLForm.css';
-import {Dispatch, SetStateAction} from "react";
+import {useAppSelector} from "../../store/hooks";
 
-const AddItemToSLForm = ({isEditShoppingList, setIsEditShoppingList, isShoppingListEmpty} : {isEditShoppingList: boolean, setIsEditShoppingList: Dispatch<SetStateAction<boolean>>, isShoppingListEmpty: boolean}) => {
+const AddItemToSLForm = () => {
+    const isEditShoppingList = useAppSelector(state => state.shopping.isEditShoppingList);
+    const isShoppingListEmpty = useAppSelector(state => state.shopping.isShoppingListEmpty);
 
     return (
         <>
