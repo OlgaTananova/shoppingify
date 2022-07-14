@@ -11,15 +11,35 @@ export interface IShopping {
     isEditShoppingList: boolean,
     isShoppingListEmpty: boolean,
 }
-export interface ICategory {
+export interface IShoppingCategory {
     name: string,
     items: [string, number][]
 }
 export interface IShoppingList {
-    id: string | number,
+    id: string,
     heading: string,
     date: Date,
     owner: string,
-    categories: ICategory[],
+    categories: IShoppingCategory[],
     status: string
 }
+
+export interface IShoppingListByDate {
+    [key: string]: IShoppingList[]
+}
+
+export interface IItem {
+    itemId: string,
+   name: string,
+   note: string,
+   image: string,
+    categoryId: string
+}
+
+export interface ICategory {
+    category: string,
+    categoryId: string,
+    items: IItem[]
+}
+
+

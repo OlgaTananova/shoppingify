@@ -8,7 +8,6 @@ import {useAppDispatch, useAppSelector} from "../../store/hooks";
 import {openAddItemForm} from "../../store/shoppingSlice";
 
 const Shopping =() => {
-    const isItemInfoOpen = useAppSelector(state => state.ItemInfo.isItemInfoOpen)
 
     const dispatch = useAppDispatch();
     const showAddItemForm = useAppSelector(state => state.shopping.isAddItemFormOpened);
@@ -18,9 +17,9 @@ const Shopping =() => {
 
     return (
         <div className={'shopping'}>
-            {isItemInfoOpen && <ItemInfo />}
+            {/*{isItemInfoOpen && <ItemInfo />}*/}
             {showAddItemForm && <AddItemForm/>}
-            {(!isItemInfoOpen && !showAddItemForm) && <>
+            {(!showAddItemForm) && <>
               <div className={'add-item-section'}>
                 <h3 className={'add-item-section__heading'}>Didn't find what you need?</h3>
                 <button className={'add-item-section__btn'}

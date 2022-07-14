@@ -1,11 +1,17 @@
 import './ShoppingListCard.css';
-import {shoppingList} from "../../data";
-import {Dispatch, MouseEventHandler, SetStateAction} from "react";
+import {MouseEventHandler} from "react";
 import {useAppSelector} from "../../store/hooks";
+import {useNavigate, useParams} from "react-router-dom";
 
-const ShoppingListCard = ({setIsShoppingListCardOpen}: {setIsShoppingListCardOpen: Dispatch<SetStateAction<boolean>>}) => {
+const ShoppingListCard = () => {
+    const {shoppingListId} = useParams<string>();
+    const navigate = useNavigate();
+    const shoppingList = useAppSelector(state => state.shoppingHistory.find(
+        (shoppingList) => (shoppingList.id === shoppingListId)
+    ));
+
     const handleClick: MouseEventHandler = () => {
-      setIsShoppingListCardOpen(false);
+        navigate(-1)
     }
 
     return (
@@ -14,32 +20,32 @@ const ShoppingListCard = ({setIsShoppingListCardOpen}: {setIsShoppingListCardOpe
                     className={'item-info__return-btn'}
                     type={'button'}>back
             </button>
-            <h2 className={'shopping-list-card__heading'}>{'Grocery list'}</h2>
-            <p className={'shopping-list-card__date'}>{'Mon 8.24.2020'}</p>
-            <h3 className={'shopping-list-card__category'}>{'Beverages'}</h3>
-            <ul className={'shopping-list-card__items'}>
-                <li className={'shopping-list-card__item'}>
-                    <p className={'shopping-list-card__item-name'}>{'Fanta'}</p>
-                    <span className={'shopping-list-card__item-qty'}>{'3 pcs'}</span>
-                </li>
-                <li className={'shopping-list-card__item'}>
-                    <p className={'shopping-list-card__item-name'}>{'Cola'}</p>
-                    <span className={'shopping-list-card__item-qty'}>{'1 pcs'}</span>
-                </li>
-                <li className={'shopping-list-card__item'}>
-                    <p className={'shopping-list-card__item-name'}>{'Cola'}</p>
-                    <span className={'shopping-list-card__item-qty'}>{'1 pcs'}</span>
-                </li>
-                <li className={'shopping-list-card__item'}>
-                    <p className={'shopping-list-card__item-name'}>{'Cola'}</p>
-                    <span className={'shopping-list-card__item-qty'}>{'1 pcs'}</span>
-                </li>
-                <li className={'shopping-list-card__item'}>
-                    <p className={'shopping-list-card__item-name'}>{'Cola'}</p>
-                    <span className={'shopping-list-card__item-qty'}>{'1 pcs'}</span>
-                </li>
+            {!shoppingList ?
+                <div>{'ShoppingList not found!'}</div>
+                :
+                <>
+                    <h2 className={'shopping-list-card__heading'}>{shoppingList.heading}</h2>
+                    <p className={'shopping-list-card__date'}>{shoppingList.date.toDateString()}</p>
+                    {shoppingList.categories.map((category, index) => {
+                        return (
+                            <div key={index}>
+                                <h3 className={'shopping-list-card__category'}>{category.name}</h3>
+                                <ul className={'shopping-list-card__items'}>
+                                    {category.items.map((item, index) =>
+                                        <li key={index}
+                                            className={'shopping-list-card__item'}>
+                                            <p className={'shopping-list-card__item-name'}>{item[0]}</p>
+                                            <span className={'shopping-list-card__item-qty'}>{`${item[1]} pcs`}</span>
+                                        </li>
+                                    )}
+                                </ul>
+                            </div>
 
-            </ul>
+                        )
+                    })
+                    }
+                </>
+            }
         </div>
     )
 }

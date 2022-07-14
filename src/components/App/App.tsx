@@ -7,6 +7,8 @@ import ItemsPage from '../../pages/ItemsPage';
 import HistoryPage from '../../pages/HistoryPage';
 import StatisticsPage from '../../pages/StatisticsPage';
 import ProfilePage from '../../pages/ProfilePage';
+import ShoppingListCardPage from "../../pages/ShoppingListCardPage";
+import SingleItemPage from "../../pages/SingleItemPage";
 
 function App() {
 
@@ -15,8 +17,9 @@ function App() {
          <Routes>
              <Route path={'/'} element={<MainPage />}/>
              <Route path={'/items'} element={<ItemsPage />}/>
+             <Route path={'/items/:itemId'} element={<SingleItemPage />} />
              <Route path={'/history'} element={<HistoryPage />}/>
-             <Route path={'history/:shoppingListId'} element={''}/>
+             <Route path={'history/:shoppingListId'} element={<ShoppingListCardPage />}/>
              <Route path={'/statistics'} element={<StatisticsPage />}/>
              <Route path={'/profile'} element={<ProfilePage />} />
          </Routes>

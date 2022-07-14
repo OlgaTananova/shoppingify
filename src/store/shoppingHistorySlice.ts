@@ -38,6 +38,19 @@ const initialState: IShoppingList[] = [
         ],
         status: 'cancelled'
     },
+    {
+        id: '3',
+        heading: 'Picnic party',
+        date: new Date(2022, 2, 6),
+        owner: '123',
+        categories: [
+            {
+                name: 'Diary',
+                items: [['milk', 1], ['yogurt', 4]]
+            }
+        ],
+        status: 'completed'
+    }
 ]
 
 const shoppingHistorySlice = createSlice({

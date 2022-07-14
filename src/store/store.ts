@@ -3,12 +3,14 @@ import profileReducer from './profileSlice';
 import itemInfoReducer from './itemInfoSlice';
 import shoppingReducer from './shoppingSlice';
 import shoppingHistoryReducer from './shoppingHistorySlice';
+import categoryListReducer from './categoriesSlice';
 
 const rootReducer = combineReducers({
     editProfile: profileReducer,
-    ItemInfo: itemInfoReducer,
+    itemInfo: itemInfoReducer,
     shopping: shoppingReducer,
-    shoppingHistory: shoppingHistoryReducer
+    shoppingHistory: shoppingHistoryReducer,
+    categories: categoryListReducer
 })
 
 export function setupStore() {

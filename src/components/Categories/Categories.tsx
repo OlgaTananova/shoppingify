@@ -1,13 +1,15 @@
 import './Categories.css';
-import data from '../../data';
 import Category from "../Category/Category";
 import AddNewCategory from "../AddNewCategory/AddNewCategory";
+import {useAppSelector} from "../../store/hooks";
 
 const Categories = () => {
+    const categories = useAppSelector(state => state.categories);
+
     return (
         <div className={'categories'}>
             <AddNewCategory />
-            {data.map((category, index)=> {
+            {categories.map((category, index)=> {
                 return (
                     <Category key={index} category={category}/>
                 )

@@ -2,6 +2,10 @@
   width: 960px;
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
+  grid-column: 2/4;
+  grid-row: 1/3;
+  padding: 37px 80px;
 }
 
 .shopping-list-card__heading {
@@ -12,7 +16,7 @@
 }
 
 .shopping-list-card__date {
-  width: 112px;
+  width: 120px;
   background-image: url('../../images/calendar_month_FILL0_wght400_GRAD0_opsz48.svg');
   background-size: 18px 20px;
   background-repeat: no-repeat;
@@ -21,12 +25,12 @@
   font-size: 12px;
   line-height: 1.25;
   color: var(--grey-color2);
-  margin: 20px 0 55px;
+  margin: 20px 0 30px;
   box-sizing: border-box;
 }
 
 .shopping-list-card__category {
-  margin: 0 0 30px 0;
+  margin: 20px 0 30px 0;
   font-size: 18px;
   line-height: 1.25;
 }

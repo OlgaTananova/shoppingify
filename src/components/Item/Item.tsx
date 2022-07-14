@@ -1,17 +1,11 @@
 import './Item.css';
-import {Dispatch, MouseEventHandler, SetStateAction, useState} from "react";
-import {useAppDispatch} from "../../store/hooks";
-import {setItemInfoOpened} from "../../store/itemInfoSlice";
+import {IItem} from "../../types";
 
-const Item = ({item}: {item:string}) => {
-    const dispatch = useAppDispatch();
+const Item = ({item}: {item:IItem}) => {
 
-    const handleClick: MouseEventHandler = () => {
-        dispatch(setItemInfoOpened());
-    }
     return (
-        <li onClick={handleClick} className={'category__item'}>
-            <p className={'category__item-name'}>{item}</p>
+        <li className={'category__item'}>
+            <p className={'category__item-name'}>{item.name}</p>
             <button type={'button'} className={'category__item-button'}>{}</button>
         </li>
     )
