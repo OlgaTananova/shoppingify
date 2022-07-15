@@ -42,4 +42,22 @@ export interface ICategory {
     items: IItem[]
 }
 
+export interface AuthFormProps {
+    children?: JSX.Element | JSX.Element[],
+    name: string,
+    heading: string,
+    submitButtonName: string,
+    linkToPagePhrase: string,
+    linkToPage: string
+}
 
+export interface AuthInputProps {
+    name: string,
+    type: string,
+    placeholder: string,
+    required: boolean,
+    minLength?: number,
+    maxLength?: number,
+    pattern?: string
+    error?: string
+}

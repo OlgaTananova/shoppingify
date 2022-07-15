@@ -1,0 +1,7 @@
+.signup {
+  grid-row: 2/3;
+  grid-column: 1/3;
+  display: flex;
+  flex-direction: column;
+}
+

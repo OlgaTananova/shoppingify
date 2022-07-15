@@ -9,6 +9,8 @@ import StatisticsPage from '../../pages/StatisticsPage';
 import ProfilePage from '../../pages/ProfilePage';
 import ShoppingListCardPage from "../../pages/ShoppingListCardPage";
 import SingleItemPage from "../../pages/SingleItemPage";
+import SignupPage from "../../pages/SignupPage";
+import LoginPage from "../../pages/LoginPage";
 
 function App() {
 
@@ -22,6 +24,8 @@ function App() {
              <Route path={'history/:shoppingListId'} element={<ShoppingListCardPage />}/>
              <Route path={'/statistics'} element={<StatisticsPage />}/>
              <Route path={'/profile'} element={<ProfilePage />} />
+             <Route path={'/signup'} element={<SignupPage />}/>
+             <Route path={'/login'} element={<LoginPage />} />
          </Routes>
           <CancelShoppingListPopup />
       </div>
