@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import {Routes, Route} from 'react-router-dom';
 import CancelShoppingListPopup from "../CancelShoppingListPopup/CancelShoppingListPopup";
@@ -11,6 +11,8 @@ import ShoppingListCardPage from "../../pages/ShoppingListCardPage";
 import SingleItemPage from "../../pages/SingleItemPage";
 import SignupPage from "../../pages/SignupPage";
 import LoginPage from "../../pages/LoginPage";
+import {useAppDispatch} from "../../store/hooks";
+import {fetchCategories} from "../../store/categoriesSlice";
 
 function App() {
 

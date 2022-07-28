@@ -1,18 +1,47 @@
 import './AddNewCategory.css';
+import {FormEvent, FormEventHandler, useMemo} from "react";
+import {useAppDispatch} from "../../store/hooks";
+import useForm from "../../hooks/useForm";
+import {addCategory} from "../../store/categoriesSlice";
 
 const AddNewCategory = () => {
+    const dispatch = useAppDispatch();
+    const initialValues = useMemo(()=> {
+        return {
+            category: {
+                value: '',
+                required: true,
+            }
+        }
+    }, [])
+    const form = useForm(initialValues);
+
+    const handleSubmitAddCategoryForm: FormEventHandler = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        dispatch(addCategory(form.values.category.value));
+        form.resetForm();
+    }
+
     return (
-        <form name={'add-new-category-form'}
+        <div className={'add-new-category'}>
+        <form name={'add-new-category-form'} onSubmit={handleSubmitAddCategoryForm}
               className={'add-new-category-form'} noValidate={true}>
             <input className={'add-new-category-form__input'}
                    type={'text'}
                    required={true}
-                    placeholder={'category'}
-                    />
+                   placeholder={'category'}
+                   name = {'category'}
+                   minLength={2}
+                   maxLength={30}
+                   value={form.values.category.value}
+                    onChange={form.handleChange}/>
             <button type={'submit'}
-                    className={'add-new-category-form__submit-btn'}>Add category
+                    disabled={!form.isValid}
+                    className={`add-new-category-form__submit-btn ${!form.isValid&& 'add-new-category-form__submit-btn_disabled'}`}>Add category
             </button>
         </form>
+            <span className={'add-new-category-form__error'}>{form.errors.category}</span>
+            </div>
     )
 }
 

@@ -3,21 +3,29 @@ import {Link} from "react-router-dom";
 import Item from '../Item/Item';
 import ShowMoreBtn from "../ShowMoreBtn/ShowMoreBtn";
 import {NUMBER_OF_ITEMS} from "../../constants";
-import {ICategory} from "../../types";
+import {ICategory, IItem} from "../../types";
+import {useAppDispatch, useAppSelector} from "../../store/hooks";
+import {useEffect, useState} from "react";
+import {fetchItems} from "../../store/itemInfoSlice";
 
 const Category = ({category}: {category: ICategory} ) => {
+    const items = useAppSelector(state => state.itemInfo.items);
+    const itemsInCategory = items.filter((item) => {
+       return  item.categoryId === category._id
+    });
+
     return(
         <div className={'category'}>
         <h3 className={'category__heading'}>{category.category}</h3>
-            <ul className={'category__item-list'}>{
-                category.items.map((item) => {
+            <ul className={'category__item-list'}>
+                {itemsInCategory.map((item) => {
                     return (
-                        <Link key={item.itemId} className={'category__item-link'} to={`/items/${item.itemId}`}><Item  item={item} /></Link>
+                        <Link key={item._id} className={'category__item-link'} to={`/items/${item._id}`}><Item item={item} /></Link>
                     )
                 })
             }
             </ul>
-            {category.items.length > NUMBER_OF_ITEMS ?
+            {itemsInCategory.length > NUMBER_OF_ITEMS ?
             <ShowMoreBtn />
             : null}
         </div>

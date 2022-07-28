@@ -1,17 +1,35 @@
 import './Categories.css';
 import Category from "../Category/Category";
 import AddNewCategory from "../AddNewCategory/AddNewCategory";
-import {useAppSelector} from "../../store/hooks";
+import {useAppDispatch, useAppSelector} from "../../store/hooks";
+import {useEffect} from "react";
+import {fetchCategories} from "../../store/categoriesSlice";
+import {fetchItems} from "../../store/itemInfoSlice";
 
 const Categories = () => {
-    const categories = useAppSelector(state => state.categories);
+    const categories = useAppSelector(state => state.categories.categories);
+    const categoriesStatus = useAppSelector(state => state.categories.status);
+    const itemsStatus = useAppSelector(state => state.itemInfo.status);
+    const dispatch = useAppDispatch();
+
+    useEffect(()=> {
+        if (categoriesStatus === 'idle') {
+            dispatch(fetchCategories());
+        }
+    }, [categoriesStatus,dispatch ])
+
+    useEffect(()=> {
+        if (itemsStatus === 'idle') {
+            dispatch(fetchItems());
+        }
+    }, [itemsStatus, dispatch])
 
     return (
         <div className={'categories'}>
             <AddNewCategory />
-            {categories.map((category, index)=> {
+            {categories.map((category)=> {
                 return (
-                    <Category key={index} category={category}/>
+                    <Category key={category._id} category={category}/>
                 )
             })}
         </div>

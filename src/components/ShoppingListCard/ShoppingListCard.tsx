@@ -25,7 +25,7 @@ const ShoppingListCard = () => {
                 :
                 <>
                     <h2 className={'shopping-list-card__heading'}>{shoppingList.heading}</h2>
-                    <p className={'shopping-list-card__date'}>{shoppingList.date.toDateString()}</p>
+                    <p className={'shopping-list-card__date'}>{new Date(shoppingList.date).toDateString()}</p>
                     {shoppingList.categories.map((category, index) => {
                         return (
                             <div key={index}>

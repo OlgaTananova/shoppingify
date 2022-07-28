@@ -1,9 +1,16 @@
-.add-new-category-form {
+.add-new-category {
   width: 350px;
+  display: flex;
+  flex-direction: column;
   align-self: end;
+}
+
+.add-new-category-form {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   gap: 20px;
+  margin-bottom: 10px;
 }
 
 .add-new-category-form__input {
@@ -47,3 +54,12 @@
   opacity: .7;
 }
 
+.add-new-category-form__submit-btn_disabled {
+  background-color: var(--grey-color2);
+}
+
+.add-new-category-form__error {
+  height: 14px;
+  font-size: 12px;
+  color: var(--red-color);
+}

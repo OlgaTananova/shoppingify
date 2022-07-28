@@ -5,7 +5,7 @@ const initialState: IShoppingList[] = [
     {
         id: '1',
         heading: 'Birthday party',
-        date: new Date(2022, 1, 1),
+        date: new Date(2022, 1, 1).toISOString(),
         owner: '123',
         categories: [
 
@@ -23,7 +23,7 @@ const initialState: IShoppingList[] = [
     {
         id: '2',
         heading: 'Grocery',
-        date: new Date(2022, 2, 15),
+        date: new Date(2022, 2, 15).toISOString(),
         owner: '123',
         categories: [
 
@@ -41,7 +41,7 @@ const initialState: IShoppingList[] = [
     {
         id: '3',
         heading: 'Picnic party',
-        date: new Date(2022, 2, 6),
+        date: new Date(2022, 2, 6).toISOString(),
         owner: '123',
         categories: [
             {

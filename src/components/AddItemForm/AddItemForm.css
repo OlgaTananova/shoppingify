@@ -87,3 +87,15 @@
   opacity: .5;
   cursor: pointer;
 }
+
+.add-item-form__error {
+  font-size: 12px;
+  line-height: 1.25;
+  height: 14px;
+  color: var(--red-color);
+}
+
+.add-item-form__btn_disabled {
+  background-color: var(--grey-color2);
+  color: var(--white-color);
+}

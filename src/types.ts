@@ -18,7 +18,7 @@ export interface IShoppingCategory {
 export interface IShoppingList {
     id: string,
     heading: string,
-    date: Date,
+    date: string,
     owner: string,
     categories: IShoppingCategory[],
     status: string
@@ -29,17 +29,46 @@ export interface IShoppingListByDate {
 }
 
 export interface IItem {
-    itemId: string,
+    _id: string,
    name: string,
    note: string,
    image: string,
     categoryId: string
 }
 
+export interface IItemInitialState {
+    items: IItem[],
+    status: 'idle' | 'loading' | 'succeeded' | 'failed',
+    error: string | null | undefined | unknown
+}
+
+export interface IAddItemPayload {
+    name: string,
+    note?: string,
+    image?: string,
+    categoryId: string
+}
+
+
 export interface ICategory {
     category: string,
-    categoryId: string,
-    items: IItem[]
+    _id: string,
+    items: string[]
+}
+
+export interface ICategoryInitialState {
+    categories: ICategory[],
+    status: 'idle' | 'loading' | 'succeeded' | 'failed',
+    error: string | null | undefined | unknown
+}
+
+export interface IAddItemToCategoryPayload {
+    _id: string,
+    categoryId: string
+}
+
+export interface IDeleteItemFromCategoryPayload extends IAddItemToCategoryPayload {
+
 }
 
 export interface AuthFormProps {
@@ -48,7 +77,9 @@ export interface AuthFormProps {
     heading: string,
     submitButtonName: string,
     linkToPagePhrase: string,
-    linkToPage: string
+    linkToPageButton: string,
+    linkToPage: string,
+
 }
 
 export interface AuthInputProps {

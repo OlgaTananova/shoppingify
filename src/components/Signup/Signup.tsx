@@ -7,9 +7,10 @@ const Signup = () => {
         <div className='signup'>
             <AuthForm name={'signup'}
                       heading={'Welcome!'}
-                      submitButtonName={'Signup'}
+                      submitButtonName={'Sign up'}
                       linkToPagePhrase={'Already a member? '}
-                      linkToPage={'Login'}>
+                      linkToPageButton={'Log in'}
+                      linkToPage={'login'}>
                 <AuthInput name={'name'}
                            type={'text'}
                            placeholder={'Name'}
