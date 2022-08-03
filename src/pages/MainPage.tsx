@@ -1,11 +1,22 @@
 import Logo from "../components/Logo/Logo";
 import Header from "../components/Header/Header";
 import Authbar from "../components/Authbar/Authbar";
-import React from "react";
+import React, {useEffect} from "react";
+import {useAppSelector} from "../store/hooks";
+import {useNavigate} from "react-router-dom";
 
 
 const MainPage = () => {
-   return (
+    const isLoggedIn = useAppSelector(state=> state.editProfile.isLoggedIn);
+    const navigate = useNavigate();
+
+    useEffect(()=> {
+        if (isLoggedIn) {
+            navigate('/items');
+        }
+    }, [isLoggedIn, navigate])
+
+     return (
        <>
            <Logo />
            <Header />

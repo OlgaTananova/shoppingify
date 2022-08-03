@@ -1,10 +1,4 @@
-export interface IEditProfile {
-    isEditProfile: boolean
-}
-
-export interface IItemInfo {
-    isItemInfoOpen: boolean
-}
+import {ChangeEventHandler, FormEventHandler, MouseEventHandler} from "react";
 
 export interface IShopping {
     isAddItemFormOpened: boolean,
@@ -79,8 +73,24 @@ export interface AuthFormProps {
     linkToPagePhrase: string,
     linkToPageButton: string,
     linkToPage: string,
-
+    initialValues?: {
+        name?: {
+            value: string,
+            required: boolean
+        },
+        email?: {
+            value: string,
+            required: boolean
+        },
+        password?: {
+            value: string,
+            required: boolean
+        }
+    },
+    onSubmit?: FormEventHandler,
+    isValid?: boolean
 }
+
 
 export interface AuthInputProps {
     name: string,
@@ -90,5 +100,37 @@ export interface AuthInputProps {
     minLength?: number,
     maxLength?: number,
     pattern?: string
-    error?: string
+    error?: string,
+    value: string,
+    disabled?:boolean,
+    onChange: ChangeEventHandler
+}
+
+export interface IUpdateUserProfileProps {
+    isFormValid: boolean,
+    onSaveClick: MouseEventHandler,
+}
+
+//User
+export interface IUser {
+    name: string,
+    email: string,
+}
+export interface ICreateUserPayload extends IUser {
+    password: string
+}
+
+export interface ILoginPayload {
+    email: string,
+    password: string
+}
+
+export interface IUpdateUserPayload extends IUser {}
+
+export interface IUserInitialState {
+    user: IUser,
+    status: 'idle' | 'loading' | 'succeeded' | 'failed',
+    error: string | null | undefined | unknown,
+    isEditProfile: boolean,
+    isLoggedIn: boolean
 }

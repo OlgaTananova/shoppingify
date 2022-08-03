@@ -1,6 +1,6 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
-import {Routes, Route} from 'react-router-dom';
+import {Routes, Route, useNavigate} from 'react-router-dom';
 import CancelShoppingListPopup from "../CancelShoppingListPopup/CancelShoppingListPopup";
 import MainPage from '../../pages/MainPage' ;
 import ItemsPage from '../../pages/ItemsPage';
@@ -11,23 +11,64 @@ import ShoppingListCardPage from "../../pages/ShoppingListCardPage";
 import SingleItemPage from "../../pages/SingleItemPage";
 import SignupPage from "../../pages/SignupPage";
 import LoginPage from "../../pages/LoginPage";
-import {useAppDispatch} from "../../store/hooks";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import {useAppDispatch, useAppSelector} from "../../store/hooks";
+import {checkUser} from '../../store/profileSlice';
+import {fetchItems} from "../../store/itemInfoSlice";
 import {fetchCategories} from "../../store/categoriesSlice";
+import NotFoundPage from "../../pages/NotFoundPage";
+import {verifyUser} from "../../utils/apiUsers";
+
+
 
 function App() {
+    const userStatus = useAppSelector((state)=> state.editProfile.status);
+    const userIsLoggedIn = useAppSelector((state)=> state.editProfile.isLoggedIn);
+    const dispatch = useAppDispatch();
+    const [isUserChecked, setIsUserChecked] = useState<boolean>(false);
+    const navigate = useNavigate();
+
+
+    useEffect(()=> {
+        dispatch(checkUser()).unwrap()
+            .then(()=>{
+            setIsUserChecked(true);
+        }).catch((err)=>{
+            setIsUserChecked(true);
+        })
+    },[]);
+
+
+    useEffect(() => {
+        if (userIsLoggedIn) {
+            Promise.all([dispatch(checkUser()).unwrap(),
+                dispatch(fetchCategories()).unwrap(),
+                dispatch(fetchItems()).unwrap()])
+                .catch((err) => {
+                    console.log(err);
+                })
+        }
+    }, [userIsLoggedIn, dispatch, navigate]);
+
 
   return (
       <div className={'app'}>
          <Routes>
              <Route path={'/'} element={<MainPage />}/>
-             <Route path={'/items'} element={<ItemsPage />}/>
-             <Route path={'/items/:itemId'} element={<SingleItemPage />} />
-             <Route path={'/history'} element={<HistoryPage />}/>
-             <Route path={'history/:shoppingListId'} element={<ShoppingListCardPage />}/>
-             <Route path={'/statistics'} element={<StatisticsPage />}/>
-             <Route path={'/profile'} element={<ProfilePage />} />
              <Route path={'/signup'} element={<SignupPage />}/>
              <Route path={'/login'} element={<LoginPage />} />
+             <Route path={'*'} element={<NotFoundPage/>}/>
+             {isUserChecked && <>
+                 <Route path={'/items'}
+                        element={<ProtectedRoute><ItemsPage/></ProtectedRoute>}/>
+               <Route path={'/items/:itemId'} element={<ProtectedRoute><SingleItemPage /></ProtectedRoute>} />
+               <Route path={'/history'} element={<ProtectedRoute><HistoryPage /></ProtectedRoute>}/>
+               <Route path={'history/:shoppingListId'} element={<ProtectedRoute><ShoppingListCardPage/></ProtectedRoute>}/>
+               <Route path={'/statistics'} element={<ProtectedRoute><StatisticsPage /></ProtectedRoute>}/>
+               <Route path={'/profile'} element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
+                 </>
+             }
+
          </Routes>
           <CancelShoppingListPopup />
       </div>

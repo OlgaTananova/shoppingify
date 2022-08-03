@@ -1,6 +1,6 @@
-import {IAddItemPayload, IItem, IItemInitialState} from "../types";
-import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {addItem, getItems, deleteItem} from "../hooks/api";
+import {IAddItemPayload, IItemInitialState} from "../types";
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {addItem, getItems, deleteItem} from "../utils/apiItemsAndCategories";
 
 
 const initialState: IItemInitialState = {
@@ -54,15 +54,15 @@ const ItemInfoSlice = createSlice({
     }
 })
 
-export const fetchItems = createAsyncThunk('/items/getItems', async () =>{
+export const fetchItems = createAsyncThunk('items/getItems', async () =>{
     return getItems();
 });
 
-export const addNewItem = createAsyncThunk('/items/addItem', async (value: IAddItemPayload) => {
+export const addNewItem = createAsyncThunk('items/addItem', async (value: IAddItemPayload) => {
     return addItem(value)
 });
 
-export const deleteExistingItem = createAsyncThunk('/items/deleteItem', async(id: string)=> {
+export const deleteExistingItem = createAsyncThunk('items/deleteItem', async(id: string)=> {
     return deleteItem(id);
 })
 

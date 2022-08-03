@@ -1,21 +1,9 @@
 import {IAddItemToCategoryPayload, IAddItemPayload, IDeleteItemFromCategoryPayload} from '../types';
-
-const baseUrl: string = 'http://localhost:3000';
-
-
-const checkResponse = ((response:any) => {
-    if (response.ok) {
-        return response.json();
-    }
-    return response.text().then((text:any) => {
-        const error = JSON.parse(text)
-        throw new Error(error.message)
-    })
-})
+import {checkResponse} from "./utils";
+import {baseUrl} from "../constants";
 
 export const getCategories = async () => {
     let categories;
-    try {
         categories = await fetch(`${baseUrl}/categories`, {
             method: 'GET',
             headers: {
@@ -24,14 +12,10 @@ export const getCategories = async () => {
             credentials: 'include',
         })
         return checkResponse(categories);
-    } catch (err) {
-        console.log(err);
-    }
 }
 
 export const getItems = async () => {
     let categories;
-    try {
         categories = await fetch(`${baseUrl}/items`, {
             method: 'GET',
             headers: {
@@ -40,14 +24,11 @@ export const getItems = async () => {
             credentials: 'include',
         })
         return checkResponse(categories);
-    } catch (err) {
-        console.log(err);
-    }
 }
 
 export const createCategory = async (category:string) => {
     let newCategory;
-    try {
+
         newCategory = await fetch(`${baseUrl}/categories`, {
             method: 'POST',
             headers: {
@@ -59,14 +40,10 @@ export const createCategory = async (category:string) => {
             credentials: 'include'
         });
        return checkResponse(newCategory);
-    } catch (err) {
-        console.log(err);
-    }
 }
 
 export const addItemToCategory = async (initialValue: IAddItemToCategoryPayload) => {
     let addedItem;
-    try {
         addedItem = await fetch(`${baseUrl}/categories/items`, {
             method: 'PUT',
             headers: {
@@ -76,9 +53,6 @@ export const addItemToCategory = async (initialValue: IAddItemToCategoryPayload)
             credentials: 'include'
         });
         return checkResponse(addedItem);
-    } catch(err) {
-        console.log(err);
-    }
 }
 
 export const addItem = async (values: IAddItemPayload) => {
@@ -100,7 +74,7 @@ export const addItem = async (values: IAddItemPayload) => {
 
 export const deleteItem = async (id: string) => {
     let deletedItem;
-    try {
+
         deletedItem = await fetch(`${baseUrl}/items/${id}`, {
           method: 'DELETE',
           headers: {
@@ -109,14 +83,10 @@ export const deleteItem = async (id: string) => {
           credentials: 'include'
         });
         return checkResponse(deletedItem);
-    } catch (err) {
-        console.log(err);
-    }
 }
 
 export const deleteItemFromCategory = async (values: IDeleteItemFromCategoryPayload) => {
     let updatedCategory;
-    try {
         updatedCategory = await fetch(`${baseUrl}/categories/items`, {
             method: 'DELETE',
             headers: {
@@ -126,7 +96,4 @@ export const deleteItemFromCategory = async (values: IDeleteItemFromCategoryPayl
             body: JSON.stringify(values)
         })
         return checkResponse(updatedCategory);
-    } catch (err) {
-        console.log(err);
-    }
 }

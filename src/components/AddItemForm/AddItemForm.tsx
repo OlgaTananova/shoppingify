@@ -1,5 +1,5 @@
 import './AddItemForm.css';
-import useForm from "../../hooks/useForm";
+import useForm from "../../utils/useForm";
 import {FormEventHandler, useMemo} from "react";
 import {IItem} from "../../types";
 import {useAppDispatch, useAppSelector} from "../../store/hooks";

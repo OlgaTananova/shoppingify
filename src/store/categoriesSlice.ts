@@ -1,12 +1,10 @@
-import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {
     IAddItemToCategoryPayload,
-    ICategory,
     ICategoryInitialState,
-    IDeleteItemFromCategoryPayload,
-    IItem
+    IDeleteItemFromCategoryPayload
 } from "../types";
-import {createCategory, getCategories, addItemToCategory, deleteItemFromCategory} from "../hooks/api";
+import {createCategory, getCategories, addItemToCategory, deleteItemFromCategory} from "../utils/apiItemsAndCategories";
 
 
 const initialState: ICategoryInitialState = {

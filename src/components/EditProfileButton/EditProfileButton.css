@@ -32,3 +32,7 @@
   background-color: var(--orange-color);
   color: var(--white-color);
 }
+
+.profile-form__button_type_submit_inactive {
+  background-color: var(--grey-color2);
+}

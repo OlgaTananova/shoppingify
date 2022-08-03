@@ -8,21 +8,6 @@ import {fetchItems} from "../../store/itemInfoSlice";
 
 const Categories = () => {
     const categories = useAppSelector(state => state.categories.categories);
-    const categoriesStatus = useAppSelector(state => state.categories.status);
-    const itemsStatus = useAppSelector(state => state.itemInfo.status);
-    const dispatch = useAppDispatch();
-
-    useEffect(()=> {
-        if (categoriesStatus === 'idle') {
-            dispatch(fetchCategories());
-        }
-    }, [categoriesStatus,dispatch ])
-
-    useEffect(()=> {
-        if (itemsStatus === 'idle') {
-            dispatch(fetchItems());
-        }
-    }, [itemsStatus, dispatch])
 
     return (
         <div className={'categories'}>

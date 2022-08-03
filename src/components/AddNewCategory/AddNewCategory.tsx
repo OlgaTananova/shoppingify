@@ -1,7 +1,7 @@
 import './AddNewCategory.css';
 import {FormEvent, FormEventHandler, useMemo} from "react";
 import {useAppDispatch} from "../../store/hooks";
-import useForm from "../../hooks/useForm";
+import useForm from "../../utils/useForm";
 import {addCategory} from "../../store/categoriesSlice";
 
 const AddNewCategory = () => {

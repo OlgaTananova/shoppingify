@@ -3,10 +3,8 @@ import {Link} from "react-router-dom";
 import Item from '../Item/Item';
 import ShowMoreBtn from "../ShowMoreBtn/ShowMoreBtn";
 import {NUMBER_OF_ITEMS} from "../../constants";
-import {ICategory, IItem} from "../../types";
-import {useAppDispatch, useAppSelector} from "../../store/hooks";
-import {useEffect, useState} from "react";
-import {fetchItems} from "../../store/itemInfoSlice";
+import {ICategory} from "../../types";
+import {useAppSelector} from "../../store/hooks";
 
 const Category = ({category}: {category: ICategory} ) => {
     const items = useAppSelector(state => state.itemInfo.items);
