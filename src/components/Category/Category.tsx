@@ -7,7 +7,7 @@ import {ICategory} from "../../types";
 import {useAppSelector} from "../../store/hooks";
 
 const Category = ({category}: {category: ICategory} ) => {
-    const items = useAppSelector(state => state.itemInfo.items);
+    const items = useAppSelector(state => state.items.items);
     const itemsInCategory = items.filter((item) => {
        return  item.categoryId === category._id
     });

@@ -21,6 +21,12 @@ const profileSlice = createSlice({
         },
         setEditProfileFalse(state){
             state.isEditProfile = false
+        },
+        setIsLoggedInTrue(state) {
+            state.isLoggedIn= true;
+        },
+        setIsLoggedInFalse(state) {
+            state.isLoggedIn = false;
         }
     },
     extraReducers(builder) {
@@ -105,6 +111,6 @@ export const logOut = createAsyncThunk('user/logout', async ()=>{
 export const updateUserProfile = createAsyncThunk('user/updateUser', async (values: IUpdateUserPayload)=> {
     return updateUser(values)
 })
-export const {setEditProfileTrue, setEditProfileFalse} = profileSlice.actions;
+export const {setEditProfileTrue, setEditProfileFalse,setIsLoggedInFalse, setIsLoggedInTrue} = profileSlice.actions;
 
 export default profileSlice.reducer

@@ -7,8 +7,8 @@ import {useAppDispatch, useAppSelector} from "../../store/hooks";
 import {setEditProfileFalse, setEditProfileTrue, updateUserProfile} from "../../store/profileSlice";
 
 const Profile = () => {
-    const user = useAppSelector((state) => state.editProfile.user);
-    const isEditProfile = useAppSelector(state => state.editProfile.isEditProfile);
+    const user = useAppSelector((state) => state.profile.user);
+    const isEditProfile = useAppSelector(state => state.profile.isEditProfile);
     const dispatch = useAppDispatch();
     const initialValues = useMemo(()=>{
         return {

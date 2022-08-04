@@ -25,11 +25,16 @@ const Login = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
-    const handleLoginFormSubmit: FormEventHandler = async (e) => {
+    const handleLoginFormSubmit: FormEventHandler = (e) => {
         e.preventDefault();
-        await dispatch(logIn({email: form.values.email.value, password: form.values.password.value }));
-        form.resetForm();
-        navigate('/items');
+        dispatch(logIn({email: form.values.email.value, password: form.values.password.value })).unwrap()
+            .then(()=>{
+                form.resetForm();
+                navigate('/items');
+            })
+            .catch((err)=>{
+                console.log(err);
+            })
     }
 
     return (

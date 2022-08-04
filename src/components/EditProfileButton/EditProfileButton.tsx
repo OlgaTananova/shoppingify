@@ -7,7 +7,7 @@ import {IUpdateUserProfileProps} from "../../types";
 
 const EditProfileButton = ({isFormValid, onSaveClick}: IUpdateUserProfileProps) => {
     const dispatch = useAppDispatch();
-    const isEditProfile = useAppSelector(state => state.editProfile.isEditProfile);
+    const isEditProfile = useAppSelector(state => state.profile.isEditProfile);
 
     const handleEditClick: MouseEventHandler = () => {
         dispatch(setEditProfileTrue())

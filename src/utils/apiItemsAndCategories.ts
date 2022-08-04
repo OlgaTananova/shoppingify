@@ -42,18 +42,6 @@ export const createCategory = async (category:string) => {
        return checkResponse(newCategory);
 }
 
-export const addItemToCategory = async (initialValue: IAddItemToCategoryPayload) => {
-    let addedItem;
-        addedItem = await fetch(`${baseUrl}/categories/items`, {
-            method: 'PUT',
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(initialValue),
-            credentials: 'include'
-        });
-        return checkResponse(addedItem);
-}
 
 export const addItem = async (values: IAddItemPayload) => {
     let addedItem;
@@ -83,17 +71,4 @@ export const deleteItem = async (id: string) => {
           credentials: 'include'
         });
         return checkResponse(deletedItem);
-}
-
-export const deleteItemFromCategory = async (values: IDeleteItemFromCategoryPayload) => {
-    let updatedCategory;
-        updatedCategory = await fetch(`${baseUrl}/categories/items`, {
-            method: 'DELETE',
-            headers: {
-                "Content-Type": "application/json"
-            },
-            credentials: 'include',
-            body: JSON.stringify(values)
-        })
-        return checkResponse(updatedCategory);
 }

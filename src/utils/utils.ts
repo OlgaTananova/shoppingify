@@ -5,7 +5,6 @@ export const checkResponse = ((response: Response) => {
     }
     return response.text().then((text:any) => {
         const error = JSON.parse(text)
-        console.log(error.message);
         throw new Error(error.message)
     })
 });

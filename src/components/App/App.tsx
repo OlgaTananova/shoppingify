@@ -13,39 +13,34 @@ import SignupPage from "../../pages/SignupPage";
 import LoginPage from "../../pages/LoginPage";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import {useAppDispatch, useAppSelector} from "../../store/hooks";
-import {checkUser} from '../../store/profileSlice';
+import {checkUser, setIsLoggedInTrue} from '../../store/profileSlice';
 import {fetchItems} from "../../store/itemInfoSlice";
 import {fetchCategories} from "../../store/categoriesSlice";
 import NotFoundPage from "../../pages/NotFoundPage";
-import {verifyUser} from "../../utils/apiUsers";
-
+import Preloader from "../Preloader/Preloader";
+import {setIsLoadingFalse, setIsLoadingTrue, setShowErrorFalse, setShowErrorTrue} from "../../store/appSlice";
+import InfoPopup from "../InfoPopup/InfoPopup";
 
 
 function App() {
-    const userStatus = useAppSelector((state)=> state.editProfile.status);
-    const userIsLoggedIn = useAppSelector((state)=> state.editProfile.isLoggedIn);
+    const isLoading = useAppSelector(state=> state.app.isLoading);
+    const userIsLoggedIn = useAppSelector((state)=> state.profile.isLoggedIn);
     const dispatch = useAppDispatch();
-    const [isUserChecked, setIsUserChecked] = useState<boolean>(false);
+    const isUserChecked = useAppSelector(state => state.app.isUserChecked);
     const navigate = useNavigate();
-
-
-    useEffect(()=> {
-        dispatch(checkUser()).unwrap()
-            .then(()=>{
-            setIsUserChecked(true);
-        }).catch((err)=>{
-            setIsUserChecked(true);
-        })
-    },[]);
-
 
     useEffect(() => {
         if (userIsLoggedIn) {
+            dispatch(setIsLoadingTrue());
             Promise.all([dispatch(checkUser()).unwrap(),
                 dispatch(fetchCategories()).unwrap(),
                 dispatch(fetchItems()).unwrap()])
                 .catch((err) => {
                     console.log(err);
+                    dispatch(setShowErrorTrue(err.message))
+                })
+                .finally(()=>{
+                    dispatch(setIsLoadingFalse());
                 })
         }
     }, [userIsLoggedIn, dispatch, navigate]);
@@ -71,6 +66,8 @@ function App() {
 
          </Routes>
           <CancelShoppingListPopup />
+          {isLoading&& <Preloader />}
+          <InfoPopup />
       </div>
   );
 }

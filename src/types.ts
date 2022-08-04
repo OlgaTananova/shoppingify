@@ -134,3 +134,10 @@ export interface IUserInitialState {
     isEditProfile: boolean,
     isLoggedIn: boolean
 }
+
+export interface IAppSliceInitialState {
+    isLoading: boolean,
+    showError: boolean,
+    isUserChecked: boolean,
+    error: string,
+}

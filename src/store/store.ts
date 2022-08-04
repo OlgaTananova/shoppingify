@@ -4,13 +4,16 @@ import itemInfoReducer from './itemInfoSlice';
 import shoppingReducer from './shoppingSlice';
 import shoppingHistoryReducer from './shoppingHistorySlice';
 import categoryListReducer from './categoriesSlice';
+import appReducer from './appSlice';
 
 const rootReducer = combineReducers({
-    editProfile: profileReducer,
-    itemInfo: itemInfoReducer,
+    profile: profileReducer,
+    items: itemInfoReducer,
     shopping: shoppingReducer,
     shoppingHistory: shoppingHistoryReducer,
-    categories: categoryListReducer
+    categories: categoryListReducer,
+    app: appReducer,
+
 })
 
 export function setupStore() {

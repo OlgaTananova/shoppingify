@@ -1,11 +1,10 @@
 import './AddItemForm.css';
 import useForm from "../../utils/useForm";
 import {FormEventHandler, useMemo} from "react";
-import {IItem} from "../../types";
 import {useAppDispatch, useAppSelector} from "../../store/hooks";
 import {closeAddItemForm} from "../../store/shoppingSlice";
 import {addNewItem} from "../../store/itemInfoSlice";
-import {addNewItemToCategory} from "../../store/categoriesSlice";
+import {addItemToCategory} from "../../store/categoriesSlice";
 import category from "../Category/Category";
 
 const AddItemForm = () => {
@@ -40,14 +39,16 @@ const AddItemForm = () => {
         const note = form.values.note.value;
         const image = form.values.image.value;
         const categoryId = form.values.categoryId.value;
-        try {
-            const createdItem = await dispatch(addNewItem({name, note, image, categoryId}));
-            await dispatch(addNewItemToCategory({_id:createdItem.payload._id , categoryId}));
+         dispatch(addNewItem({name, note, image, categoryId})).unwrap()
+             .then((data)=>{
+               dispatch(addItemToCategory(data.category))
+             })
+             .catch((err)=> {
+                 console.log(err);
+             })
             form.resetForm();
             dispatch(closeAddItemForm());
-        } catch(err) {
-            console.log(err)
-        }
+
     }
 
     const handleReset: FormEventHandler = (e) => {

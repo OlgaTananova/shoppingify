@@ -7,7 +7,7 @@ import {useNavigate} from "react-router-dom";
 
 
 const MainPage = () => {
-    const isLoggedIn = useAppSelector(state=> state.editProfile.isLoggedIn);
+    const isLoggedIn = useAppSelector(state=> state.profile.isLoggedIn);
     const navigate = useNavigate();
 
     useEffect(()=> {

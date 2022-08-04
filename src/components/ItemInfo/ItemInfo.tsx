@@ -3,11 +3,11 @@ import {useAppDispatch, useAppSelector} from "../../store/hooks";
 import {useNavigate, useParams} from "react-router-dom";
 import {MouseEventHandler} from "react";
 import {deleteExistingItem} from "../../store/itemInfoSlice";
-import {deleteExistingItemFromCategory} from "../../store/categoriesSlice";
+import {deleteItemFromCategory} from "../../store/categoriesSlice";
 
 const ItemInfo = () => {
     const {itemId} = useParams<string>();
-    const item = useAppSelector(state => state.itemInfo.items.find((item) => item._id === itemId));
+    const item = useAppSelector(state => state.items.items.find((item) => item._id === itemId));
     const category = useAppSelector(state=> state.categories.categories.find((category)=>{
         return item&& item.categoryId === category._id;
     }));
@@ -20,9 +20,14 @@ const ItemInfo = () => {
 
     const handleDeleteClick: MouseEventHandler = (event) => {
         if (itemId != null) {
-            dispatch(deleteExistingItem(itemId));
-            dispatch(deleteExistingItemFromCategory({_id: itemId, categoryId: category!._id}));
-            navigate('/items');
+            dispatch(deleteExistingItem(itemId)).unwrap()
+                .then((data)=>{
+                    dispatch(deleteItemFromCategory(data.category));
+                    navigate('/items');
+                })
+                .catch((err)=> {
+                    console.log(err);
+                })
         }
     }
 

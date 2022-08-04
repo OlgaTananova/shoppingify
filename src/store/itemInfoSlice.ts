@@ -31,7 +31,8 @@ const ItemInfoSlice = createSlice({
             })
             .addCase(addNewItem.fulfilled, (state, action) => {
                 state.status = 'succeeded';
-                state.items.push(action.payload)
+                state.items.push(action.payload.item);
+
             })
             .addCase(addNewItem.rejected, (state, action) => {
                 state.status = 'failed';
