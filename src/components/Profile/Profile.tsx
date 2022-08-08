@@ -5,6 +5,7 @@ import {FormEventHandler, useEffect, useMemo} from "react";
 import useForm from "../../utils/useForm";
 import {useAppDispatch, useAppSelector} from "../../store/hooks";
 import {setEditProfileFalse, setEditProfileTrue, updateUserProfile} from "../../store/profileSlice";
+import {setIsLoadingFalse, setIsLoadingTrue, setShowErrorTrue} from "../../store/appSlice";
 
 const Profile = () => {
     const user = useAppSelector((state) => state.profile.user);
@@ -34,7 +35,16 @@ const Profile = () => {
 
     const handleEditProfileSubmit: FormEventHandler = (e) => {
         e.preventDefault();
-        dispatch(updateUserProfile({name: form.values.name.value, email: form.values.email.value}));
+        dispatch(setIsLoadingTrue());
+        dispatch(updateUserProfile({name: form.values.name.value, email: form.values.email.value})).unwrap()
+            .then(() => {
+            })
+            .catch((err) => {
+                setShowErrorTrue(err.message);
+            })
+            .finally(() => {
+                dispatch(setIsLoadingFalse());
+            })
     }
 
     return (

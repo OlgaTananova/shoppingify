@@ -18,7 +18,7 @@ const InfoPopup = () => {
                     onClick={handleClose}
                     className={'infopopup__close-button'}>{}</button>
             <p className={'infopopup__message'}>{errors.error}</p>
-            <div className={`infopopup__icon ${''}`}
+            <div className={`infopopup__icon`}
                  aria-label={'Icon'}>{}</div>
         </div>
     </div>)

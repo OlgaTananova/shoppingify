@@ -64,7 +64,6 @@
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
+  background-image: url('../../images/infopopup_icon_fail.svg');
 }
 
-.infopopup__icon_type_success {
-}

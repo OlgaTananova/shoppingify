@@ -3,6 +3,9 @@ import {useNavigate} from "react-router-dom";
 import {useAppSelector, useAppDispatch} from "../../store/hooks";
 import {MouseEventHandler} from "react";
 import {setEditProfileTrue, setEditProfileFalse, logOut} from "../../store/profileSlice";
+import {onLogout, setIsLoadingFalse, setIsLoadingTrue, setShowErrorTrue} from '../../store/appSlice';
+import {onLogoutCategoriesSlice} from '../../store/categoriesSlice';
+import {onLogoutItemsSlice} from '../../store/itemInfoSlice';
 import {IUpdateUserProfileProps} from "../../types";
 
 const EditProfileButton = ({isFormValid, onSaveClick}: IUpdateUserProfileProps) => {
@@ -14,7 +17,19 @@ const EditProfileButton = ({isFormValid, onSaveClick}: IUpdateUserProfileProps) 
     }
 
     const handleLogout: MouseEventHandler = () => {
-        dispatch(logOut());
+        dispatch(setIsLoadingTrue());
+        dispatch(logOut()).unwrap()
+            .then(()=> {
+                dispatch(onLogout());
+                dispatch(onLogoutCategoriesSlice());
+                dispatch(onLogoutItemsSlice());
+            })
+            .catch((err)=>{
+                dispatch(setShowErrorTrue(err.message));
+            })
+            .finally(()=>{
+                dispatch(setIsLoadingFalse());
+            })
     }
 
         return (
@@ -27,7 +42,7 @@ const EditProfileButton = ({isFormValid, onSaveClick}: IUpdateUserProfileProps) 
                    type={'button'}
                    onClick={handleEditClick}>Edit
         </button>
-            <button className='profile-form__button profile-form__button_type_logout'
+            <button type={'button'} className='profile-form__button profile-form__button_type_logout'
                  onClick={handleLogout}>Log out</button>
         </>}
     </>

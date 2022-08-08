@@ -6,14 +6,14 @@ import {BrowserRouter} from "react-router-dom";
 import {Provider} from "react-redux";
 import {store, } from "./store/store";
 import {checkUser} from "./store/profileSlice";
-import {setIsUserCheckedTrue} from "./store/appSlice";
+import {onLogin, setIsUserCheckedTrue} from "./store/appSlice";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
 store.dispatch(checkUser()).unwrap().then(() => {
-    store.dispatch(setIsUserCheckedTrue())
+    store.dispatch(onLogin());
 }).catch((err) => {
     store.dispatch(setIsUserCheckedTrue());
 });

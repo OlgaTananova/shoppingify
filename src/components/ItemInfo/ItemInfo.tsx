@@ -4,6 +4,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import {MouseEventHandler} from "react";
 import {deleteExistingItem} from "../../store/itemInfoSlice";
 import {deleteItemFromCategory} from "../../store/categoriesSlice";
+import {setIsLoadingFalse, setIsLoadingTrue, setShowErrorTrue} from "../../store/appSlice";
 
 const ItemInfo = () => {
     const {itemId} = useParams<string>();
@@ -19,6 +20,7 @@ const ItemInfo = () => {
     }
 
     const handleDeleteClick: MouseEventHandler = (event) => {
+        dispatch(setIsLoadingTrue());
         if (itemId != null) {
             dispatch(deleteExistingItem(itemId)).unwrap()
                 .then((data)=>{
@@ -26,7 +28,10 @@ const ItemInfo = () => {
                     navigate('/items');
                 })
                 .catch((err)=> {
-                    console.log(err);
+                    dispatch(setShowErrorTrue(err.message));
+                })
+                .finally(()=>{
+                    dispatch(setIsLoadingFalse());
                 })
         }
     }

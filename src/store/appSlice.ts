@@ -5,7 +5,8 @@ const initialState: IAppSliceInitialState = {
     isLoading: false,
     showError: false,
     isUserChecked: false,
-    error: ''
+    error: null,
+    appStatus: 'idle'
 }
 
 const appSlice = createSlice({
@@ -31,10 +32,20 @@ const appSlice = createSlice({
         },
         setIsUserCheckedFalse(state) {
             state.isUserChecked = false;
+        },
+        onLogin(state) {
+            state.appStatus = 'notIdle';
+            state.isUserChecked = true;
+        },
+        onLogout(state) {
+            state.showError = false;
+            state.isUserChecked = false;
+            state.error = null;
+            state.appStatus = 'idle'
         }
     }
 })
 
 export const {setIsLoadingFalse, setIsLoadingTrue, setShowErrorFalse, setShowErrorTrue,
-setIsUserCheckedTrue, setIsUserCheckedFalse} = appSlice.actions;
+setIsUserCheckedTrue, setIsUserCheckedFalse, onLogout, onLogin} = appSlice.actions;
 export default appSlice.reducer;

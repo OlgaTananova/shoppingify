@@ -3,13 +3,13 @@ import {Link} from "react-router-dom";
 import Item from '../Item/Item';
 import ShowMoreBtn from "../ShowMoreBtn/ShowMoreBtn";
 import {NUMBER_OF_ITEMS} from "../../constants";
-import {ICategory} from "../../types";
+import {ICategory, IItem} from "../../types";
 import {useAppSelector} from "../../store/hooks";
 
 const Category = ({category}: {category: ICategory} ) => {
     const items = useAppSelector(state => state.items.items);
     const itemsInCategory = items.filter((item) => {
-       return  item.categoryId === category._id
+       return  item.categoryId === category._id;
     });
 
     return(

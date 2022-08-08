@@ -1,4 +1,4 @@
-import {IAddItemToCategoryPayload, IAddItemPayload, IDeleteItemFromCategoryPayload} from '../types';
+import {IAddItemPayload} from '../types';
 import {checkResponse} from "./utils";
 import {baseUrl} from "../constants";
 

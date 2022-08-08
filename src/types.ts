@@ -139,5 +139,6 @@ export interface IAppSliceInitialState {
     isLoading: boolean,
     showError: boolean,
     isUserChecked: boolean,
-    error: string,
+    error: string | null,
+    appStatus: 'idle' | 'notIdle'
 }

@@ -5,7 +5,7 @@ import {useAppDispatch, useAppSelector} from "../../store/hooks";
 import {closeAddItemForm} from "../../store/shoppingSlice";
 import {addNewItem} from "../../store/itemInfoSlice";
 import {addItemToCategory} from "../../store/categoriesSlice";
-import category from "../Category/Category";
+import {setIsLoadingFalse, setIsLoadingTrue, setShowErrorTrue} from "../../store/appSlice";
 
 const AddItemForm = () => {
     const initialValues = useMemo(() => {
@@ -35,20 +35,23 @@ const AddItemForm = () => {
 
     const handleAddItemFormSubmit: FormEventHandler = async (e) => {
         e.preventDefault();
+        dispatch(setIsLoadingTrue());
         const name = form.values.name.value;
         const note = form.values.note.value;
         const image = form.values.image.value;
         const categoryId = form.values.categoryId.value;
          dispatch(addNewItem({name, note, image, categoryId})).unwrap()
              .then((data)=>{
-               dispatch(addItemToCategory(data.category))
+               dispatch(addItemToCategory(data.category));
+               form.resetForm();
+               dispatch(closeAddItemForm());
              })
              .catch((err)=> {
-                 console.log(err);
+                 setShowErrorTrue(err.message);
              })
-            form.resetForm();
-            dispatch(closeAddItemForm());
-
+             .finally(()=>{
+                 dispatch(setIsLoadingFalse());
+             })
     }
 
     const handleReset: FormEventHandler = (e) => {

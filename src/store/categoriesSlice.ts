@@ -32,6 +32,9 @@ const categoriesSlice = createSlice({
                 }
                 return category
             })
+        },
+        onLogoutCategoriesSlice(state) {
+            state = initialState;
         }
     },
     extraReducers(builder) {
@@ -69,7 +72,7 @@ export const addCategory = createAsyncThunk('categories/createCategory', async (
     return createCategory(category);
 })
 
-export const {addItemToCategory, deleteItemFromCategory} = categoriesSlice.actions
+export const {addItemToCategory, deleteItemFromCategory, onLogoutCategoriesSlice} = categoriesSlice.actions
 export default categoriesSlice.reducer;
 
 

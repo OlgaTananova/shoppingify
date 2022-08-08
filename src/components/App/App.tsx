@@ -23,6 +23,7 @@ import InfoPopup from "../InfoPopup/InfoPopup";
 
 
 function App() {
+    const appStatus = useAppSelector(state=>state.app.appStatus);
     const isLoading = useAppSelector(state=> state.app.isLoading);
     const userIsLoggedIn = useAppSelector((state)=> state.profile.isLoggedIn);
     const dispatch = useAppDispatch();
@@ -30,13 +31,12 @@ function App() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (userIsLoggedIn) {
+        if (userIsLoggedIn && appStatus === 'idle') {
             dispatch(setIsLoadingTrue());
             Promise.all([dispatch(checkUser()).unwrap(),
                 dispatch(fetchCategories()).unwrap(),
                 dispatch(fetchItems()).unwrap()])
                 .catch((err) => {
-                    console.log(err);
                     dispatch(setShowErrorTrue(err.message))
                 })
                 .finally(()=>{

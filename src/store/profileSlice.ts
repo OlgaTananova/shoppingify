@@ -47,6 +47,7 @@ const profileSlice = createSlice({
             })
             .addCase(logIn.fulfilled, (state, action)=>{
                 state.status = 'succeeded';
+                state.error = null;
                 state.isLoggedIn = true;
             })
             .addCase(logIn.rejected, (state, action) => {
@@ -59,6 +60,7 @@ const profileSlice = createSlice({
             .addCase(checkUser.fulfilled, (state, action)=>{
                 state.status = 'succeeded';
                 state.isLoggedIn = true;
+                state.error = null;
                 state.user = action.payload;
             })
             .addCase(checkUser.rejected, (state, action) => {
@@ -71,6 +73,7 @@ const profileSlice = createSlice({
             .addCase(logOut.fulfilled, (state, action)=>{
                 state.status = 'succeeded';
                 state.isLoggedIn = false;
+                state.error = null;
                 state.user = initialState.user;
             })
             .addCase(logOut.rejected, (state, action) => {
@@ -83,7 +86,7 @@ const profileSlice = createSlice({
             .addCase(updateUserProfile.fulfilled, (state, action)=>{
                 state.status = 'succeeded';
                 state.user = {name: action.payload.name, email: action.payload.email};
-                profileSlice.caseReducers.setEditProfileFalse(state);
+                state.error = null;
             })
             .addCase(updateUserProfile.rejected, (state, action) => {
                 state.status = 'failed';

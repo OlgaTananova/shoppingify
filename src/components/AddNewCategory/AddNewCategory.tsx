@@ -3,6 +3,7 @@ import {FormEvent, FormEventHandler, useMemo} from "react";
 import {useAppDispatch} from "../../store/hooks";
 import useForm from "../../utils/useForm";
 import {addCategory} from "../../store/categoriesSlice";
+import {setIsLoadingFalse, setIsLoadingTrue, setShowErrorFalse, setShowErrorTrue} from "../../store/appSlice";
 
 const AddNewCategory = () => {
     const dispatch = useAppDispatch();
@@ -18,8 +19,17 @@ const AddNewCategory = () => {
 
     const handleSubmitAddCategoryForm: FormEventHandler = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        dispatch(addCategory(form.values.category.value));
-        form.resetForm();
+        dispatch(setIsLoadingTrue());
+        dispatch(addCategory(form.values.category.value)).unwrap()
+            .then(()=>{
+                form.resetForm();
+            })
+            .catch((err)=>{
+                dispatch(setShowErrorTrue(err.message));
+            })
+            .finally(()=>{
+                dispatch(setIsLoadingFalse());
+            })
     }
 
     return (

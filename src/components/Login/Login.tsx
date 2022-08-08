@@ -6,6 +6,7 @@ import useForm from "../../utils/useForm";
 import {useAppDispatch, useAppSelector} from "../../store/hooks";
 import {logIn} from "../../store/profileSlice";
 import {useNavigate} from "react-router-dom";
+import {onLogin, setIsLoadingFalse, setIsLoadingTrue, setShowErrorTrue} from "../../store/appSlice";
 
 
 const Login = () => {
@@ -27,13 +28,18 @@ const Login = () => {
 
     const handleLoginFormSubmit: FormEventHandler = (e) => {
         e.preventDefault();
+        dispatch(setIsLoadingTrue());
         dispatch(logIn({email: form.values.email.value, password: form.values.password.value })).unwrap()
             .then(()=>{
+                dispatch(onLogin());
                 form.resetForm();
                 navigate('/items');
             })
             .catch((err)=>{
-                console.log(err);
+                dispatch(setShowErrorTrue(err.message))
+            })
+            .finally(()=>{
+                dispatch(setIsLoadingFalse());
             })
     }
 

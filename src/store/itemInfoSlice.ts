@@ -12,7 +12,11 @@ const initialState: IItemInitialState = {
 const ItemInfoSlice = createSlice({
     name: 'itemInfo',
     initialState,
-    reducers: {},
+    reducers: {
+        onLogoutItemsSlice(state) {
+            state = initialState;
+        }
+    },
     extraReducers(builder) {
         builder
             .addCase(fetchItems.pending, (state, action) => {
@@ -44,7 +48,7 @@ const ItemInfoSlice = createSlice({
             .addCase(deleteExistingItem.fulfilled, (state, action) => {
                 state.status = 'succeeded';
                 state.items = state.items.filter((item) => {
-                    return item._id !== action.payload._id;
+                    return item._id !== action.payload.item._id;
                 })
             })
             .addCase(deleteExistingItem.rejected, (state, action) => {
@@ -66,5 +70,7 @@ export const addNewItem = createAsyncThunk('items/addItem', async (value: IAddIt
 export const deleteExistingItem = createAsyncThunk('items/deleteItem', async(id: string)=> {
     return deleteItem(id);
 })
+
+export const {onLogoutItemsSlice} = ItemInfoSlice.actions;
 
 export default ItemInfoSlice.reducer;
