@@ -7,16 +7,17 @@ import {setIsEditShoppingListTrue} from "../../store/shoppingSlice";
 
 const ShoppingList = () => {
     const isEditShoppingList = useAppSelector(state => state.shopping.isEditShoppingList);
-    const isShoppingListEmpty = useAppSelector(state => state.shopping.isShoppingListEmpty);
+    const isShoppingListEmpty = useAppSelector(state => state.shopping.categories)
     const dispatch = useAppDispatch();
 
     const handleEditShoppingListClick: MouseEventHandler = () => {
         dispatch(setIsEditShoppingListTrue());
     }
 
-    return (isShoppingListEmpty?
+    return (isShoppingListEmpty && isShoppingListEmpty.length === 0?
             <div className={'shopping-list shopping-list_empty'}>
-                No Items
+                <p className={'shopping-list__no-items'}>No Items</p>
+                {/*<button type={'button'} className={'shopping-list__create-list-btn'} onClick={()=>{}}>Create new shopping list</button>*/}
             </div>
                 : <div className={'shopping-list'}>
                     <div className={'shopping-list__upper-section'}>

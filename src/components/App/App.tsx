@@ -20,6 +20,7 @@ import NotFoundPage from "../../pages/NotFoundPage";
 import Preloader from "../Preloader/Preloader";
 import {setIsLoadingFalse, setIsLoadingTrue, setShowErrorFalse, setShowErrorTrue} from "../../store/appSlice";
 import InfoPopup from "../InfoPopup/InfoPopup";
+import {getAllShoppingLists} from "../../store/shoppingHistorySlice";
 
 
 function App() {
@@ -35,7 +36,8 @@ function App() {
             dispatch(setIsLoadingTrue());
             Promise.all([dispatch(checkUser()).unwrap(),
                 dispatch(fetchCategories()).unwrap(),
-                dispatch(fetchItems()).unwrap()])
+                dispatch(fetchItems()).unwrap(),
+                dispatch(getAllShoppingLists()).unwrap()])
                 .catch((err) => {
                     dispatch(setShowErrorTrue(err.message))
                 })

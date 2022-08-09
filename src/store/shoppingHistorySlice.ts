@@ -1,64 +1,37 @@
-import {createSlice} from "@reduxjs/toolkit";
-import {IShoppingList} from "../types";
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {IShoppingListsInitialState} from "../types";
+import {getShoppingLists} from "../utils/apiShoppingLists";
 
-const initialState: IShoppingList[] = [
-    {
-        id: '1',
-        heading: 'Birthday party',
-        date: new Date(2022, 1, 1).toISOString(),
-        owner: '123',
-        categories: [
-
-            {
-                name: 'Beverages',
-                items: [['coke', 5], ['Fanta', 6]]
-            },
-            {
-                name: 'Meat',
-                items: [['chicken', 3], ['ground beef, kg', 2]]
-            }
-        ],
-        status: 'completed'
-    },
-    {
-        id: '2',
-        heading: 'Grocery',
-        date: new Date(2022, 2, 15).toISOString(),
-        owner: '123',
-        categories: [
-
-            {
-                name: 'Beverages',
-                items: [['coffee', 5], ['Tea', 6]]
-            },
-            {
-                name: 'Bakery',
-                items: [['buns', 3], ['cake', 2]]
-            }
-        ],
-        status: 'cancelled'
-    },
-    {
-        id: '3',
-        heading: 'Picnic party',
-        date: new Date(2022, 2, 6).toISOString(),
-        owner: '123',
-        categories: [
-            {
-                name: 'Diary',
-                items: [['milk', 1], ['yogurt', 4]]
-            }
-        ],
-        status: 'completed'
-    }
-]
+const initialState: IShoppingListsInitialState = {
+    shoppingLists: [],
+    status: 'idle',
+    error: null
+};
 
 const shoppingHistorySlice = createSlice({
     name: 'shoppingHistory',
     initialState,
     reducers: {
 
+    },
+    extraReducers(builder) {
+        builder
+            .addCase(getAllShoppingLists.pending,(state, action)=>{
+                state.status = 'loading'
+            })
+            .addCase(getAllShoppingLists.fulfilled, (state, action)=>{
+                state.status = 'succeeded';
+                state.shoppingLists = action.payload;
+            })
+            .addCase(getAllShoppingLists.rejected, (state, action) => {
+                state.status = 'failed';
+                state.error = action.error.message;
+            })
     }
 })
+
+export const getAllShoppingLists = createAsyncThunk('shoppingHistory/getShoppingLists', async ()=>{
+    return getShoppingLists();
+});
 
 export default shoppingHistorySlice.reducer;

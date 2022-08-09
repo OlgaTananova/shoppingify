@@ -1,25 +1,40 @@
 import {ChangeEventHandler, FormEventHandler, MouseEventHandler} from "react";
 
-export interface IShopping {
-    isAddItemFormOpened: boolean,
-    isEditShoppingList: boolean,
-    isShoppingListEmpty: boolean,
-}
+// Shopping List
+
 export interface IShoppingCategory {
-    name: string,
+    categoryId: string,
     items: [string, number][]
 }
 export interface IShoppingList {
-    id: string,
+    id?: string,
     heading: string,
     date: string,
     owner: string,
-    categories: IShoppingCategory[],
-    status: string
+    categories?: IShoppingCategory[],
+    status: 'completed' | 'cancelled' | 'active' | 'idle'
+}
+
+export interface IShoppingListInitialState  extends IShoppingList {
+    isAddItemFormOpened: boolean,
+    isEditShoppingList: boolean,
+    requestStatus: 'idle' | 'loading' | 'succeeded' | 'failed',
+    error: string | unknown | null
+}
+
+export interface IShoppingListsInitialState {
+    shoppingLists: IShoppingList[],
+    status: 'idle' | 'loading' | 'succeeded' | 'failed',
+    error: string | unknown | null
 }
 
 export interface IShoppingListByDate {
     [key: string]: IShoppingList[]
+}
+
+export interface ICreateShoppingListPayload {
+    categoryId: string,
+    itemId: string,
 }
 
 export interface IItem {

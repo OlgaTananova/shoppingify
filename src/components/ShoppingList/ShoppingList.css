@@ -13,6 +13,21 @@
   line-height: 1.2;
   font-weight: 700;
 }
+.shopping-list__no-items {
+  font-size: 18px;
+  line-height: 1.25;
+}
+
+.shopping-list__create-list-btn {
+  width: 120px;
+  font-size: 14px;
+  color: var(--white-color);
+  line-height: 1.25;
+  border-radius: 12px;
+  border: none;
+  background-color: var(--grey-color2);
+  padding: 10px 5px;
+}
 
 .shopping-list__upper-section {
   display: flex;
