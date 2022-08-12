@@ -21,6 +21,8 @@ import Preloader from "../Preloader/Preloader";
 import {setIsLoadingFalse, setIsLoadingTrue, setShowErrorFalse, setShowErrorTrue} from "../../store/appSlice";
 import InfoPopup from "../InfoPopup/InfoPopup";
 import {getAllShoppingLists} from "../../store/shoppingHistorySlice";
+import {getActiveShoppingList} from "../../store/shoppingSlice";
+import {IShoppingList} from "../../types";
 
 
 function App() {
@@ -38,6 +40,14 @@ function App() {
                 dispatch(fetchCategories()).unwrap(),
                 dispatch(fetchItems()).unwrap(),
                 dispatch(getAllShoppingLists()).unwrap()])
+                .then((data)=>{
+                    const activeShoppingList = data[3].find((list: IShoppingList)=>{
+                        return list.status === 'active';
+                    });
+                    if (activeShoppingList) {
+                        dispatch(getActiveShoppingList(activeShoppingList));
+                    }
+                })
                 .catch((err) => {
                     dispatch(setShowErrorTrue(err.message))
                 })

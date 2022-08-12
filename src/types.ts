@@ -2,17 +2,24 @@ import {ChangeEventHandler, FormEventHandler, MouseEventHandler} from "react";
 
 // Shopping List
 
-export interface IShoppingCategory {
+export interface IShoppingItem {
     categoryId: string,
-    items: [string, number][]
+    itemId: string,
+    quantity: number,
+    status: 'completed' | 'pending'
 }
+
+export interface IShoppingCategory {
+    [key: string]: [IShoppingItem?]
+}
+
 export interface IShoppingList {
-    id?: string,
     heading: string,
     date: string,
     owner: string,
-    categories?: IShoppingCategory[],
-    status: 'completed' | 'cancelled' | 'active' | 'idle'
+    items?: [IShoppingItem?],
+    status: 'completed' | 'cancelled' | 'active' | 'idle',
+    _id?: string
 }
 
 export interface IShoppingListInitialState  extends IShoppingList {
@@ -35,6 +42,19 @@ export interface IShoppingListByDate {
 export interface ICreateShoppingListPayload {
     categoryId: string,
     itemId: string,
+}
+
+export interface IAddItemToShoppingListPayload {
+    categoryId: string | undefined
+    itemId: string | undefined
+    quantity?: string,
+    status?: 'completed' | 'pending',
+    shoppingListId: string | undefined
+}
+
+export interface IDeleteItemFromShoppingListPayload {
+    itemId: string | undefined
+    shoppingListId: string | undefined
 }
 
 export interface IItem {

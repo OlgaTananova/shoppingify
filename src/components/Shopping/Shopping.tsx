@@ -17,7 +17,6 @@ const Shopping =() => {
 
     return (
         <div className={'shopping'}>
-            {/*{isItemInfoOpen && <ItemInfo />}*/}
             {showAddItemForm && <AddItemForm/>}
             {(!showAddItemForm) && <>
               <div className={'add-item-section'}>

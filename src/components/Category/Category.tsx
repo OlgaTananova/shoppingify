@@ -18,7 +18,7 @@ const Category = ({category}: {category: ICategory} ) => {
             <ul className={'category__item-list'}>
                 {itemsInCategory.map((item) => {
                     return (
-                        <Link key={item._id} className={'category__item-link'} to={`/items/${item._id}`}><Item item={item} /></Link>
+                     <Item key={item._id} item={item} />
                     )
                 })
             }

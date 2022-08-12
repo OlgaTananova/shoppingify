@@ -1,6 +1,15 @@
-import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
-import {ICreateShoppingListPayload, IShoppingListInitialState} from "../types";
-import {createShoppingList} from '../utils/apiShoppingLists';
+import {
+    createSlice,
+    createAsyncThunk,
+    PayloadAction,
+} from "@reduxjs/toolkit";
+import {
+    IAddItemToShoppingListPayload,
+    ICreateShoppingListPayload,
+    IDeleteItemFromShoppingListPayload,
+    IShoppingListInitialState
+} from "../types";
+import {createShoppingList, addItemToShoppingList, deleteItemFromShoppingList} from '../utils/apiShoppingLists';
 
 const initialState: IShoppingListInitialState = {
     isAddItemFormOpened: false,
@@ -8,11 +17,23 @@ const initialState: IShoppingListInitialState = {
     heading: 'Shopping List',
     date: '',
     owner: '',
-    categories: [],
+    items: [],
     status: 'idle',
     requestStatus: 'idle',
+    _id: '',
     error: null
 }
+
+const changeState = (state: IShoppingListInitialState, action: PayloadAction<IShoppingListInitialState>) => {
+    state.heading = action.payload.heading;
+    state.date = action.payload.date;
+    state.owner = action.payload.owner;
+    state.items = action.payload.items;
+    state.status = action.payload.status;
+    state._id = action.payload._id;
+    state.error = null;
+}
+
 const shoppingSlice = createSlice({
     name: 'shopping',
     initialState,
@@ -29,6 +50,10 @@ const shoppingSlice = createSlice({
         setIsEditShoppingListFalse(state) {
             state.isEditShoppingList = false;
         },
+        getActiveShoppingList(state, action) {
+            changeState(state, action);
+            state.requestStatus = 'succeeded';
+        }
     },
     extraReducers(builder){
         builder
@@ -37,17 +62,35 @@ const shoppingSlice = createSlice({
             })
             .addCase(createNewShoppingList.fulfilled, (state, action) => {
                 state.requestStatus = 'succeeded';
-                state.heading = action.payload.heading;
-                state.date = action.payload.date;
-                state.owner = action.payload.owner;
-                state.categories = action.payload.categories;
-                state.status = action.payload.status;
-                state.error = null;
+                changeState(state, action);
             })
             .addCase(createNewShoppingList.rejected, (state, action)=>{
                 state.requestStatus = 'failed';
                 state.error = action.error.message;
             })
+            .addCase(addNewItemToShoppingList.pending, (state)=>{
+                state.requestStatus = 'loading'
+            })
+            .addCase(addNewItemToShoppingList.fulfilled, (state, action) => {
+                state.requestStatus = 'succeeded';
+                changeState(state, action);
+            })
+            .addCase(addNewItemToShoppingList.rejected, (state, action)=>{
+                state.requestStatus = 'failed';
+                state.error = action.error.message;
+            })
+            .addCase(deleteExistingItemFromSL.pending, (state)=>{
+                state.requestStatus = 'loading'
+            })
+            .addCase(deleteExistingItemFromSL.fulfilled, (state, action) => {
+                state.requestStatus = 'succeeded';
+                changeState(state, action);
+            })
+            .addCase(deleteExistingItemFromSL.rejected, (state, action)=>{
+                state.requestStatus = 'failed';
+                state.error = action.error.message;
+            })
+
     }
 });
 
@@ -55,11 +98,18 @@ export const createNewShoppingList = createAsyncThunk('shoppingList/createShoppi
     return createShoppingList(values);
 });
 
+export const addNewItemToShoppingList = createAsyncThunk('shoppingList/addItemToShoppingList', async (values: IAddItemToShoppingListPayload)=>{
+    return addItemToShoppingList(values);
+});
+export const deleteExistingItemFromSL = createAsyncThunk('shoppingList/deleteItemFromSL', async(values: IDeleteItemFromShoppingListPayload)=>{
+    return deleteItemFromShoppingList(values);
+})
 export const {
     closeAddItemForm,
     openAddItemForm,
     setIsEditShoppingListFalse,
     setIsEditShoppingListTrue,
+    getActiveShoppingList
 } = shoppingSlice.actions
 
 export default shoppingSlice.reducer

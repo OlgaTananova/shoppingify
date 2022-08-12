@@ -60,4 +60,13 @@
   height: 140px;
 }
 
+.shopping-list__add-item-form-big-container {
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+
+
 
