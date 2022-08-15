@@ -1,17 +1,32 @@
 import './ShoppingList.css';
-// import {ShoppingCategoryData, shoppingList} from "../../data";
 import ShoppingCategory from "../ShoppingCategory/ShoppingCategory";
-import {MouseEventHandler, useEffect, useState} from "react";
+import {FormEventHandler, useEffect, useMemo, useState} from "react";
 import {useAppDispatch, useAppSelector} from "../../store/hooks";
-import {setIsEditShoppingListTrue, getActiveShoppingList, setIsEditShoppingListFalse} from "../../store/shoppingSlice";
+import {
+    updateExistingSLHeading
+} from "../../store/shoppingSlice";
 import {IShoppingCategory, IShoppingItem} from "../../types";
+import useForm from "../../utils/useForm";
+import EditSLHeadingForm from "../EditSLHeadingForm/EditSLHeadingForm";
+import {setIsLoadingFalse, setIsLoadingTrue, setShowErrorTrue} from "../../store/appSlice";
 
 const ShoppingList = () => {
     const isEditShoppingList = useAppSelector(state => state.shopping.isEditShoppingList);
     const itemsInShoppingList = useAppSelector(state => state.shopping.items);
     const shoppingListStatus = useAppSelector(state => state.shopping.status);
+    const shoppingListHeading = useAppSelector(state => state.shopping.heading);
+    const shoppingListId = useAppSelector(state => state.shopping._id);
     const [isShoppingListEmpty, setIsShoppingListEmpty] = useState<boolean>(itemsInShoppingList!.length === 0);
     const dispatch = useAppDispatch();
+    const initialValues = useMemo(()=>{
+        return {
+            'shopping-list-heading': {
+                value: '',
+                required: true,
+            }
+        }
+    }, [])
+    const editSLHeadingForm = useForm(initialValues);
 
     // @ts-ignore
     const itemsByCategory = itemsInShoppingList!.length !== 0 ? itemsInShoppingList!.reduce((prev: IShoppingCategory, value: IShoppingItem) => {
@@ -31,37 +46,46 @@ const ShoppingList = () => {
         } else {
             setIsShoppingListEmpty(false);
         }
-    }, [itemsInShoppingList])
+    }, [itemsInShoppingList]);
 
-    const handleEditShoppingListClick: MouseEventHandler = () => {
-        !isEditShoppingList ?
-            dispatch(setIsEditShoppingListTrue())
-            : dispatch(setIsEditShoppingListFalse())
+    useEffect(()=>{
+        editSLHeadingForm.setValues((prev) => ({...prev,
+            'shopping-list-heading': {value: shoppingListHeading, required: true},
+            }))
+    }, [shoppingListHeading]);
+
+    const editSLHeadingFormSubmitHandler:FormEventHandler = (e) => {
+        e.preventDefault();
+        dispatch(setIsLoadingTrue());
+        dispatch(updateExistingSLHeading({shoppingListId: shoppingListId, heading: editSLHeadingForm.values["shopping-list-heading"].value })).unwrap()
+            .catch((err)=> {
+                dispatch(setShowErrorTrue(err.message));
+            })
+            .finally(()=> {
+                dispatch(setIsLoadingFalse());
+            })
     }
+
 
     return (
             isShoppingListEmpty?
                 <div className={'shopping-list shopping-list_empty'}>
                     {shoppingListStatus !== 'idle' &&
-                      <input className={`shopping-list__heading ${isEditShoppingList && 'shopping-list__heading_editable'}`}
-                             type={'text'}
-                             placeholder={'ShoppingList'}
-                             name={'shopping-list-heading'}>{}</input>
+                      <EditSLHeadingForm value={editSLHeadingForm.values["shopping-list-heading"].value}
+                                         onChange={editSLHeadingForm.handleChange}
+                                         error={editSLHeadingForm.errors['shopping-list-heading']}
+                                         required={editSLHeadingForm.values['shopping-list-heading'].required}
+                                        onSubmit={editSLHeadingFormSubmitHandler} isValid={editSLHeadingForm.isValid}/>
                     }
                     <p className={'shopping-list__no-items'}>No Items</p>
                 </div>
                 :
                 <div className={'shopping-list'}>
                     <>
-                    <div className={'shopping-list__upper-section'}>
-                        <input className={`shopping-list__heading ${isEditShoppingList && 'shopping-list__heading_editable'}`}
-                               type={'text'}
-                               placeholder={'ShoppingList'}
-                               name={'shopping-list-heading'}>{}</input>
-                        <button onClick={handleEditShoppingListClick}
-                                className={'shopping-list__edit-btn'}
-                                type={'button'}>{}</button>
-                    </div>
+                        <EditSLHeadingForm value={editSLHeadingForm.values["shopping-list-heading"].value}
+                                           onChange={editSLHeadingForm.handleChange} error={editSLHeadingForm.errors['shopping-list-heading']}
+                                           required={editSLHeadingForm.values['shopping-list-heading'].required}
+                                           onSubmit={editSLHeadingFormSubmitHandler} isValid={editSLHeadingForm.isValid}/>
                         {itemsByCategory&& Object.entries(itemsByCategory).map((item:[string, IShoppingItem[]] )=> {
                                 return <ShoppingCategory items={item[1]}
                                                          categoryId={item[0]}

@@ -7,9 +7,14 @@ import {
     IAddItemToShoppingListPayload,
     ICreateShoppingListPayload,
     IDeleteItemFromShoppingListPayload,
-    IShoppingListInitialState
+    IShoppingListInitialState, IUpdateItemQtyInShoppingList, IUpdateItemStatusInShoppingList, IUpdateSLHeadingPayload
 } from "../types";
-import {createShoppingList, addItemToShoppingList, deleteItemFromShoppingList} from '../utils/apiShoppingLists';
+import {
+    createShoppingList,
+    addItemToShoppingList,
+    deleteItemFromShoppingList,
+    updateItemQtyInShoppingList, updateItemStatusInShoppingList, updateShoppingListHeading
+} from '../utils/apiShoppingLists';
 
 const initialState: IShoppingListInitialState = {
     isAddItemFormOpened: false,
@@ -90,7 +95,39 @@ const shoppingSlice = createSlice({
                 state.requestStatus = 'failed';
                 state.error = action.error.message;
             })
-
+            .addCase(updateItemQtyInExistingSL.pending, (state)=>{
+                state.requestStatus = 'loading';
+            })
+            .addCase(updateItemQtyInExistingSL.fulfilled, (state, action) => {
+                state.requestStatus = 'succeeded';
+                state.items = action.payload.items;
+            })
+            .addCase(updateItemQtyInExistingSL.rejected, (state, action)=>{
+                state.requestStatus = 'failed';
+                state.error = action.error.message;
+            })
+            .addCase(updateItemStatusExistingSL.pending, (state)=>{
+                state.requestStatus = 'loading'
+            })
+            .addCase(updateItemStatusExistingSL.fulfilled, (state, action) => {
+                state.requestStatus = 'succeeded';
+                state.items = action.payload.items;
+            })
+            .addCase(updateItemStatusExistingSL.rejected, (state, action)=>{
+                state.requestStatus = 'failed';
+                state.error = action.error.message;
+            })
+            .addCase(updateExistingSLHeading.pending, (state)=>{
+                state.requestStatus = 'loading'
+            })
+            .addCase(updateExistingSLHeading.fulfilled, (state, action) => {
+                state.requestStatus = 'succeeded';
+                state.heading = action.payload.heading;
+            })
+            .addCase(updateExistingSLHeading.rejected, (state, action)=>{
+                state.requestStatus = 'failed';
+                state.error = action.error.message;
+            })
     }
 });
 
@@ -103,7 +140,20 @@ export const addNewItemToShoppingList = createAsyncThunk('shoppingList/addItemTo
 });
 export const deleteExistingItemFromSL = createAsyncThunk('shoppingList/deleteItemFromSL', async(values: IDeleteItemFromShoppingListPayload)=>{
     return deleteItemFromShoppingList(values);
+});
+
+export const updateItemQtyInExistingSL = createAsyncThunk('shoppingList/updItemQty', async (values: IUpdateItemQtyInShoppingList) => {
+    return updateItemQtyInShoppingList(values)
+});
+
+export const updateItemStatusExistingSL = createAsyncThunk('shoppingList/updItemStatus', async (values: IUpdateItemStatusInShoppingList) => {
+    return updateItemStatusInShoppingList(values);
+});
+
+export const updateExistingSLHeading = createAsyncThunk('shoppingList/updSLHeading', async (values: IUpdateSLHeadingPayload) => {
+    return updateShoppingListHeading(values);
 })
+
 export const {
     closeAddItemForm,
     openAddItemForm,

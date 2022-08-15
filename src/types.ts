@@ -57,6 +57,19 @@ export interface IDeleteItemFromShoppingListPayload {
     shoppingListId: string | undefined
 }
 
+export interface IUpdateItemQtyInShoppingList extends IDeleteItemFromShoppingListPayload{
+    quantity: number,
+}
+
+export interface IUpdateItemStatusInShoppingList extends IDeleteItemFromShoppingListPayload{
+    status: 'pending' | 'completed'
+}
+
+export interface IUpdateSLHeadingPayload {
+    shoppingListId: string | undefined
+    heading: string,
+}
+
 export interface IItem {
     _id: string,
    name: string,

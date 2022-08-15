@@ -1,6 +1,11 @@
 import {checkResponse} from "./utils";
 import {baseUrl} from "../constants";
-import {IAddItemToShoppingListPayload, ICreateShoppingListPayload, IDeleteItemFromShoppingListPayload} from "../types";
+import {
+    IAddItemToShoppingListPayload,
+    ICreateShoppingListPayload,
+    IDeleteItemFromShoppingListPayload,
+    IUpdateItemQtyInShoppingList, IUpdateItemStatusInShoppingList, IUpdateSLHeadingPayload
+} from "../types";
 
 export const getShoppingLists = async () => {
    const shoppingLists = await fetch(`${baseUrl}/shoppinglists`, {
@@ -49,4 +54,39 @@ export const deleteItemFromShoppingList = async (values: IDeleteItemFromShopping
     return checkResponse(updatedShoppingList);
 }
 
+export const updateItemQtyInShoppingList = async (values: IUpdateItemQtyInShoppingList) => {
+    const updatedShoppingList = await fetch(`${baseUrl}/shoppinglists/updqty`, {
+        method: 'PATCH',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        credentials: 'include',
+        body: JSON.stringify(values),
+    });
+    return checkResponse(updatedShoppingList);
+}
+
+export const updateItemStatusInShoppingList = async (values: IUpdateItemStatusInShoppingList) => {
+    const updatedShoppingList = await fetch(`${baseUrl}/shoppinglists/updstatus`, {
+        method: 'PATCH',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        credentials: 'include',
+        body: JSON.stringify(values),
+    });
+    return checkResponse(updatedShoppingList);
+}
+
+export const updateShoppingListHeading = async (values: IUpdateSLHeadingPayload) => {
+    const updatedShoppingList = await fetch(`${baseUrl}/shoppinglists/updheading`, {
+        method: 'PATCH',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        credentials: 'include',
+        body: JSON.stringify(values),
+    });
+   return checkResponse(updatedShoppingList);
+}
 

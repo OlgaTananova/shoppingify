@@ -3,7 +3,6 @@ import {useState} from "react";
 import AddItemForm from "../AddItemForm/AddItemForm";
 import ShoppingList from "../ShoppingList/ShoppingList";
 import AddItemToSLForm from "../AddItemToSLForm/AddItemToSLForm";
-import ItemInfo from "../ItemInfo/ItemInfo";
 import {useAppDispatch, useAppSelector} from "../../store/hooks";
 import {openAddItemForm} from "../../store/shoppingSlice";
 
