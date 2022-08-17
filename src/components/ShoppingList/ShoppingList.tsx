@@ -49,9 +49,7 @@ const ShoppingList = () => {
     }, [itemsInShoppingList]);
 
     useEffect(()=>{
-        editSLHeadingForm.setValues((prev) => ({...prev,
-            'shopping-list-heading': {value: shoppingListHeading, required: true},
-            }))
+        editSLHeadingForm.setValues({'shopping-list-heading': {value: shoppingListHeading, required: true}});
     }, [shoppingListHeading]);
 
     const editSLHeadingFormSubmitHandler:FormEventHandler = (e) => {

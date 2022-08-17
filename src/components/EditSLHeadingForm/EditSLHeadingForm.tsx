@@ -1,9 +1,10 @@
-import {ChangeEventHandler, FormEventHandler, MouseEventHandler} from "react";
+import './EditSLHeadingForm.css';
+import {ChangeEventHandler, FormEventHandler, MouseEventHandler, useState} from "react";
 import {setIsEditShoppingListFalse, setIsEditShoppingListTrue} from "../../store/shoppingSlice";
 import {useAppDispatch, useAppSelector} from "../../store/hooks";
 
 const EditSLHeadingForm = ({
-                               value, onChange, error, required, onSubmit, isValid
+                               value, onChange, error, required, onSubmit, isValid,
                            }: {
     value: string,
     onChange: ChangeEventHandler,
@@ -13,28 +14,42 @@ const EditSLHeadingForm = ({
 }) => {
     const isEditShoppingList = useAppSelector(state => state.shopping.isEditShoppingList);
     const dispatch = useAppDispatch();
+    const [showEditHeadingButton, setShowEditHeadingButton] = useState<boolean>(false);
 
     const handleEditShoppingListClick: MouseEventHandler = () => {
         !isEditShoppingList ?
             dispatch(setIsEditShoppingListTrue())
-            : dispatch(setIsEditShoppingListFalse())
+            : dispatch(setIsEditShoppingListFalse());
     }
 
     return (
-        <form noValidate={true}
-              name={'editSL-heading-form'}
-              onSubmit={onSubmit}>
-            <input className={`shopping-list__heading ${isEditShoppingList && 'shopping-list__heading_editable'}`}
-                   type={'text'}
-                   value={value}
-                   onChange={onChange}
-                   required={required}
-                   name={'shopping-list-heading'}>{}</input>
-            <button onClick={handleEditShoppingListClick}
-                    className={'shopping-list__edit-btn'}
-                    type={'button'}>{}</button>
+        <>
+            <div className={'shopping-list__heading-section'}>
+                <form className={`shopping-list__edit-heading-form 
+            ${!isValid && 'shopping-list__edit-heading-form_disabled'}`}
+                      name={'editSL-heading-form'}
+                      onSubmit={onSubmit}
+                      noValidate={true}>
+                    <input className={`shopping-list__heading`}
+                           type={'text'}
+                           value={value}
+                           onFocus={() => setShowEditHeadingButton(true)}
+                           onBlur={() => setTimeout(() => setShowEditHeadingButton(false), 1000)}
+                           onChange={onChange}
+                           required={required}
+                           name={'shopping-list-heading'}>{}</input>
+                    <button type={'submit'}
+                            className={`shopping-list__edit-heading-btn 
+                    ${showEditHeadingButton && 'shopping-list__edit-heading-btn_visible'}
+                    ${!isValid && 'shopping-list__edit-heading-btn_disabled'}`}
+                            disabled={!isValid}>{'Edit'}</button>
+                </form>
+                <button onClick={handleEditShoppingListClick}
+                        className={'shopping-list__edit-btn'}
+                        type={'button'}>{}</button>
+            </div>
             <span className={'shopping-list__heading-error'}>{error}</span>
-        </form>
+        </>
     )
 }
 

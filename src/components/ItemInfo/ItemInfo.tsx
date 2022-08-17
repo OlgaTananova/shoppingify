@@ -5,6 +5,7 @@ import {MouseEventHandler} from "react";
 import {deleteExistingItem} from "../../store/itemInfoSlice";
 import {deleteItemFromCategory} from "../../store/categoriesSlice";
 import {setIsLoadingFalse, setIsLoadingTrue, setShowErrorTrue} from "../../store/appSlice";
+import {addNewItemToShoppingList, createNewShoppingList} from "../../store/shoppingSlice";
 
 const ItemInfo = () => {
     const {itemId} = useParams<string>();
@@ -12,7 +13,9 @@ const ItemInfo = () => {
     const category = useAppSelector(state=> state.categories.categories.find((category)=>{
         return item&& item.categoryId === category._id;
     }));
+    const activeShoppingList = useAppSelector(state => state.shopping);
     const dispatch = useAppDispatch();
+
     const navigate = useNavigate();
 
     const handleClick = () => {
@@ -28,6 +31,39 @@ const ItemInfo = () => {
                     navigate('/items');
                 })
                 .catch((err)=> {
+                    dispatch(setShowErrorTrue(err.message));
+                })
+                .finally(()=>{
+                    dispatch(setIsLoadingFalse());
+                })
+        }
+    }
+
+    const handleAddItemToSLClick: MouseEventHandler = () => {
+        if (activeShoppingList.status === 'idle') {
+            dispatch(setIsLoadingTrue());
+            (item && category) && dispatch(createNewShoppingList({
+                itemId: item._id,
+                categoryId: category._id
+            })).unwrap()
+                .then(()=>{
+                    navigate('/items');
+                })
+                .catch((err) => {
+                    dispatch(setShowErrorTrue(err.message));
+                })
+                .finally(() => {
+                    dispatch(setIsLoadingFalse());
+                })
+        } else {
+            dispatch(setIsLoadingTrue());
+            (item && category) && dispatch(addNewItemToShoppingList({
+                shoppingListId: activeShoppingList._id, categoryId: category._id, itemId: item._id
+            })).unwrap()
+                .then(()=>{
+                    navigate('/items');
+                })
+                .catch((err)=>{
                     dispatch(setShowErrorTrue(err.message));
                 })
                 .finally(()=>{
@@ -61,7 +97,7 @@ const ItemInfo = () => {
                     <button type={'button'} onClick={handleDeleteClick}
                             className={'item-info__btn item-info__btn_delete'}>delete
                     </button>
-                    <button type={'submit'}
+                    <button type={'button'} onClick={handleAddItemToSLClick}
                             className={'item-info__btn item-info__btn_submit'}>Add to list
                     </button>
                 </div>

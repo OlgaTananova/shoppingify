@@ -4,7 +4,7 @@ import {
     IAddItemToShoppingListPayload,
     ICreateShoppingListPayload,
     IDeleteItemFromShoppingListPayload,
-    IUpdateItemQtyInShoppingList, IUpdateItemStatusInShoppingList, IUpdateSLHeadingPayload
+    IUpdateItemQtyInShoppingList, IUpdateItemStatusInShoppingList, IUpdateSLHeadingPayload, IUpdateSLStatusPayload
 } from "../types";
 
 export const getShoppingLists = async () => {
@@ -88,5 +88,17 @@ export const updateShoppingListHeading = async (values: IUpdateSLHeadingPayload)
         body: JSON.stringify(values),
     });
    return checkResponse(updatedShoppingList);
+}
+
+export const updateShoppingListStatus = async (values: IUpdateSLStatusPayload) => {
+    const updatedShoppingList = await fetch(`${baseUrl}/shoppinglists/updslstatus`, {
+        method: 'PATCH',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        credentials: 'include',
+        body: JSON.stringify(values),
+    });
+    return checkResponse(updatedShoppingList);
 }
 

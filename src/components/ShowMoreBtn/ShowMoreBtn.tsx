@@ -1,8 +1,9 @@
 import './ShowMoreBtn.css';
+import {MouseEventHandler} from "react";
 
-const ShowMoreBtn = () => {
+const ShowMoreBtn = ({onClick}: {onClick: MouseEventHandler}) => {
     return (
-        <button type={'button'} className={'category__show-more-btn'}>Show More</button>
+        <button type={'button'} onClick={onClick} className={'category__show-moreorless-btn'}>Show More</button>
     )
 }
 

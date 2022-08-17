@@ -3,26 +3,44 @@ import {IItem} from "../../types";
 import {MouseEventHandler} from "react";
 import {useAppDispatch, useAppSelector} from "../../store/hooks";
 import {setIsLoadingFalse, setIsLoadingTrue, setShowErrorTrue} from "../../store/appSlice";
-import {addNewItemToShoppingList} from "../../store/shoppingSlice";
+import {addNewItemToShoppingList, createNewShoppingList} from "../../store/shoppingSlice";
 import {Link} from "react-router-dom";
 
 const Item = ({item}: {item:IItem}) => {
     const dispatch = useAppDispatch();
-    const activeShoppingList = useAppSelector(state => state.shopping._id);
+    const activeShoppingList = useAppSelector(state => state.shopping);
 
     const handleAddItemToShoppingListClick: MouseEventHandler = () =>{
-        dispatch(setIsLoadingTrue());
-        dispatch(addNewItemToShoppingList({
-            itemId: item._id,
-            categoryId: item.categoryId,
-            shoppingListId: activeShoppingList
-        })).unwrap()
-            .catch((err)=>{
-                dispatch(setShowErrorTrue(err.message));
-            })
-            .finally(()=>{
-                dispatch(setIsLoadingFalse());
-            })
+        if (activeShoppingList.status === 'idle') {
+            dispatch(setIsLoadingTrue());
+            dispatch(createNewShoppingList({
+                itemId: item._id,
+                categoryId: item.categoryId,
+            })).unwrap()
+                .then(()=> {
+
+                })
+                .catch((err)=> {
+                    dispatch(setShowErrorTrue(err.message));
+                })
+                .finally(()=>{
+                    dispatch(setIsLoadingFalse());
+                })
+        } else {
+            dispatch(setIsLoadingTrue());
+            dispatch(addNewItemToShoppingList({
+                itemId: item._id,
+                categoryId: item.categoryId,
+                shoppingListId: activeShoppingList._id
+            })).unwrap()
+                .catch((err)=>{
+                    dispatch(setShowErrorTrue(err.message));
+                })
+                .finally(()=>{
+                    dispatch(setIsLoadingFalse());
+                })
+        }
+
     }
     return (
         <li className={'category__item'}>

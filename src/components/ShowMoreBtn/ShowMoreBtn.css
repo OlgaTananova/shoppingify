@@ -1,4 +1,4 @@
-.category__show-more-btn {
+.category__show-moreorless-btn {
   width: 150px;
   border: none;
   background-color: var(--orange-color);
@@ -11,7 +11,7 @@
   transition: all .3ms ease;
 }
 
-.category__show-more-btn:hover {
+.category__show-moreorless-btn:hover {
   opacity: .5;
   cursor: pointer;
 }

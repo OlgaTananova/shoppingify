@@ -1,0 +1,95 @@
+.shopping-list__heading-section {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+
+.shopping-list__edit-heading-form {
+  display: flex;
+  flex-wrap: nowrap;
+  border-radius: 12px;
+  justify-content: space-between;
+}
+
+.shopping-list__edit-heading-form:focus-within {
+  outline: 2px solid var(--orange-color);
+  outline-offset: -2px;
+  background-color: var(--white-color);
+}
+
+.shopping-list__edit-heading-form_disabled:focus-within {
+  outline: 2px solid var(--grey-color2);
+  outline-offset: -2px;
+}
+
+.shopping-list__heading {
+  margin: 0;
+  font-size: 24px;
+  line-height: 1.25;
+  font-weight: 700;
+  color: var(--dark-brown-color);
+  border-radius: 12px;
+  width: calc(100% - 35px);
+  background-color: var(--light-orange-color);
+  border: none;
+  text-align: center;
+}
+
+.shopping-list__heading:focus {
+  outline: none;
+  background-color: var(--white-color);
+}
+
+.shopping-list__heading:hover {
+  cursor: pointer;
+}
+
+.shopping-list__edit-heading-btn {
+  border-radius: 12px;
+  background-color: var(--orange-color);
+  border: none;
+  color: var(--white-color);
+  width: 50px;
+  font-size: 14px;
+  transition: all .3ms ease-out;
+  display: none;
+}
+
+.shopping-list__edit-heading-btn_visible {
+  display: block;
+}
+
+.shopping-list__edit-heading-btn_disabled {
+  background-color: var(--grey-color2);
+}
+
+.shopping-list__edit-heading-btn:hover {
+  cursor: pointer;
+  opacity: .7;
+}
+
+.shopping-list__heading-error {
+  color: var(--red-color);
+  font-size: 10px;
+  line-height: 1.25;
+  height: 12px;
+}
+
+.shopping-list__edit-btn {
+  width: 20px;
+  height: 20px;
+  background-image: url('../../images/edit_FILL0_wght400_GRAD0_opsz48.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  background-color: var(--light-orange-color);
+  border: none;
+  transition: all .3ms ease;
+  align-self: center;
+  padding: 0;
+}
+
+.shopping-list__edit-btn:hover {
+  cursor: pointer;
+  opacity: .7;
+}

@@ -7,13 +7,17 @@ import {
     IAddItemToShoppingListPayload,
     ICreateShoppingListPayload,
     IDeleteItemFromShoppingListPayload,
-    IShoppingListInitialState, IUpdateItemQtyInShoppingList, IUpdateItemStatusInShoppingList, IUpdateSLHeadingPayload
+    IShoppingListInitialState,
+    IUpdateItemQtyInShoppingList,
+    IUpdateItemStatusInShoppingList,
+    IUpdateSLHeadingPayload,
+    IUpdateSLStatusPayload
 } from "../types";
 import {
     createShoppingList,
     addItemToShoppingList,
     deleteItemFromShoppingList,
-    updateItemQtyInShoppingList, updateItemStatusInShoppingList, updateShoppingListHeading
+    updateItemQtyInShoppingList, updateItemStatusInShoppingList, updateShoppingListHeading, updateShoppingListStatus
 } from '../utils/apiShoppingLists';
 
 const initialState: IShoppingListInitialState = {
@@ -58,92 +62,106 @@ const shoppingSlice = createSlice({
         getActiveShoppingList(state, action) {
             changeState(state, action);
             state.requestStatus = 'succeeded';
+        },
+        clearShoppingList(state) {
+            state = Object.assign(state, initialState);
         }
     },
-    extraReducers(builder){
+    extraReducers(builder) {
         builder
-            .addCase(createNewShoppingList.pending, (state)=>{
-            state.requestStatus = 'loading'
+            .addCase(createNewShoppingList.pending, (state) => {
+                state.requestStatus = 'loading'
             })
             .addCase(createNewShoppingList.fulfilled, (state, action) => {
                 state.requestStatus = 'succeeded';
                 changeState(state, action);
             })
-            .addCase(createNewShoppingList.rejected, (state, action)=>{
+            .addCase(createNewShoppingList.rejected, (state, action) => {
                 state.requestStatus = 'failed';
                 state.error = action.error.message;
             })
-            .addCase(addNewItemToShoppingList.pending, (state)=>{
+            .addCase(addNewItemToShoppingList.pending, (state) => {
                 state.requestStatus = 'loading'
             })
             .addCase(addNewItemToShoppingList.fulfilled, (state, action) => {
                 state.requestStatus = 'succeeded';
                 changeState(state, action);
             })
-            .addCase(addNewItemToShoppingList.rejected, (state, action)=>{
+            .addCase(addNewItemToShoppingList.rejected, (state, action) => {
                 state.requestStatus = 'failed';
                 state.error = action.error.message;
             })
-            .addCase(deleteExistingItemFromSL.pending, (state)=>{
+            .addCase(deleteExistingItemFromSL.pending, (state) => {
                 state.requestStatus = 'loading'
             })
             .addCase(deleteExistingItemFromSL.fulfilled, (state, action) => {
                 state.requestStatus = 'succeeded';
                 changeState(state, action);
             })
-            .addCase(deleteExistingItemFromSL.rejected, (state, action)=>{
+            .addCase(deleteExistingItemFromSL.rejected, (state, action) => {
                 state.requestStatus = 'failed';
                 state.error = action.error.message;
             })
-            .addCase(updateItemQtyInExistingSL.pending, (state)=>{
+            .addCase(updateItemQtyInExistingSL.pending, (state) => {
                 state.requestStatus = 'loading';
             })
             .addCase(updateItemQtyInExistingSL.fulfilled, (state, action) => {
                 state.requestStatus = 'succeeded';
                 state.items = action.payload.items;
             })
-            .addCase(updateItemQtyInExistingSL.rejected, (state, action)=>{
+            .addCase(updateItemQtyInExistingSL.rejected, (state, action) => {
                 state.requestStatus = 'failed';
                 state.error = action.error.message;
             })
-            .addCase(updateItemStatusExistingSL.pending, (state)=>{
+            .addCase(updateItemStatusExistingSL.pending, (state) => {
                 state.requestStatus = 'loading'
             })
             .addCase(updateItemStatusExistingSL.fulfilled, (state, action) => {
                 state.requestStatus = 'succeeded';
                 state.items = action.payload.items;
             })
-            .addCase(updateItemStatusExistingSL.rejected, (state, action)=>{
+            .addCase(updateItemStatusExistingSL.rejected, (state, action) => {
                 state.requestStatus = 'failed';
                 state.error = action.error.message;
             })
-            .addCase(updateExistingSLHeading.pending, (state)=>{
+            .addCase(updateExistingSLHeading.pending, (state) => {
                 state.requestStatus = 'loading'
             })
             .addCase(updateExistingSLHeading.fulfilled, (state, action) => {
                 state.requestStatus = 'succeeded';
                 state.heading = action.payload.heading;
             })
-            .addCase(updateExistingSLHeading.rejected, (state, action)=>{
+            .addCase(updateExistingSLHeading.rejected, (state, action) => {
+                state.requestStatus = 'failed';
+                state.error = action.error.message;
+            })
+            .addCase(updateSLStatus.pending, (state) => {
+                state.requestStatus = 'loading'
+            })
+            .addCase(updateSLStatus.fulfilled, (state, action) => {
+                state.requestStatus = 'succeeded';
+                state.status = action.payload.status;
+            })
+            .addCase(updateSLStatus.rejected, (state, action) => {
                 state.requestStatus = 'failed';
                 state.error = action.error.message;
             })
     }
 });
 
-export const createNewShoppingList = createAsyncThunk('shoppingList/createShoppingList', async (values: ICreateShoppingListPayload)=>{
+export const createNewShoppingList = createAsyncThunk('shoppingList/createShoppingList', async (values: ICreateShoppingListPayload) => {
     return createShoppingList(values);
 });
 
-export const addNewItemToShoppingList = createAsyncThunk('shoppingList/addItemToShoppingList', async (values: IAddItemToShoppingListPayload)=>{
+export const addNewItemToShoppingList = createAsyncThunk('shoppingList/addItemToShoppingList', async (values: IAddItemToShoppingListPayload) => {
     return addItemToShoppingList(values);
 });
-export const deleteExistingItemFromSL = createAsyncThunk('shoppingList/deleteItemFromSL', async(values: IDeleteItemFromShoppingListPayload)=>{
+export const deleteExistingItemFromSL = createAsyncThunk('shoppingList/deleteItemFromSL', async (values: IDeleteItemFromShoppingListPayload) => {
     return deleteItemFromShoppingList(values);
 });
 
 export const updateItemQtyInExistingSL = createAsyncThunk('shoppingList/updItemQty', async (values: IUpdateItemQtyInShoppingList) => {
-    return updateItemQtyInShoppingList(values)
+    return updateItemQtyInShoppingList(values);
 });
 
 export const updateItemStatusExistingSL = createAsyncThunk('shoppingList/updItemStatus', async (values: IUpdateItemStatusInShoppingList) => {
@@ -154,12 +172,17 @@ export const updateExistingSLHeading = createAsyncThunk('shoppingList/updSLHeadi
     return updateShoppingListHeading(values);
 })
 
+export const updateSLStatus = createAsyncThunk('shoppingList/updSLStatus', async (values: IUpdateSLStatusPayload)=> {
+    return updateShoppingListStatus(values);
+})
+
 export const {
     closeAddItemForm,
     openAddItemForm,
     setIsEditShoppingListFalse,
     setIsEditShoppingListTrue,
-    getActiveShoppingList
+    getActiveShoppingList,
+    clearShoppingList
 } = shoppingSlice.actions
 
-export default shoppingSlice.reducer
+export default shoppingSlice.reducer;

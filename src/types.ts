@@ -70,6 +70,11 @@ export interface IUpdateSLHeadingPayload {
     heading: string,
 }
 
+export interface IUpdateSLStatusPayload {
+    shoppingListId: string | undefined,
+    status: 'completed' | 'cancelled'
+}
+
 export interface IItem {
     _id: string,
    name: string,
@@ -186,6 +191,7 @@ export interface IUserInitialState {
 export interface IAppSliceInitialState {
     isLoading: boolean,
     showError: boolean,
+    showCancelSL: boolean,
     isUserChecked: boolean,
     error: string | null,
     appStatus: 'idle' | 'notIdle'

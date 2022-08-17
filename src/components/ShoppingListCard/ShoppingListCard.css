@@ -57,6 +57,9 @@
   box-sizing: border-box;
 }
 
+.shopping-list-card__item_completed {
+  text-decoration: line-through;
+}
 .shopping-list-card__item-name {
   max-width: 110px;
   margin: 0;
