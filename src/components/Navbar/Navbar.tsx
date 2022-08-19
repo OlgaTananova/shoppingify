@@ -1,9 +1,11 @@
 import './Navbar.css';
 import {Link, NavLink} from "react-router-dom";
 import {useEffect, useState} from "react";
+import {useAppSelector} from "../../store/hooks";
 
 const Navbar = () => {
     const [scroll, setScroll] = useState<number>(0);
+    const activeShoppingList = useAppSelector(state => state.shopping.items);
 
     const onScroll: EventListener = () => {
         setScroll(window.scrollY);
@@ -46,7 +48,7 @@ const Navbar = () => {
                                                }}/></li>
             </ul>
             <i className={'navbar__shopping-cart'}
-               about={'0'}>{}</i>
+               about={`${activeShoppingList!.length}`}>{}</i>
         </nav>
     )
 }

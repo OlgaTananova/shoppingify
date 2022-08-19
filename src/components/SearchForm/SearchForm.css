@@ -1,4 +1,9 @@
-.search-form {
+.search-items-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.search-items-input {
   width: 275px;
   align-self: flex-start;
   margin: 28px 94px 0 0;
@@ -21,12 +26,18 @@
   box-sizing: border-box;
 }
 
-.search-form::placeholder {
+.search-items-input::placeholder {
   color: rgba(189, 189, 189, 1);
 }
 
-.search-form:focus {
+.search-items-input:focus {
   outline: 2px solid var(--orange-color);
   outline-offset: -2px;
+}
+
+.search-items-form__error {
+  font-size: 12px;
+  color: var(--red-color);
+  height: 12px;
 }
 

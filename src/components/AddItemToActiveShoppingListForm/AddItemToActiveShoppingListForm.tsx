@@ -1,6 +1,6 @@
 import {useAppDispatch, useAppSelector} from "../../store/hooks";
 import useForm from "../../utils/useForm";
-import {FormEventHandler, useMemo} from "react";
+import {ChangeEventHandler, FormEventHandler, useEffect, useMemo, useState} from "react";
 import {setIsLoadingFalse, setIsLoadingTrue, setShowErrorTrue} from "../../store/appSlice";
 import {addNewItemToShoppingList} from "../../store/shoppingSlice";
 
@@ -8,6 +8,9 @@ import {addNewItemToShoppingList} from "../../store/shoppingSlice";
 const AddItemToActiveShoppingListForm = () => {
     const activeShoppingList = useAppSelector(state => state.shopping)
     const items = useAppSelector(state => state.items.items);
+    const [autoCompleteItems, setAutoCompleteItems] = useState<[string, string][]>([]);
+    const [autoCompleteItemsNames, setAutoCompleteItemsNames] = useState<string[]>([]);
+    const [error, setError] = useState<string>('');
     const dispatch = useAppDispatch();
     const initialValues = useMemo(()=>{
         return {
@@ -16,9 +19,31 @@ const AddItemToActiveShoppingListForm = () => {
                 required: true,
             }
         }
-    },[])
+    },[]);
 
     const addItemForm = useForm(initialValues);
+
+    useEffect(() => {
+        setAutoCompleteItemsNames(autoCompleteItems.map((item) => {
+            return item[0];
+        }));
+    }, [autoCompleteItems]);
+
+    useEffect(() => {
+        !autoCompleteItemsNames.includes(addItemForm.values['add-item-input'].value) &&
+        addItemForm.values['add-item-input'].value !== '' ?
+            setError('There is not such item.')
+            : setError('');
+    }, [addItemForm.values, autoCompleteItemsNames]);
+
+    const handleItemsSearch: ChangeEventHandler = (e) => {
+        addItemForm.handleChange(e);
+        !autoCompleteItemsNames.includes(addItemForm.values['add-item-input'].value) && items &&
+        setAutoCompleteItems(
+            items.map((item) => {
+                return [item.name.toLowerCase(), item._id]
+            }));
+    }
 
     const addItemToActiveShoppingListHandleSubmit: FormEventHandler =(e)=>{
         e.preventDefault();
@@ -53,13 +78,22 @@ const AddItemToActiveShoppingListForm = () => {
                   name={'add-item-form'}>
                 <input className={'shopping-list__add-item-input'}
                        name={'add-item-input'}
+                       list={'items'}
                        value={addItemForm.values["add-item-input"].value}
-                       onChange={addItemForm.handleChange}
+                       pattern={autoCompleteItems.map((item)=>{
+                           return item[0]
+                       }).join('|')}
+                       onChange={handleItemsSearch}
                        required={true}
                        placeholder={'Enter a name'}/>
+                <datalist id={'items'}>{
+                    autoCompleteItems.map((item)=>{
+                        return <option id={item[1]} key={item[1]}>{item[0]}</option>
+                    })
+                }</datalist>
                 <button type={'submit'} disabled={!addItemForm.isValid} className={`shopping-list__add-item-submit-btn`}>{'Save'}</button>
             </form>
-            <span className={'shopping-list__add-item-error'}>{addItemForm.errors['add-item-input']}</span>
+            <span className={'shopping-list__add-item-error'}>{error}</span>
         </div>
     )
 }
