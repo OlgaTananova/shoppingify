@@ -15,3 +15,10 @@
   opacity: .5;
   cursor: pointer;
 }
+
+@media screen and (max-width: 1005px) {
+  .category__show-moreorless-btn {
+    width: 120px;
+  }
+
+}

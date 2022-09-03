@@ -1,11 +1,23 @@
 import './Navbar.css';
 import {Link, NavLink} from "react-router-dom";
-import {useEffect, useState} from "react";
-import {useAppSelector} from "../../store/hooks";
+import {MouseEventHandler, useEffect, useState} from "react";
+import {useAppDispatch, useAppSelector} from "../../store/hooks";
+import {setShowMobileSLFalse, setShowMobileSLTrue} from "../../store/appSlice";
 
 const Navbar = () => {
     const [scroll, setScroll] = useState<number>(0);
     const activeShoppingList = useAppSelector(state => state.shopping.items);
+    const dispatch = useAppDispatch();
+    const showMobileSL = useAppSelector(state => state.app.showMobileSL);
+
+    const handleSLIconClick: MouseEventHandler = () => {
+        if (!showMobileSL) {
+            dispatch(setShowMobileSLTrue())
+        } else {
+            dispatch(setShowMobileSLFalse());
+        }
+
+    }
 
     const onScroll: EventListener = () => {
         setScroll(window.scrollY);
@@ -47,7 +59,7 @@ const Navbar = () => {
                                                        'navbar__navlink_active' : ''}`
                                                }}/></li>
             </ul>
-            <i className={'navbar__shopping-cart'}
+            <i className={'navbar__shopping-cart'} onClick={handleSLIconClick}
                about={`${activeShoppingList!.length}`}>{}</i>
         </nav>
     )

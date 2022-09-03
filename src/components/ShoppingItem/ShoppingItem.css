@@ -106,3 +106,23 @@
 .shopping-list__item-quantity_edit:hover {
   cursor: pointer;
 }
+
+@media screen and (max-width: 1005px) {
+  .shopping-list__item-name {
+    font-size: 14px;
+  }
+  .shopping-list__item-quantity {
+    width: 60px;
+    height: 27px;
+  }
+  .shopping-list__edit-item-qty {
+    width: 150px;
+    height: 27px;
+  }
+  .shopping-list__delete-item {
+    height: 27px;
+  }
+  .shopping-list__change-qty {
+    height: 27px;
+  }
+}

@@ -5,8 +5,7 @@
 
 .search-items-input {
   width: 275px;
-  align-self: flex-start;
-  margin: 28px 94px 0 0;
+  margin: 20px 25px 5px 15px;
   background-color: var(--white-color);
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
   border-radius: 12px;
@@ -39,5 +38,21 @@
   font-size: 12px;
   color: var(--red-color);
   height: 12px;
+  margin: 0 15px;
 }
 
+@media  screen and (max-width: 1005px) {
+  .search-items-input {
+    width: 220px;
+  }
+}
+
+@media screen and (max-width: 740px) {
+  .search-items-form {
+    grid-column: 2/3;
+    grid-row: 2/3;
+  }
+  .search-items-input {
+    margin: 10px 0 5px 10px;
+  }
+}

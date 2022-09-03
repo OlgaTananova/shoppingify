@@ -33,6 +33,8 @@ const EditSLHeadingForm = ({
                     <input className={`shopping-list__heading`}
                            type={'text'}
                            value={value}
+                           minLength={2}
+                           maxLength={30}
                            onFocus={() => setShowEditHeadingButton(true)}
                            onBlur={() => setTimeout(() => setShowEditHeadingButton(false), 1000)}
                            onChange={onChange}

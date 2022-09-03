@@ -1,9 +1,9 @@
 .profile {
   grid-column: 2/4;
   grid-row: 1/3;
-  width: 960px;
   display: flex;
   flex-direction: column;
+  justify-self: center;
 }
 
 .profile-form {
@@ -56,7 +56,35 @@
   margin: 0 0 15px 0;
 }
 
-
 .profile-form__label:focus-within {
   color: var(--orange-color);
+}
+
+@media screen and (max-width: 890px) {
+  .profile-form {
+    width: 280px;
+  }
+}
+
+@media screen and (max-width: 740px) {
+  .profile {
+   grid-column: 2/3;
+    grid-row: 1/4;
+  }
+}
+
+@media screen and (max-width: 680px) {
+  .profile {
+    grid-column: 2/4;
+  }
+}
+
+@media screen and (max-width: 475px) {
+  .profile {
+    width: 80%;
+  }
+  .profile-form {
+    width: 100%;
+    margin-top: 80px;
+  }
 }

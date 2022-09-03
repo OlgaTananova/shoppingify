@@ -5,17 +5,20 @@ import ShoppingList from "../ShoppingList/ShoppingList";
 import AddItemToSLForm from "../AddItemToSLForm/AddItemToSLForm";
 import {useAppDispatch, useAppSelector} from "../../store/hooks";
 import {openAddItemForm} from "../../store/shoppingSlice";
+import {setShowMobileSLTrue} from "../../store/appSlice";
 
 const Shopping =() => {
 
     const dispatch = useAppDispatch();
     const showAddItemForm = useAppSelector(state => state.shopping.isAddItemFormOpened);
+    const showMobileSL = useAppSelector(state => state.app.showMobileSL);
     const handleClick = () => {
         dispatch(openAddItemForm());
+        dispatch(setShowMobileSLTrue());
     }
 
     return (
-        <div className={'shopping'}>
+        <div className={`shopping ${showMobileSL&& 'shopping_showMobileSL'}`}>
             {showAddItemForm && <AddItemForm/>}
             {(!showAddItemForm) && <>
               <div className={'add-item-section'}>
@@ -26,9 +29,7 @@ const Shopping =() => {
                 </button>
               </div>
               <ShoppingList />
-              <div className={'shopping-list__add-item-form-big-container'}>
-                <AddItemToSLForm />
-              </div>
+              <AddItemToSLForm />
             </>}
         </div>
     )

@@ -1,5 +1,5 @@
 .logo {
-  width: 93px;
+  width: 90px;
   background-color: var(--white-color);
   grid-column: 1/2;
   grid-row: 1/2;
@@ -11,4 +11,13 @@
   width: 39px;
   object-fit: contain;
   object-position: top;
+}
+
+@media screen and (max-width: 740px) {
+  .logo {
+    width: 70px;
+  }
+  .logo-img {
+    margin: auto;
+  }
 }

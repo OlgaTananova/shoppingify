@@ -59,7 +59,33 @@
 }
 
 .add-new-category-form__error {
-  height: 14px;
+  min-height: 14px;
   font-size: 12px;
   color: var(--red-color);
+}
+
+@media screen and (max-width: 1005px) {
+  .add-new-category {
+    align-self: flex-start;
+    width: 300px;
+  }
+}
+
+@media  screen and (max-width: 740px) {
+  .add-new-category {
+    width: 100%;
+  }
+  .add-new-category-form__submit-btn {
+    width: 80px;
+    font-size: 10px;
+  }
+}
+
+@media  screen and (max-width: 375px) {
+  .add-new-category-form {
+    gap: 5px;
+  }
+  .add-new-category-form__input {
+    line-height: 1.2;
+  }
 }

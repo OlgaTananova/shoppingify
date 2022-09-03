@@ -9,6 +9,7 @@ import {IShoppingCategory, IShoppingItem} from "../../types";
 import useForm from "../../utils/useForm";
 import EditSLHeadingForm from "../EditSLHeadingForm/EditSLHeadingForm";
 import {setIsLoadingFalse, setIsLoadingTrue, setShowErrorTrue} from "../../store/appSlice";
+import image from '../../images/undraw_shopping_app_flsj 1.svg';
 
 const ShoppingList = () => {
     const isEditShoppingList = useAppSelector(state => state.shopping.isEditShoppingList);
@@ -76,6 +77,7 @@ const ShoppingList = () => {
                                         onSubmit={editSLHeadingFormSubmitHandler} isValid={editSLHeadingForm.isValid}/>
                     }
                     <p className={'shopping-list__no-items'}>No Items</p>
+                    <img className={'shopping-list-empty-img'} src={image}>{}</img>
                 </div>
                 :
                 <div className={'shopping-list'}>

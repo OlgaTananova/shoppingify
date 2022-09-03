@@ -109,14 +109,6 @@ export interface ICategoryInitialState {
     error: string | null | undefined | unknown
 }
 
-export interface IAddItemToCategoryPayload {
-    _id: string,
-    categoryId: string
-}
-
-export interface IDeleteItemFromCategoryPayload extends IAddItemToCategoryPayload {
-
-}
 
 export interface AuthFormProps {
     children?: JSX.Element | JSX.Element[],
@@ -193,6 +185,7 @@ export interface IAppSliceInitialState {
     showError: boolean,
     showCancelSL: boolean,
     isUserChecked: boolean,
+    showMobileSL: boolean,
     error: string | null,
     appStatus: 'idle' | 'notIdle'
 }

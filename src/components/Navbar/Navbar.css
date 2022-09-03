@@ -1,5 +1,5 @@
 .navbar {
-  width: 93px;
+  width: 90px;
   height: calc(100vh - 100px);
   background-color: var(--white-color);
   display: flex;
@@ -7,10 +7,9 @@
   align-items: center;
   justify-content: space-between;
   grid-column: 1/2;
-  grid-row: 2/3;
+  grid-row: 2;
   position: sticky;
   top: 0;
-  outline: 1px solid blue;
 }
 
 .navbar_fullscreen {
@@ -24,7 +23,7 @@
 
 .navbar__link {
   list-style: none;
-  width: 93px;
+  width: 90px;
   height: 46px;
   background-color: var(--white-color);
   background-size: 20px;
@@ -115,6 +114,7 @@
   background-size: 20px;
   margin-bottom: 35px;
   position: relative;
+  pointer-events: none;
 }
 
 .navbar__shopping-cart::after {
@@ -138,4 +138,20 @@
 .navbar__shopping-cart:hover {
   cursor: pointer;
   opacity: .7;
+}
+
+@media screen and (max-width: 740px) {
+  .navbar__link {
+    width: 70px;
+  }
+  .navbar {
+    grid-row: 2/4;
+    width: 70px;
+  }
+  .navbar__navlink {
+    width: 70px;
+  }
+  .navbar__shopping-cart {
+    pointer-events: all;
+  }
 }

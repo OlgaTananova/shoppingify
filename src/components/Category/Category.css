@@ -25,4 +25,23 @@
 
 .category__item-link {
   text-decoration: none;
+  max-width: 60px;
+}
+
+.category__buttons {
+  align-self: center;
+  display: flex;
+  gap: 15px;
+}
+
+@media screen and (max-width: 1005px) {
+  .category__heading {
+    font-size: 14px;
+  }
+  .category__item-list {
+    column-gap: 10px;
+    row-gap: 30px;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 100px));
+  }
+
 }

@@ -74,6 +74,7 @@ const ItemInfo = () => {
 
     return (
         <div className={'item-info'}>
+            <div className={'item-info__container'}>
         <button onClick={handleClick}
                 className={'item-info__return-btn'}
                 type={'button'}>back
@@ -103,6 +104,7 @@ const ItemInfo = () => {
                 </div>
                 </>
             }
+            </div>
     </div>)
 }
 export default ItemInfo;

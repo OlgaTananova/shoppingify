@@ -67,7 +67,7 @@ const AddItemToSLForm = () => {
     } else {
         return (
             <div className={`shopping-list__add-item-form-container shopping-list__add-item-form-container_editSL`}>
-                <div>
+                <div className={'shopping-list__complete-buttons'}>
                     <button className={'shopping-list__complete-btn shopping-list__complete-btn_cancel'}
                             type={'button'} onClick={handleCancelSLClick}>cancel
                     </button>

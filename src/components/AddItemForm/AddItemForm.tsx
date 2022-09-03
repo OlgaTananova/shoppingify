@@ -5,7 +5,7 @@ import {useAppDispatch, useAppSelector} from "../../store/hooks";
 import {closeAddItemForm} from "../../store/shoppingSlice";
 import {addNewItem} from "../../store/itemInfoSlice";
 import {addItemToCategory} from "../../store/categoriesSlice";
-import {setIsLoadingFalse, setIsLoadingTrue, setShowErrorTrue} from "../../store/appSlice";
+import {setIsLoadingFalse, setIsLoadingTrue, setShowErrorTrue, setShowMobileSLFalse} from "../../store/appSlice";
 
 const AddItemForm = () => {
     const initialValues = useMemo(() => {
@@ -66,6 +66,7 @@ const AddItemForm = () => {
               onReset={handleReset}
               name={'add-item-form'}
               noValidate={true}>
+            <div className={'add-item-form__container'}>
             <h3 className={'add-item-form__heading'}>Add a new item</h3>
             <label className={'add-item-form__label add-item-form__label_type_name'}> Name
                 <input className={'add-item-form__input'}
@@ -120,13 +121,14 @@ const AddItemForm = () => {
                 <button className={`add-item-form__btn add-item-form__btn_type_reset`}
                         type={'reset'}
                         onClick={() => {
-                            dispatch(closeAddItemForm())
+                            dispatch(closeAddItemForm());
                         }}>Cancel
                 </button>
                 <button className={`add-item-form__btn ${!form.isValid ? 'add-item-form__btn_disabled' : ''} add-item-form__btn_type_submit`}
                         type={'submit'}
                         disabled={!form.isValid}>Save
                 </button>
+            </div>
             </div>
         </form>
     )

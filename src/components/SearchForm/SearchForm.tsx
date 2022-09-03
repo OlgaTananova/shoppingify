@@ -18,7 +18,9 @@ const SearchForm = () => {
     const [autoCompleteItems, setAutoCompleteItems] = useState<[string, string][]>(items.map((item) => {
         return [item.name.toLowerCase(), item._id]
     }));
-    const [autoCompleteItemsNames, setAutoCompleteItemsNames] = useState<string[]>([]);
+    const [autoCompleteItemsNames, setAutoCompleteItemsNames] = useState<string[]>(autoCompleteItems.map((item) => {
+        return item[0];
+    }));
     const [error, setError] = useState<string>('');
     const navigate = useNavigate();
 

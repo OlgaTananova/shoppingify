@@ -26,11 +26,13 @@ const Category = ({category}: { category: ICategory }) => {
 
 
     const handleShowMoreBtnClick: MouseEventHandler = () => {
-        setShowedItems(itemsInCategory.slice(0, itemsInCategory.length + NUMBER_OF_ADD_ITEMS))
+        setShowedItems(itemsInCategory.slice(0, showedItems.length + NUMBER_OF_ADD_ITEMS))
     }
 
     const handleShowLessClick: MouseEventHandler = () => {
-        setShowedItems(itemsInCategory.slice(0, itemsInCategory.length - NUMBER_OF_ADD_ITEMS));
+        showedItems.length - NUMBER_OF_ADD_ITEMS > NUMBER_OF_ITEMS?
+        setShowedItems(itemsInCategory.slice(0, showedItems.length - NUMBER_OF_ADD_ITEMS))
+            : setShowedItems(itemsInCategory.slice(0, NUMBER_OF_ITEMS))
     }
 
     return (
@@ -45,12 +47,14 @@ const Category = ({category}: { category: ICategory }) => {
                 })
                 }
             </ul>
-            {showedItems.length >= NUMBER_OF_ITEMS && showedItems.length < itemsInCategory.length ?
+            <div className={'category__buttons'}>
+            {showedItems.length < itemsInCategory.length ?
                 <ShowMoreBtn onClick={handleShowMoreBtnClick}/>
                 : null}
-            {showedItems.length === itemsInCategory.length && showedItems.length > NUMBER_OF_ITEMS ?
+            {showedItems.length > NUMBER_OF_ITEMS && showedItems.length <= itemsInCategory.length ?
                 <ShowLessBtn onClick={handleShowLessClick}/>
                 : null}
+            </div>
         </div>
     )
 }

@@ -1,5 +1,5 @@
 .add-item-form {
-  width: 389px;
+  width: 100%;
   height: 100vh;
   background-color: var(--grey-color);
   display: flex;
@@ -8,8 +8,13 @@
   top: 0;
   left: 0;
   z-index: 3;
-  padding: 35px 40px;
   box-sizing: border-box;
+}
+
+.add-item-form__container {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 .add-item-form__heading {
@@ -98,4 +103,10 @@
 .add-item-form__btn_disabled {
   background-color: var(--grey-color2);
   color: var(--white-color);
+}
+
+@media  screen and (max-width: 680px) {
+  .add-item-form__container {
+    width: 80%;
+  }
 }

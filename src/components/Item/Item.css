@@ -39,3 +39,13 @@
   cursor: pointer;
   opacity: .7;
 }
+
+@media screen and (max-width: 1005px) {
+  .category__item {
+    padding: 0 10px;
+    max-width: 75px;
+  }
+  .category__item-name {
+    font-size: 12px;
+  }
+}

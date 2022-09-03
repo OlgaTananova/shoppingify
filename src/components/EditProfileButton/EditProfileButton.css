@@ -36,3 +36,13 @@
 .profile-form__button_type_submit_inactive {
   background-color: var(--grey-color2);
 }
+
+@media screen and (max-width: 475px) {
+  .profile-form__button {
+    width: 100px;
+    font-size: 12px;
+  }
+  .profile-form__button_type_edit {
+    margin-top: 15px;
+  }
+}

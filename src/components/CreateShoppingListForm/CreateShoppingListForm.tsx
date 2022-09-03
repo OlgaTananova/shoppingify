@@ -1,12 +1,15 @@
 import './CreateShoppingListForm.css';
 import {useAppDispatch, useAppSelector} from "../../store/hooks";
-import {FormEventHandler, useMemo} from "react";
+import {ChangeEventHandler, FormEventHandler, useEffect, useMemo, useState} from "react";
 import useForm from "../../utils/useForm";
 import {setIsLoadingFalse, setIsLoadingTrue, setShowErrorTrue} from "../../store/appSlice";
 import {createNewShoppingList} from "../../store/shoppingSlice";
 
 const CreateShoppingListForm = ()=> {
     const items = useAppSelector(state => state.items.items);
+    const [autoCompleteItems, setAutoCompleteItems] = useState<[string, string][]>([]);
+    const [autoCompleteItemsNames, setAutoCompleteItemsNames] = useState<string[]>([]);
+    const [error, setError] = useState<string>('');
     const initialValues = useMemo(() => {
         return {
             'add-item-input': {
@@ -17,6 +20,28 @@ const CreateShoppingListForm = ()=> {
     }, [])
     const createShoppingListForm = useForm(initialValues);
     const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        setAutoCompleteItemsNames(autoCompleteItems.map((item) => {
+            return item[0];
+        }));
+    }, [autoCompleteItems]);
+
+    useEffect(() => {
+        !autoCompleteItemsNames.includes(createShoppingListForm.values['add-item-input'].value) &&
+        createShoppingListForm.values['add-item-input'].value !== '' ?
+            setError('There is not such item.')
+            : setError('');
+    }, [createShoppingListForm.values, autoCompleteItemsNames]);
+
+    const handleItemsSearch: ChangeEventHandler = (e) => {
+        createShoppingListForm.handleChange(e);
+        !autoCompleteItemsNames.includes(createShoppingListForm.values['add-item-input'].value) && items &&
+        setAutoCompleteItems(
+            items.map((item) => {
+                return [item.name.toLowerCase(), item._id]
+            }));
+    }
 
     const handleCreateShoppingListFormSubmit: FormEventHandler = (e) => {
         e.preventDefault();
@@ -46,7 +71,6 @@ const CreateShoppingListForm = ()=> {
     }
         return (
             <div className={`shopping-list__add-item-form-container`}>
-                <div className={'shopping-list-empty-img'}>{}</div>
                 <form className={`shopping-list__add-item-form shopping-list__add-item-form_empty`}
                       name={'create-shopping-list-form'}
                       onSubmit={handleCreateShoppingListFormSubmit}
@@ -54,14 +78,23 @@ const CreateShoppingListForm = ()=> {
                     <input className={'shopping-list__add-item-input'}
                            name={'add-item-input'}
                            required={true}
+                           list={'items'}
                            value={createShoppingListForm.values["add-item-input"].value}
-                           onChange={createShoppingListForm.handleChange}
+                           pattern={autoCompleteItems.map((item)=>{
+                               return item[0]
+                           }).join('|')}
+                           onChange={handleItemsSearch}
                            placeholder={'Enter a name'}/>
+                    <datalist id={'items'}>{
+                        autoCompleteItems.map((item)=>{
+                            return <option id={item[1]} key={item[1]}>{item[0]}</option>
+                        })
+                    }</datalist>
                     <button type={"submit"}
                             disabled={!createShoppingListForm.isValid}
                             className={`shopping-list__add-item-submit-btn shopping-list__add-item-submit-btn_empty`}>{'Save'}</button>
                 </form>
-                <span className={'shopping-list__add-item-error'}>{createShoppingListForm.errors['add-item-input']}</span>
+                <span className={'shopping-list__add-item-error'}>{error}</span>
             </div>)
     }
 

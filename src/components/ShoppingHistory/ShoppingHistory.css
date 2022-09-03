@@ -1,7 +1,6 @@
 .shopping-history {
   grid-column: 2/4;
   grid-row: 1/3;
-  width: 960px;
   padding: 37px 80px;
   display: flex;
   flex-direction: column;
@@ -72,8 +71,14 @@
   align-self: center;
 }
 
-.shopping-history__shopping-list-status {
+.shopping-history__shopping-list__date_long {
   display: block;
+}
+
+.shopping-history__shopping-list-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin: 0;
   font-size: 12px;
   line-height: 24px;
@@ -100,4 +105,87 @@
   background-repeat: no-repeat;
   background-position: center;
   align-self: center;
+}
+
+@media screen and (max-width: 1005px) {
+  .shopping-history {
+    padding: 25px;
+  }
+  .shopping-history__heading {
+    font-size: 22px;
+  }
+}
+
+@media screen and (max-width: 890px) {
+  .shopping-history__shopping-list {
+    padding: 10px;
+  }
+  .shopping-history__shopping-list-data {
+    gap: 10px;
+  }
+  .shopping-list__shopping-list-name {
+    font-size: 12px;
+    margin-right: 10px;
+  }
+  .shopping-history__shopping-list__date {
+    width: 90px;
+    font-size: 10px;
+    padding-left: 20px;
+  }
+  .shopping-history__shopping-list-status {
+    width: 60px;
+    font-size: 10px;
+  }
+  .shopping-history__shopping-list-open-icon {
+  }
+}
+
+.shopping-history__shopping-list__date_short {
+  display: none;
+}
+
+@media screen and (max-width: 890px) {
+  .shopping-history__shopping-list__date_short {
+    display: block;
+  }
+  .shopping-history__shopping-list__date_long {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 740px) {
+  .shopping-history {
+    grid-column: 2/3;
+  }
+}
+
+@media screen and (max-width: 680px) {
+  .shopping-history {
+    grid-column: 2/4;
+  }
+}
+
+@media screen and (max-width: 410px) {
+  .shopping-history {
+    padding: 15px;
+  }
+  .shopping-history__lists-by-month {
+    margin-bottom: 15px;
+  }
+  .shopping-history__shopping-list {
+    width: 75%;
+  }
+  .shopping-history__shopping-list__date {
+    display: none;
+  }
+  .shopping-list__shopping-list-name {
+    font-size: 10px;
+    max-width: 50px;
+    margin-right: 5px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .shopping-history__shopping-list-status {
+    font-size: 10px;
+  }
 }
