@@ -8,7 +8,8 @@ const initialState: IAppSliceInitialState = {
     showCancelSL: false,
     showMobileSL: false,
     error: null,
-    appStatus: 'idle'
+    appStatus: 'idle',
+    scroll: 0,
 }
 
 const appSlice = createSlice({
@@ -56,6 +57,9 @@ const appSlice = createSlice({
         },
         setShowMobileSLFalse(state) {
             state.showMobileSL = false;
+        },
+        setScroll(state, action) {
+            state.scroll = action.payload;
         }
     }
 })
@@ -63,6 +67,6 @@ const appSlice = createSlice({
 export const {
     setIsLoadingFalse, setIsLoadingTrue, setShowErrorFalse, setShowErrorTrue,
     setIsUserCheckedTrue, setIsUserCheckedFalse, setShowMobileSLFalse, onLogout, setShowMobileSLTrue, onLogin, setShowCancelSLFalse,
-    setShowCancelSLTrue
+    setShowCancelSLTrue, setScroll,
 } = appSlice.actions;
 export default appSlice.reducer;

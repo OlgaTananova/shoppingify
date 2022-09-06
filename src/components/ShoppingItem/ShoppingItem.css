@@ -126,3 +126,9 @@
     height: 27px;
   }
 }
+
+@media screen and (max-width: 375px) {
+  .shopping-list__item-quantity {
+    font-size: 10px;
+  }
+}

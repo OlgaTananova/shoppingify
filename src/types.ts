@@ -187,5 +187,6 @@ export interface IAppSliceInitialState {
     isUserChecked: boolean,
     showMobileSL: boolean,
     error: string | null,
-    appStatus: 'idle' | 'notIdle'
+    appStatus: 'idle' | 'notIdle',
+    scroll: number,
 }

@@ -1,14 +1,14 @@
 import './Navbar.css';
-import {Link, NavLink} from "react-router-dom";
-import {MouseEventHandler, useEffect, useState} from "react";
+import {NavLink} from "react-router-dom";
+import {MouseEventHandler} from "react";
 import {useAppDispatch, useAppSelector} from "../../store/hooks";
 import {setShowMobileSLFalse, setShowMobileSLTrue} from "../../store/appSlice";
 
 const Navbar = () => {
-    const [scroll, setScroll] = useState<number>(0);
     const activeShoppingList = useAppSelector(state => state.shopping.items);
     const dispatch = useAppDispatch();
     const showMobileSL = useAppSelector(state => state.app.showMobileSL);
+    const scroll = useAppSelector(state => state.app.scroll);
 
     const handleSLIconClick: MouseEventHandler = () => {
         if (!showMobileSL) {
@@ -19,16 +19,6 @@ const Navbar = () => {
 
     }
 
-    const onScroll: EventListener = () => {
-        setScroll(window.scrollY);
-    }
-    useEffect(()=> {
-        const win: Window = window;
-        win.addEventListener('scroll', onScroll);
-        return (() =>
-            window.removeEventListener('scroll', onScroll)
-        )
-    },[])
     return (
         <nav className={`navbar ${scroll > 100? 'navbar_fullscreen': ''}`}>
             <ul className={'navbar__links'}>

@@ -7,13 +7,14 @@
 }
 
 .shopping-list_empty {
-  height: calc(100vh - 350px);
+  height: calc(100vh - 345px);
   align-items: center;
   font-size: 20px;
   line-height: 1.2;
   font-weight: 700;
   justify-content: space-between;
 }
+
 .shopping-list__no-items {
   font-size: 18px;
   line-height: 1.25;

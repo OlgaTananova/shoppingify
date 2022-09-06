@@ -1,18 +1,20 @@
 .shopping-history {
   grid-column: 2/4;
-  grid-row: 1/3;
+  grid-row: 2/3;
   padding: 37px 80px;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
 }
 
-.shopping-history__heading {
+.shopping-history-heading {
+  grid-column: 2/4;
+  grid-row: 1/2;
+  padding: 37px 80px;
   font-size: 26px;
   line-height: 1.25;
   font-weight: 700;
-  padding: 0;
-  margin: 0 0 40px 0;
+  margin: 0;
 }
 
 .shopping-history__lists-by-month {
@@ -111,8 +113,9 @@
   .shopping-history {
     padding: 25px;
   }
-  .shopping-history__heading {
+  .shopping-history-heading {
     font-size: 22px;
+    padding: 25px;
   }
 }
 
@@ -153,8 +156,21 @@
   }
 }
 
+@media screen and (max-width: 915px) {
+  .shopping-list__shopping-list-name {
+    font-size: 12px;
+    max-width: 100px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-wrap: none;
+  }
+}
+
 @media screen and (max-width: 740px) {
   .shopping-history {
+    grid-column: 2/3;
+  }
+  .shopping-history-heading {
     grid-column: 2/3;
   }
 }
@@ -162,11 +178,18 @@
 @media screen and (max-width: 680px) {
   .shopping-history {
     grid-column: 2/4;
+    grid-row: 2/-1;
+  }
+  .shopping-history-heading {
+    grid-column: 2/4;
   }
 }
 
 @media screen and (max-width: 410px) {
   .shopping-history {
+    padding: 15px;
+  }
+  .shopping-history-heading {
     padding: 15px;
   }
   .shopping-history__lists-by-month {
@@ -187,5 +210,24 @@
   }
   .shopping-history__shopping-list-status {
     font-size: 10px;
+  }
+  .shopping-list__shopping-list-name {
+    max-width: none;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .shopping-history__shopping-list-data {
+    gap: 5px;
+  }
+
+  .shopping-history__shopping-list-status {
+    width: 50px;
+    font-size: 8px;
+  }
+
+  .shopping-history__shopping-list-open-icon {
+    width: 15px;
+    height: 15px;
   }
 }

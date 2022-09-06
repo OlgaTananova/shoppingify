@@ -54,7 +54,7 @@
 @media screen and (max-width: 740px) {
   .app {
     grid-template-columns: 70px 1fr .8fr;
-    grid-template-rows: 70px 70px calc(100vh - 140px) auto;
+    grid-template-rows: 70px 70px auto;
   }
 }
 

@@ -1,5 +1,5 @@
 import './Shopping.css';
-import {useState} from "react";
+import {CSSProperties, useEffect, useState} from "react";
 import AddItemForm from "../AddItemForm/AddItemForm";
 import ShoppingList from "../ShoppingList/ShoppingList";
 import AddItemToSLForm from "../AddItemToSLForm/AddItemToSLForm";
@@ -8,7 +8,7 @@ import {openAddItemForm} from "../../store/shoppingSlice";
 import {setShowMobileSLTrue} from "../../store/appSlice";
 
 const Shopping =() => {
-
+    const scroll = useAppSelector(state => state.app.scroll);
     const dispatch = useAppDispatch();
     const showAddItemForm = useAppSelector(state => state.shopping.isAddItemFormOpened);
     const showMobileSL = useAppSelector(state => state.app.showMobileSL);
@@ -17,8 +17,13 @@ const Shopping =() => {
         dispatch(setShowMobileSLTrue());
     }
 
+    interface MyCustomCSS extends CSSProperties {
+        'height': number | string
+    }
     return (
-        <div className={`shopping ${showMobileSL&& 'shopping_showMobileSL'}`}>
+        <div className={`shopping ${showMobileSL&& 'shopping_showMobileSL'}`} style={{
+            height: `calc(100vh + ${scroll}px)`
+        } as MyCustomCSS}>
             {showAddItemForm && <AddItemForm/>}
             {(!showAddItemForm) && <>
               <div className={'add-item-section'}>

@@ -18,7 +18,6 @@
 
 @media screen and (max-width: 740px) {
   .categories {
-    /*width: auto;*/
     grid-row: 3/4;
     grid-column: 2/3;
   }

@@ -18,7 +18,13 @@ import {fetchItems} from "../../store/itemInfoSlice";
 import {fetchCategories} from "../../store/categoriesSlice";
 import NotFoundPage from "../../pages/NotFoundPage";
 import Preloader from "../Preloader/Preloader";
-import {setIsLoadingFalse, setIsLoadingTrue, setShowErrorFalse, setShowErrorTrue} from "../../store/appSlice";
+import {
+    setIsLoadingFalse,
+    setIsLoadingTrue,
+    setScroll,
+    setShowErrorFalse,
+    setShowErrorTrue
+} from "../../store/appSlice";
 import InfoPopup from "../InfoPopup/InfoPopup";
 import {getAllShoppingLists} from "../../store/shoppingHistorySlice";
 import {getActiveShoppingList} from "../../store/shoppingSlice";
@@ -32,6 +38,17 @@ function App() {
     const dispatch = useAppDispatch();
     const isUserChecked = useAppSelector(state => state.app.isUserChecked);
     const navigate = useNavigate();
+
+    const onScroll: EventListener = () => {
+        dispatch(setScroll(window.scrollY));
+    }
+    useEffect(()=> {
+        const win: Window = window;
+        win.addEventListener('scroll', onScroll);
+        return (() =>
+                window.removeEventListener('scroll', onScroll)
+        )
+    },[])
 
     useEffect(() => {
         if (userIsLoggedIn && appStatus === 'idle') {

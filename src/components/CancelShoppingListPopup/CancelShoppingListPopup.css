@@ -77,4 +77,17 @@
   color: var(--white-color);
 }
 
+@media  screen and (max-width: 740px) {
+  .cancel-shopping-list-popup {
+    z-index: 5;
+  }
+}
 
+@media screen and (max-width: 540px) {
+  .cancel-shopping-list-popup__container {
+    width: 90%;
+  }
+  .cancel-shopping-list-popup__heading {
+    font-size: 20px;
+  }
+}
