@@ -190,3 +190,20 @@ export interface IAppSliceInitialState {
     appStatus: 'idle' | 'notIdle',
     scroll: number,
 }
+
+// Statistics
+
+export interface ISortedItems {
+    [key: string]: {
+        name: string,
+        quantity: number,
+        share: number,
+    }
+}
+
+export interface ISorderItemsByDate {
+    [key: string]: {
+        date: string,
+        quantity: number
+    }
+}

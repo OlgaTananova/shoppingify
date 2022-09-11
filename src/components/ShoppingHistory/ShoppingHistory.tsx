@@ -2,12 +2,13 @@ import './ShoppingHistory.css';
 import {useAppSelector} from "../../store/hooks";
 import {Link} from 'react-router-dom';
 import { IShoppingList, IShoppingListByDate} from "../../types";
+import {useMemo} from "react";
 
 const ShoppingHistory = () => {
     const shoppingLists = useAppSelector(state => state.shoppingHistory.shoppingLists);
 
 
-    const shoppingListByDate = shoppingLists.length !== 0 && shoppingLists.reduce((prev: IShoppingListByDate, value: IShoppingList) => {
+    const shoppingListByDate = useMemo(()=> shoppingLists.length !== 0 && shoppingLists.reduce((prev: IShoppingListByDate, value: IShoppingList) => {
         const monthAndYear = () => {
             const date = new Date(value.date);
             return `${new Intl.DateTimeFormat('en-Us', {month: 'long'}).format(date)} ${date.getFullYear()}`
@@ -19,7 +20,7 @@ const ShoppingHistory = () => {
             value.status !== 'active'&& prev[monthAndYear()].push(value);
         }
         return prev
-    }, {});
+    }, {}), [shoppingLists]);
 
     return (<>
             <h2 className={'shopping-history-heading'}>{'Shopping history'}</h2>

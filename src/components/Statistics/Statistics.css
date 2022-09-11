@@ -1,9 +1,121 @@
 .statistics {
   grid-column: 2/4;
   grid-row: 1/3;
-  display: flex;
   flex-direction: column;
   box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  column-gap: 30px;
+  row-gap: 65px;
+}
+
+.statistics__top-section {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  padding: 40px;
+  margin: 0;
+  gap: 29px;
+}
+
+.statistics__top-section-heading {
+  font-size: 24px;
+  line-height: 1.25;
+  font-weight: 700;
+}
+
+.statistics__top-unit {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+
+.statistics__top-unit::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background-color: var(--grey-color2);
+  border-radius: 4px;
+}
+
+.statistics__top-unit-line {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 6px;
+  background-color: var(--orange-color);
+  border-radius: 4px;
+  z-index: 2;
+}
+
+.statistics__top-unit-line_categories {
+  background-color: var(--light-blue-color);
+}
+
+.statistics__top-unit-name {
+  font-size: 14px;
+  line-height: 1.25;
+  margin: 0 0 14px 0;
+  font-weight: 700;
+}
+
+.statistics__graph {
+  grid-column: 1/3;
+  grid-row: 2/3;
+}
+
+.statistics__graph-heading {
+  grid-column: 1/3;
+  grid-row: 2/3;
+  font-size: 24px;
+  line-height: 1.25;
+  font-weight: 700;
+  margin: 20px 20px 20px 45px;
+}
+
+.recharts-surface {
+  font-size: 10px;
+}
+
+@media screen and (max-width: 1024px) {
+  .statistics__top-section-heading {
+    font-size: 20px;
+  }
+
+  .statistics__top-section {
+    padding: 15px;
+  }
+
+  .statistics__graph-heading {
+    margin-right: 15px;
+    font-size: 20px;
+  }
+
+  .statistics__top-section-heading {
+    margin: 10px 0;
+  }
+
+  .statistics {
+    column-gap: 0;
+    row-gap: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .statistics__top-section {
+    width: 70%;
+    gap: 15px;
+  }
+
+  .statistics__graph {
+    align-self: stretch;
+    justify-self: stretch;
+  }
 }
 
 @media screen and (max-width: 740px) {
