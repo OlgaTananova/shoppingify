@@ -33,3 +33,9 @@
   color: var(--red-color);
   min-height: 10px;
 }
+
+@media screen and (max-width: 475px) {
+  .auth-form__input{
+    padding: 10px;
+  }
+}

@@ -6,6 +6,10 @@
   display: flex;
 }
 
+.logo_backgroundgrey {
+  background-color: var(--grey-color);
+}
+
 .logo-img {
   margin: 37px auto 0;
   width: 39px;

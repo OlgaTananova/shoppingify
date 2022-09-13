@@ -9,6 +9,7 @@ const Navbar = () => {
     const dispatch = useAppDispatch();
     const showMobileSL = useAppSelector(state => state.app.showMobileSL);
     const scroll = useAppSelector(state => state.app.scroll);
+    const logoHeight = useAppSelector(state => state.app.logoHeight);
 
     const handleSLIconClick: MouseEventHandler = () => {
         if (!showMobileSL) {
@@ -20,7 +21,8 @@ const Navbar = () => {
     }
 
     return (
-        <nav className={`navbar ${scroll > 100? 'navbar_fullscreen': ''}`}>
+
+        <nav className={'navbar'} style={{height: `calc(100vh - ${logoHeight-scroll}px)`}}>
             <ul className={'navbar__links'}>
                 <li className={'navbar__link navbar__link_type_items'}
                     title={'items'}><NavLink to={'/items'}

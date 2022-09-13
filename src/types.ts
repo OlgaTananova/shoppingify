@@ -189,6 +189,7 @@ export interface IAppSliceInitialState {
     error: string | null,
     appStatus: 'idle' | 'notIdle',
     scroll: number,
+    logoHeight: number,
 }
 
 // Statistics

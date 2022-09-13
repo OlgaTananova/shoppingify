@@ -25,6 +25,7 @@ const Login = () => {
     const form = useForm(initialValues);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const logoHeight = useAppSelector(state => state.app.logoHeight);
 
     const handleLoginFormSubmit: FormEventHandler = (e) => {
         e.preventDefault();
@@ -44,7 +45,7 @@ const Login = () => {
     }
 
     return (
-        <div className={'login'}>
+        <div className={'login'} style={{height: `calc(100vh - ${logoHeight}px)`}}>
             <AuthForm name={'login'}
                       isValid={form.isValid}
                       onSubmit={handleLoginFormSubmit}

@@ -1,24 +1,18 @@
 .navbar {
   width: 90px;
-  height: calc(100vh - 100px);
   background-color: var(--white-color);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
   grid-column: 1/2;
   grid-row: 2;
   position: sticky;
   top: 0;
-}
-
-.navbar_fullscreen {
-  height: 100vh;
+  justify-content: space-between;
 }
 
 .navbar__links {
   padding: 0;
-  margin: calc(25vh) 0 0 0;
+  margin: 25vh 0 0 0;
 }
 
 .navbar__link {
@@ -112,9 +106,11 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: 20px;
-  margin-bottom: 35px;
+  margin-bottom: 10px;
   position: relative;
   pointer-events: none;
+ justify-self: center;
+  align-self: center;
 }
 
 .navbar__shopping-cart::after {

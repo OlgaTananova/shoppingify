@@ -1,6 +1,6 @@
 .not-found {
   grid-row: 2/3;
-  grid-column: 1/3;
+  grid-column: 1/-1;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -31,4 +31,10 @@
 .not-found__return-link {
   opacity: .7;
   cursor: pointer;
+}
+
+@media screen and (max-width: 740px) {
+  .not-found {
+    grid-row: 2/-1;
+  }
 }

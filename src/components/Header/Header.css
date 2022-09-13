@@ -44,13 +44,16 @@
   .header__heading-body {
     display: none;
   }
-  .header{
-    width: 70%;
+  .header_type_authbar{
+    width: 100%;
   }
-}
-
-@media screen and (max-width: 475px) {
-  .header_type_authbar {
+  .header__heading {
     width: 100%;
   }
 }
+
+/*@media screen and (max-width: 475px) {*/
+/*  .header_type_authbar {*/
+/*    width: 100%;*/
+/*  }*/
+/*}*/
