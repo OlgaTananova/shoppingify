@@ -28,7 +28,6 @@
 
 @media screen and (max-width: 1335px) {
   .header__heading {
-    /*width: 60%;*/
     font-size: 20px;
     margin: 0 0 0 20px;
   }
@@ -38,22 +37,16 @@
   .header__heading {
     font-size: 16px;
   }
+  .header__heading_authbar {
+    font-size: 24px;
+  }
 }
 
 @media screen and (max-width: 890px) {
   .header__heading-body {
     display: none;
   }
-  .header_type_authbar{
-    width: 100%;
-  }
   .header__heading {
-    width: 100%;
+    margin: auto;
   }
 }
-
-/*@media screen and (max-width: 475px) {*/
-/*  .header_type_authbar {*/
-/*    width: 100%;*/
-/*  }*/
-/*}*/

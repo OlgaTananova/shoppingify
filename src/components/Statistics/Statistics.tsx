@@ -104,49 +104,60 @@ const Statistics = () => {
 
     return (
         <div className={'statistics'}>
-            <ul className={'statistics__top-section'}>
-                <h3 className={'statistics__top-section-heading'}>Top Items</h3>
-                {sortedItems.map((value) => {
-                    return (
-                        <li className={'statistics__top-unit'} key={value[0]}>
-                            <p className={'statistics__top-unit-name'}>{value[1].name}</p>
-                            <span className={'statistics__top-unit-share'}>{`${value[1].share} %`}</span>
-                            <span className={'statistics__top-unit-line'} style={{width: `${value[1].share}%`}}>{}</span>
-                        </li>
-                    )
-                })
-                }
-            </ul>
-            <ul className={'statistics__top-section'}>
-                <h3 className={'statistics__top-section-heading'}>Top Categories</h3>
-                {sortedCategories.map((value) => {
-                    return (
-                        <li className={'statistics__top-unit'} key={value[0]}>
-                            <p className={'statistics__top-unit-name'}>{value[1].name}</p>
-                            <span className={'statistics__top-unit-share'}>{`${value[1].share} %`}</span>
-                            <span className={'statistics__top-unit-line statistics__top-unit-line_categories'} style={{width: `${value[1].share}%`}}>{}</span>
-                        </li>
-                    )
-                })
-                }
-            </ul>
-            <div className={'statistics__graph'}>
-                <h3 className={'statistics__graph-heading'}>Summary</h3>
-            <ResponsiveContainer width={'99%'} height={'70%'}>
-                    <LineChart width={800}
-                               height={300}
-                               data={Object.values(itemsByMonth)}
-                               margin={{top: 5, right: 40, bottom: 0, left: 0}}
-                               title={'Summary'}>
-                        <Line dataKey={'quantity'}
-                              type={'monotone'}/>
-                        <CartesianGrid stroke="#ccc"
-                                       strokeDasharray="5 5"/>
-                        <XAxis dataKey={'date'}/>
-                        <YAxis/>
-                    </LineChart>
-            </ResponsiveContainer>
-            </div>
+            {shoppingLists.length !== 0 ?
+                <>
+                    <ul className={'statistics__top-section'}>
+                        <h3 className={'statistics__top-section-heading'}>Top Items</h3>
+                        {sortedItems.map((value) => {
+                            return (
+                                <li className={'statistics__top-unit'}
+                                    key={value[0]}>
+                                    <p className={'statistics__top-unit-name'}>{value[1].name}</p>
+                                    <span className={'statistics__top-unit-share'}>{`${value[1].share} %`}</span>
+                                    <span className={'statistics__top-unit-line'}
+                                          style={{width: `${value[1].share}%`}}>{}</span>
+                                </li>
+                            )
+                        })
+                        }
+                    </ul>
+                    <ul className={'statistics__top-section'}>
+                        <h3 className={'statistics__top-section-heading'}>Top Categories</h3>
+                        {sortedCategories.map((value) => {
+                            return (
+                                <li className={'statistics__top-unit'}
+                                    key={value[0]}>
+                                    <p className={'statistics__top-unit-name'}>{value[1].name}</p>
+                                    <span className={'statistics__top-unit-share'}>{`${value[1].share} %`}</span>
+                                    <span className={'statistics__top-unit-line statistics__top-unit-line_categories'}
+                                          style={{width: `${value[1].share}%`}}>{}</span>
+                                </li>
+                            )
+                        })
+                        }
+                    </ul>
+                    <div className={'statistics__graph'}>
+                        <h3 className={'statistics__graph-heading'}>Summary</h3>
+                        <ResponsiveContainer width={'99%'}
+                                             height={'70%'}>
+                            <LineChart width={800}
+                                       height={300}
+                                       data={Object.values(itemsByMonth)}
+                                       margin={{top: 5, right: 40, bottom: 0, left: 0}}
+                                       title={'Summary'}>
+                                <Line dataKey={'quantity'}
+                                      type={'monotone'}/>
+                                <CartesianGrid stroke="#ccc"
+                                               strokeDasharray="5 5"/>
+                                <XAxis dataKey={'date'}/>
+                                <YAxis/>
+                            </LineChart>
+                        </ResponsiveContainer>
+                    </div>
+                </>
+                : <div className={'statistics__nodata'}>
+                    There is no statistics data.
+                </div>}
         </div>
     )
 }

@@ -21,7 +21,6 @@ const Navbar = () => {
     }
 
     return (
-
         <nav className={'navbar'} style={{height: `calc(100vh - ${logoHeight-scroll}px)`}}>
             <ul className={'navbar__links'}>
                 <li className={'navbar__link navbar__link_type_items'}

@@ -10,7 +10,7 @@ const initialState: IAppSliceInitialState = {
     error: null,
     appStatus: 'idle',
     scroll: 0,
-    logoHeight: 0,
+    logoHeight: 100,
 }
 
 const appSlice = createSlice({

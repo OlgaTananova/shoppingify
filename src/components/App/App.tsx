@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import './App.css';
 import {Routes, Route, useNavigate, useLocation} from 'react-router-dom';
 import CancelShoppingListPopup from "../CancelShoppingListPopup/CancelShoppingListPopup";
@@ -20,15 +20,16 @@ import NotFoundPage from "../../pages/NotFoundPage";
 import Preloader from "../Preloader/Preloader";
 import {
     setIsLoadingFalse,
-    setIsLoadingTrue,
+    setIsLoadingTrue, setLogoHeight,
     setScroll,
     setShowErrorFalse,
     setShowErrorTrue
 } from "../../store/appSlice";
 import InfoPopup from "../InfoPopup/InfoPopup";
 import {getAllShoppingLists} from "../../store/shoppingHistorySlice";
-import {getActiveShoppingList} from "../../store/shoppingSlice";
+import {clearShoppingList, getActiveShoppingList} from "../../store/shoppingSlice";
 import {IShoppingList} from "../../types";
+import Logo from "../Logo/Logo";
 
 
 function App() {
@@ -39,16 +40,17 @@ function App() {
     const isUserChecked = useAppSelector(state => state.app.isUserChecked);
     const navigate = useNavigate();
 
-    const onScroll: EventListener = () => {
+    const onScroll: EventListener = useCallback(() => {
         dispatch(setScroll(window.scrollY));
-    }
+    }, [])
+
     useEffect(()=> {
         const win: Window = window;
         win.addEventListener('scroll', onScroll);
         return (() =>
                 window.removeEventListener('scroll', onScroll)
         )
-    },[])
+    },[onScroll])
 
     useEffect(() => {
         if (userIsLoggedIn && appStatus === 'idle') {
@@ -63,6 +65,8 @@ function App() {
                     });
                     if (activeShoppingList) {
                         dispatch(getActiveShoppingList(activeShoppingList));
+                    } else {
+                        dispatch(clearShoppingList());
                     }
                 })
                 .catch((err) => {

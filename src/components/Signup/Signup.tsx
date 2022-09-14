@@ -3,7 +3,7 @@ import AuthForm from "../AuthForm/AuthForm";
 import AuthInput from "../AuthInput/AuthInput";
 import {FormEventHandler, useMemo} from "react";
 import useForm from "../../utils/useForm";
-import {useAppDispatch} from "../../store/hooks";
+import {useAppDispatch, useAppSelector} from "../../store/hooks";
 import {createNewUser, logIn} from "../../store/profileSlice";
 import {useNavigate} from "react-router-dom";
 
@@ -28,6 +28,7 @@ const Signup = () => {
     const form = useForm(initialValues);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const logoHeight = useAppSelector(state => state.app.logoHeight);
 
     const handleSignupFormSubmit: FormEventHandler = (e) => {
         e.preventDefault();
@@ -46,7 +47,7 @@ const Signup = () => {
     }
 
     return (
-        <div className='signup'>
+        <div className={'signup'} style={{height: `calc(100vh - ${logoHeight}px)`}}>
             <AuthForm name={'signup'}
                       isValid={form.isValid}
                       heading={'Welcome!'}
