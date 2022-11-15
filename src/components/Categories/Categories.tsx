@@ -1,22 +1,22 @@
 import './Categories.css';
-import Category from "../Category/Category";
-import AddNewCategory from "../AddNewCategory/AddNewCategory";
-import {useAppDispatch, useAppSelector} from "../../store/hooks";
+import Category from '../Category/Category';
+import AddNewCategory from '../AddNewCategory/AddNewCategory';
+import { useAppSelector } from '../../store/hooks';
 
 const Categories = () => {
-    const categories = useAppSelector(state => state.categories.categories);
+  const categories = useAppSelector(state => state.categories.categories);
 
-    return (
+  return (
         <div className={'categories'}>
             <AddNewCategory />
             {categories.map((category)=> {
-                return (
+              return (
                     <Category key={category._id} category={category}/>
-                )
+              );
             })}
         </div>
-    )
-}
+  );
+};
 
 export default Categories;
 

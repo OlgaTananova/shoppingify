@@ -105,9 +105,6 @@
 }
 
 @media screen and (max-width: 1005px) {
-  .item-info {
-    /*width: auto;*/
-  }
   .item-info__btn {
     width: 100px;
     font-size: 14px;
@@ -132,5 +129,14 @@
   }
   .item-info__container {
     width: 80%;
+  }
+  .item-info__buttons {
+    align-self: flex-start;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .item-info__container {
+    margin: 10px;
   }
 }

@@ -1,28 +1,28 @@
 import './EditSLHeadingForm.css';
-import {ChangeEventHandler, FormEventHandler, MouseEventHandler, useState} from "react";
-import {setIsEditShoppingListFalse, setIsEditShoppingListTrue} from "../../store/shoppingSlice";
-import {useAppDispatch, useAppSelector} from "../../store/hooks";
+import { ChangeEventHandler, FormEventHandler, MouseEventHandler, useState } from 'react';
+import { setIsEditShoppingListFalse, setIsEditShoppingListTrue } from '../../store/shoppingSlice';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 
 const EditSLHeadingForm = ({
-                               value, onChange, error, required, onSubmit, isValid,
-                           }: {
-    value: string,
-    onChange: ChangeEventHandler,
-    error: string,
-    required: boolean,
-    onSubmit: FormEventHandler, isValid: boolean
+  value, onChange, error, required, onSubmit, isValid,
+}: {
+  value: string,
+  onChange: ChangeEventHandler,
+  error: string,
+  required: boolean,
+  onSubmit: FormEventHandler, isValid: boolean
 }) => {
-    const isEditShoppingList = useAppSelector(state => state.shopping.isEditShoppingList);
-    const dispatch = useAppDispatch();
-    const [showEditHeadingButton, setShowEditHeadingButton] = useState<boolean>(false);
+  const isEditShoppingList = useAppSelector(state => state.shopping.isEditShoppingList);
+  const dispatch = useAppDispatch();
+  const [showEditHeadingButton, setShowEditHeadingButton] = useState<boolean>(false);
 
-    const handleEditShoppingListClick: MouseEventHandler = () => {
-        !isEditShoppingList ?
-            dispatch(setIsEditShoppingListTrue())
-            : dispatch(setIsEditShoppingListFalse());
-    }
+  const handleEditShoppingListClick: MouseEventHandler = () => {
+    !isEditShoppingList ?
+      dispatch(setIsEditShoppingListTrue())
+      : dispatch(setIsEditShoppingListFalse());
+  };
 
-    return (
+  return (
         <>
             <div className={'shopping-list__heading-section'}>
                 <form className={`shopping-list__edit-heading-form 
@@ -30,7 +30,7 @@ const EditSLHeadingForm = ({
                       name={'editSL-heading-form'}
                       onSubmit={onSubmit}
                       noValidate={true}>
-                    <input className={`shopping-list__heading`}
+                    <input className={'shopping-list__heading'}
                            type={'text'}
                            value={value}
                            minLength={2}
@@ -52,7 +52,7 @@ const EditSLHeadingForm = ({
             </div>
             <span className={'shopping-list__heading-error'}>{error}</span>
         </>
-    )
-}
+  );
+};
 
 export default EditSLHeadingForm;

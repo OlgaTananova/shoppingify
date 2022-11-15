@@ -1,43 +1,42 @@
 import './EditProfileButton.css';
-import {useNavigate} from "react-router-dom";
-import {useAppSelector, useAppDispatch} from "../../store/hooks";
-import {MouseEventHandler} from "react";
-import {setEditProfileTrue, setEditProfileFalse, logOut} from "../../store/profileSlice";
-import {onLogout, setIsLoadingFalse, setIsLoadingTrue, setShowErrorTrue} from '../../store/appSlice';
-import {onLogoutCategoriesSlice} from '../../store/categoriesSlice';
-import {onLogoutItemsSlice} from '../../store/itemInfoSlice';
-import {IUpdateUserProfileProps} from "../../types";
+import { useAppSelector, useAppDispatch } from '../../store/hooks';
+import { MouseEventHandler } from 'react';
+import { setEditProfileTrue, logOut } from '../../store/profileSlice';
+import { onLogout, setIsLoadingFalse, setIsLoadingTrue, setShowErrorTrue } from '../../store/appSlice';
+import { onLogoutCategoriesSlice } from '../../store/categoriesSlice';
+import { onLogoutItemsSlice } from '../../store/itemInfoSlice';
+import { IUpdateUserProfileProps } from '../../types';
 
-const EditProfileButton = ({isFormValid, onSaveClick}: IUpdateUserProfileProps) => {
-    const dispatch = useAppDispatch();
-    const isEditProfile = useAppSelector(state => state.profile.isEditProfile);
+const EditProfileButton = ({ isFormValid, onSaveClick }: IUpdateUserProfileProps) => {
+  const dispatch = useAppDispatch();
+  const isEditProfile = useAppSelector(state => state.profile.isEditProfile);
 
-    const handleEditClick: MouseEventHandler = () => {
-        dispatch(setEditProfileTrue())
-    }
+  const handleEditClick: MouseEventHandler = () => {
+    dispatch(setEditProfileTrue());
+  };
 
-    const handleLogout: MouseEventHandler = () => {
-        dispatch(setIsLoadingTrue());
-        dispatch(logOut()).unwrap()
-            .then(()=> {
-                dispatch(onLogout());
-                dispatch(onLogoutCategoriesSlice());
-                dispatch(onLogoutItemsSlice());
-            })
-            .catch((err)=>{
-                dispatch(setShowErrorTrue(err.message));
-            })
-            .finally(()=>{
-                dispatch(setIsLoadingFalse());
-            })
-    }
+  const handleLogout: MouseEventHandler = () => {
+    dispatch(setIsLoadingTrue());
+    dispatch(logOut()).unwrap()
+      .then(()=> {
+        dispatch(onLogout());
+        dispatch(onLogoutCategoriesSlice());
+        dispatch(onLogoutItemsSlice());
+      })
+      .catch((err)=>{
+        dispatch(setShowErrorTrue(err.message));
+      })
+      .finally(()=>{
+        dispatch(setIsLoadingFalse());
+      });
+  };
 
-        return (
+  return (
             <>
-                {isEditProfile&& (<button className={`profile-form__button
-        profile-form__button_type_submit ${!isFormValid&& 'profile-form__button_type_submit_inactive'}`}
+                {isEditProfile && (<button className={`profile-form__button
+        profile-form__button_type_submit ${!isFormValid && 'profile-form__button_type_submit_inactive'}`}
                                           type={'submit'} disabled={!isFormValid} onClick={onSaveClick}>Save</button>)}
-            {!isEditProfile&& <>
+            {!isEditProfile && <>
               <button className='profile-form__button profile-form__button_type_edit'
                    type={'button'}
                    onClick={handleEditClick}>Edit
@@ -46,7 +45,6 @@ const EditProfileButton = ({isFormValid, onSaveClick}: IUpdateUserProfileProps) 
                  onClick={handleLogout}>Log out</button>
         </>}
     </>
-    )
-}
-
+  );
+};
 export default EditProfileButton;

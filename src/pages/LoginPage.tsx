@@ -1,15 +1,15 @@
-import Header from "../components/Header/Header";
-import Logo from "../components/Logo/Logo";
-import Login from "../components/Login/Login";
+import Header from '../components/Header/Header';
+import Logo from '../components/Logo/Logo';
+import Login from '../components/Login/Login';
 
-const LoginPage = () => {
-    return(
-        <>
-            <Logo />
-            <Header />
-            <Login />
-        </>
-    )
+function LoginPage() {
+  return (
+    <>
+      <Logo />
+      <Header />
+      <Login />
+    </>
+  );
 }
 
-export default LoginPage
+export default LoginPage;

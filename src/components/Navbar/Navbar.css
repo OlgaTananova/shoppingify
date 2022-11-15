@@ -101,6 +101,7 @@
   width: 42px;
   height: 42px;
   border-radius: 50%;
+  border: none;
   background-color: var(--orange-color);
   background-image: url('../../images/shopping_cart_FILL0_wght400_GRAD0_opsz48.svg');
   background-repeat: no-repeat;
@@ -114,7 +115,7 @@
 }
 
 .navbar__shopping-cart::after {
-  content: attr(about);
+  content: attr(aria-label);
   position: absolute;
   right: -5px;
   top: -5px;
