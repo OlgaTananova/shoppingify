@@ -4,14 +4,15 @@ import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer,
 } from 'recharts';
 import { useAppSelector } from '../../store/hooks';
-import { ISorderItemsByDate, ISortedItems } from '../../types';
+import {
+  IItem, IShoppingItem, ISorderItemsByDate, ISortedItems,
+} from '../../types';
 
 function Statistics() {
   const shoppingItems = useAppSelector((state) => state.shoppingHistory.shoppingLists.map((sl) => sl.items));
   const items = useAppSelector((state) => state.items.items);
   const categories = useAppSelector((state) => state.categories.categories);
   const shoppingLists = useAppSelector((state) => state.shoppingHistory.shoppingLists);
-
   const totalQty = useMemo(() => shoppingItems.reduce((prev, curr) => {
     curr && curr.forEach((i) => {
       if (i) {
@@ -22,17 +23,18 @@ function Statistics() {
   }, 0), [shoppingItems]);
 
   const itemsInShoppingLists = useMemo(() => shoppingItems.reduce((prev, value) => {
+    const name = (i: IShoppingItem) => items.find((v: IItem) => v._id === i.itemId);
     value && value.forEach((i) => {
       if (i && !prev[i.itemId]) {
         prev[i.itemId] = {
           quantity: i.quantity,
-          name: items.find((v) => v._id === i.itemId)!.name,
+          name: name(i) ? name(i)!.name : 'Unknown Item',
           share: Math.ceil((i.quantity / totalQty) * 100),
         };
       } else if (i) {
         prev[i.itemId] = {
           quantity: prev[i.itemId].quantity += i.quantity,
-          name: items.find((v) => v._id === i.itemId)!.name,
+          name: name(i) ? name(i)!.name : 'Unknown Item',
           share: Math.ceil((i.quantity / totalQty) * 100),
         };
       }
@@ -41,17 +43,18 @@ function Statistics() {
   }, {} as ISortedItems), [items, shoppingItems, totalQty]);
 
   const categoriesInShoppingLists = useMemo(() => shoppingItems.reduce((prev, curr) => {
+    const categoryName = (cat: IShoppingItem) => categories.find((c) => c._id === cat.categoryId);
     curr && curr.forEach((v) => {
       if (v && !prev[v.categoryId]) {
         prev[v.categoryId] = {
           quantity: v.quantity,
-          name: categories.find((c) => c._id === v.categoryId)!.category,
+          name: categoryName(v) ? categoryName(v)!.category : 'Unknown category',
           share: Math.ceil((v.quantity / totalQty) * 100),
         };
       } else if (v) {
         prev[v.categoryId] = {
           quantity: prev[v.categoryId].quantity + v.quantity,
-          name: categories.find((c) => c._id === v.categoryId)!.category,
+          name: categoryName(v) ? categoryName(v)!.category : 'Unknown category',
           share: Math.ceil((prev[v.categoryId].quantity / totalQty) * 100),
         };
       }

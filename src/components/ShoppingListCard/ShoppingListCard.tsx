@@ -58,7 +58,7 @@ function ShoppingListCard() {
                             key={item.itemId}
                             className={`shopping-list-card__item ${item.status === 'completed' && 'shopping-list-card__item_completed'}`}
                           >
-                            <p className="shopping-list-card__item-name">{itemInItems && itemInItems.name}</p>
+                            <p className="shopping-list-card__item-name">{itemInItems ? itemInItems.name : 'Unknown item'}</p>
                             <span className="shopping-list-card__item-qty">{`${item.quantity} pcs`}</span>
                           </li>
                         );

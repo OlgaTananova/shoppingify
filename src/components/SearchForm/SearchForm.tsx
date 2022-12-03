@@ -47,7 +47,7 @@ function SearchForm() {
   };
 
   return (
-    <form className="search-items-form" onSubmit={handleItemSearchFormSubmit} name="search-items-form" noValidate>
+    <form className="search-items-form" onBlur={handleItemSearchFormSubmit} onSubmit={handleItemSearchFormSubmit} name="search-items-form" noValidate>
       <input
         className="search-items-input"
         type="text"

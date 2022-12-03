@@ -1,30 +1,28 @@
 import './Shopping.css';
-import { CSSProperties } from 'react';
 import AddItemForm from '../AddItemForm/AddItemForm';
 import ShoppingList from '../ShoppingList/ShoppingList';
 import AddItemToSLForm from '../AddItemToSLForm/AddItemToSLForm';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { openAddItemForm } from '../../store/shoppingSlice';
 import { setShowMobileSLTrue } from '../../store/appSlice';
+import { MyCustomCSS } from '../../types';
 
 function Shopping() {
   const scroll = useAppSelector((state) => state.app.scroll);
   const dispatch = useAppDispatch();
   const showAddItemForm = useAppSelector((state) => state.shopping.isAddItemFormOpened);
   const showMobileSL = useAppSelector((state) => state.app.showMobileSL);
+  const innerHeight = useAppSelector((state) => state.app.innerHeight);
   const handleClick = () => {
     dispatch(openAddItemForm());
     dispatch(setShowMobileSLTrue());
   };
 
-  interface MyCustomCSS extends CSSProperties {
-    'height': number | string
-  }
   return (
     <div
       className={`shopping ${showMobileSL && 'shopping_showMobileSL'}`}
       style={{
-        height: `calc(100vh + ${scroll}px)`,
+        height: `calc(${innerHeight}px + ${scroll}px)`,
       } as MyCustomCSS}
     >
       {showAddItemForm && <AddItemForm />}
@@ -40,8 +38,8 @@ function Shopping() {
             Add item
           </button>
         </div>
-        <ShoppingList />
         <AddItemToSLForm />
+        <ShoppingList />
       </>
       )}
     </div>

@@ -11,6 +11,7 @@ const initialState: IAppSliceInitialState = {
   appStatus: 'idle',
   scroll: 0,
   logoHeight: 100,
+  innerHeight: 0,
 };
 
 const appSlice = createSlice({
@@ -65,12 +66,15 @@ const appSlice = createSlice({
     setLogoHeight(state, action) {
       state.logoHeight = action.payload;
     },
+    setInnerHeight(state, action) {
+      state.innerHeight = action.payload;
+    },
   },
 });
 
 export const {
   setIsLoadingFalse, setIsLoadingTrue, setShowErrorFalse, setShowErrorTrue,
   setIsUserCheckedTrue, setIsUserCheckedFalse, setShowMobileSLFalse, onLogout, setShowMobileSLTrue, onLogin, setShowCancelSLFalse,
-  setShowCancelSLTrue, setScroll, setLogoHeight,
+  setShowCancelSLTrue, setScroll, setLogoHeight, setInnerHeight,
 } = appSlice.actions;
 export default appSlice.reducer;

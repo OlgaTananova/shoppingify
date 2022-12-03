@@ -12,7 +12,7 @@
 
 .navbar__links {
   padding: 0;
-  margin: 0 0 calc(100vh/2.5 - 42px) 0;
+  margin: 0 0 calc(100vh/2.5 - 150px) 0;
 }
 
 .navbar__link {
@@ -107,10 +107,10 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: 20px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   position: relative;
   pointer-events: none;
- justify-self: center;
+  justify-self: center;
   align-self: center;
 }
 

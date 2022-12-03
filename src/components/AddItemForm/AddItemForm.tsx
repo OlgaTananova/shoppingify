@@ -28,6 +28,8 @@ function AddItemForm() {
   }), []);
 
   const categories = useAppSelector((state) => state.categories.categories);
+  const scroll = useAppSelector((state) => state.app.scroll);
+  const innerHeight = useAppSelector((state) => state.app.innerHeight);
   const form = useForm(initialValues);
   const dispatch = useAppDispatch();
 
@@ -63,6 +65,7 @@ function AddItemForm() {
   return (
     <form
       className="add-item-form"
+      style={{ height: `calc(${innerHeight}px + ${scroll}px)` }}
       onSubmit={handleAddItemFormSubmit}
       onReset={handleReset}
       name="add-item-form"

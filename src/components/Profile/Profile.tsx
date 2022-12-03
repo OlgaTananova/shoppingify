@@ -60,7 +60,7 @@ function Profile() {
         noValidate
       >
         <h2 className="profile-form__heading">
-          Hi
+          {'Hi  '}
           <span className="profile-form__user-name">
             {user.name}
             !

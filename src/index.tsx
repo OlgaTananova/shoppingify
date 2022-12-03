@@ -21,7 +21,7 @@ store.dispatch(checkUser()).unwrap().then(() => {
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
+      <BrowserRouter basename="/shoppingify">
         <App />
       </BrowserRouter>
     </Provider>

@@ -1,6 +1,5 @@
 .add-item-form {
   width: 100%;
-  height: 100vh;
   background-color: var(--grey-color);
   display: flex;
   flex-direction: column;
@@ -41,8 +40,10 @@
 }
 
 .add-item-form__input:focus {
-  outline: 2px solid var(--orange-color);
-  outline-offset: -2px;
+  outline: none;
+  border: none;
+  -webkit-appearance: none;
+  box-shadow: -.3px -.3px 2px 2px var(--orange-color);
 }
 
 .add-item-form__label:focus-within {
@@ -62,10 +63,9 @@
 }
 
 .add-item-form__buttons {
-  align-self: center;
-  position: absolute;
-  bottom: 35px;
+  margin: 10px auto;
 }
+
 .add-item-form__btn {
   width: 87px;
   font-size: 12px;
@@ -103,6 +103,37 @@
 .add-item-form__btn_disabled {
   background-color: var(--grey-color2);
   color: var(--white-color);
+}
+
+@media screen and (max-width: 768px) {
+  .add-item-form__container {
+    margin: 10px;
+  }
+  .add-item-form__heading {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  .add-item-form__input {
+    padding: 10px 10px;
+    font-size: 12px;
+  }
+  .add-item-form__label_type_name {
+    margin: 0 0 10px;
+  }
+  .add-item-form__label_type_note {
+    margin: 0 0 10px;
+  }
+  .add-item-form__label_type_image {
+    margin: 0 0 10px;
+  }
+  .add-item-form__buttons {
+    position: relative;
+    bottom: 0;
+  }
+  .add-item-form__btn {
+    width: 70px;
+    padding: 15px 0;
+  }
 }
 
 @media  screen and (max-width: 680px) {

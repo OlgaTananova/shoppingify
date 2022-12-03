@@ -1,15 +1,17 @@
 import './EditProfileButton.css';
-import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { MouseEventHandler } from 'react';
+import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { setEditProfileTrue, logOut } from '../../store/profileSlice';
-import { onLogout, setIsLoadingFalse, setIsLoadingTrue, setShowErrorTrue } from '../../store/appSlice';
+import {
+  onLogout, setIsLoadingFalse, setIsLoadingTrue, setShowErrorTrue,
+} from '../../store/appSlice';
 import { onLogoutCategoriesSlice } from '../../store/categoriesSlice';
 import { onLogoutItemsSlice } from '../../store/itemInfoSlice';
 import { IUpdateUserProfileProps } from '../../types';
 
-const EditProfileButton = ({ isFormValid, onSaveClick }: IUpdateUserProfileProps) => {
+function EditProfileButton({ isFormValid, onSaveClick }: IUpdateUserProfileProps) {
   const dispatch = useAppDispatch();
-  const isEditProfile = useAppSelector(state => state.profile.isEditProfile);
+  const isEditProfile = useAppSelector((state) => state.profile.isEditProfile);
 
   const handleEditClick: MouseEventHandler = () => {
     dispatch(setEditProfileTrue());
@@ -18,33 +20,51 @@ const EditProfileButton = ({ isFormValid, onSaveClick }: IUpdateUserProfileProps
   const handleLogout: MouseEventHandler = () => {
     dispatch(setIsLoadingTrue());
     dispatch(logOut()).unwrap()
-      .then(()=> {
+      .then(() => {
         dispatch(onLogout());
         dispatch(onLogoutCategoriesSlice());
         dispatch(onLogoutItemsSlice());
       })
-      .catch((err)=>{
+      .catch((err) => {
         dispatch(setShowErrorTrue(err.message));
       })
-      .finally(()=>{
+      .finally(() => {
         dispatch(setIsLoadingFalse());
       });
   };
 
   return (
-            <>
-                {isEditProfile && (<button className={`profile-form__button
+    <>
+      {isEditProfile && (
+      <button
+        className={`profile-form__button
         profile-form__button_type_submit ${!isFormValid && 'profile-form__button_type_submit_inactive'}`}
-                                          type={'submit'} disabled={!isFormValid} onClick={onSaveClick}>Save</button>)}
-            {!isEditProfile && <>
-              <button className='profile-form__button profile-form__button_type_edit'
-                   type={'button'}
-                   onClick={handleEditClick}>Edit
+        type="submit"
+        disabled={!isFormValid}
+        onClick={onSaveClick}
+      >
+        Save
+      </button>
+      )}
+      {!isEditProfile && (
+      <>
+        <button
+          className="profile-form__button profile-form__button_type_edit"
+          type="button"
+          onClick={handleEditClick}
+        >
+          Edit
         </button>
-            <button type={'button'} className='profile-form__button profile-form__button_type_logout'
-                 onClick={handleLogout}>Log out</button>
-        </>}
+        <button
+          type="button"
+          className="profile-form__button profile-form__button_type_logout"
+          onClick={handleLogout}
+        >
+          Log out
+        </button>
+      </>
+      )}
     </>
   );
-};
+}
 export default EditProfileButton;

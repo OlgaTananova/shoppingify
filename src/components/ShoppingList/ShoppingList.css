@@ -7,7 +7,6 @@
 }
 
 .shopping-list_empty {
-  height: calc(100vh - 345px);
   align-items: center;
   font-size: 20px;
   line-height: 1.2;
@@ -48,11 +47,16 @@
   }
 }
 
-@media screen and (max-width: 780px) {
-}
-
 @media screen and (max-width: 680px) {
   .shopping-list {
+    width: 70%;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .shopping-list {
+    width: 65%;
+    margin: 0 0 0 10px;
   }
 }
 

@@ -10,6 +10,7 @@ function Navbar() {
   const showMobileSL = useAppSelector((state) => state.app.showMobileSL);
   const scroll = useAppSelector((state) => state.app.scroll);
   const logoHeight = useAppSelector((state) => state.app.logoHeight);
+  const innerHeight = useAppSelector((state) => state.app.innerHeight);
 
   const handleSLIconClick: MouseEventHandler = () => {
     if (!showMobileSL) {
@@ -20,7 +21,7 @@ function Navbar() {
   };
 
   return (
-    <nav className="navbar" style={{ height: `calc(100vh - ${logoHeight - scroll}px)` }}>
+    <nav className="navbar" style={{ height: `calc(${innerHeight}px - ${logoHeight - scroll}px)` }}>
       <ul className="navbar__links">
         <li
           className="navbar__link navbar__link_type_items"

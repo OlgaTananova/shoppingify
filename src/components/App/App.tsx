@@ -21,6 +21,7 @@ import { fetchCategories } from '../../store/categoriesSlice';
 import NotFoundPage from '../../pages/NotFoundPage';
 import Preloader from '../Preloader/Preloader';
 import {
+  setInnerHeight,
   setIsLoadingFalse,
   setIsLoadingTrue,
   setScroll,
@@ -43,12 +44,25 @@ function App() {
     dispatch(setScroll(window.scrollY));
   }, []);
 
+  const onResize: EventListener = useCallback(() => {
+    dispatch(setInnerHeight(window.innerHeight));
+  }, []);
+
+  useEffect(() => {
+    dispatch(setInnerHeight(window.innerHeight));
+  }, []);
+
   useEffect(() => {
     const win: Window = window;
     win.addEventListener('scroll', onScroll);
     return (() => window.removeEventListener('scroll', onScroll)
     );
   }, [onScroll]);
+
+  useEffect(() => {
+    window.addEventListener('resize', onResize);
+    return (() => window.removeEventListener('resize', onResize));
+  });
 
   useEffect(() => {
     if (userIsLoggedIn && appStatus === 'idle') {

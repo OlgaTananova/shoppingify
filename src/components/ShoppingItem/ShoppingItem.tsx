@@ -11,9 +11,10 @@ import {
 
 function ShoppingItem({ item }: { item: IShoppingItem }) {
   const [isEditQtyMenuOpen, setIsEditQtyMenuOpen] = useState<boolean>(false);
-  const itemInItems = useAppSelector((state) => state.items.items.find((i) => item.itemId === i._id));
+  const items = useAppSelector((state) => state.items.items);
   const activeShoppingList = useAppSelector((state) => state.shopping._id);
   const dispatch = useAppDispatch();
+  const itemInItems = () => items.find((i) => i._id === item.itemId);
 
   const openEditBarHandleClick: MouseEventHandler = () => {
     setIsEditQtyMenuOpen(!isEditQtyMenuOpen);
@@ -70,7 +71,7 @@ function ShoppingItem({ item }: { item: IShoppingItem }) {
   return (
     <div className="shopping-list__item">
       <button type="button" aria-label="Item check-box" onClick={updateItemStateHandleClick} className={`shopping-list__item-checkbox ${item.status === 'completed' && 'shopping-list__item-checkbox_checked'}`} />
-      <p className={`shopping-list__item-name ${item.status === 'completed' && 'shopping-list__item-name_completed'}`}>{itemInItems && itemInItems.name}</p>
+      <p className={`shopping-list__item-name ${item.status === 'completed' && 'shopping-list__item-name_completed'}`}>{itemInItems() ? itemInItems()!.name : 'Unknown Item'}</p>
       <button type="button" onClick={openEditBarHandleClick} className="shopping-list__item-quantity">{`${item.quantity} pcs`}</button>
       {isEditQtyMenuOpen
         ? (

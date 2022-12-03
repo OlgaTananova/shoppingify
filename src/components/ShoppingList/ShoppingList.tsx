@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import {
   updateExistingSLHeading,
 } from '../../store/shoppingSlice';
-import { IShoppingCategory, IShoppingItem } from '../../types';
+import { IShoppingCategory, IShoppingItem, MyCustomCSS } from '../../types';
 import useForm from '../../utils/useForm';
 import EditSLHeadingForm from '../EditSLHeadingForm/EditSLHeadingForm';
 import { setIsLoadingFalse, setIsLoadingTrue, setShowErrorTrue } from '../../store/appSlice';
@@ -20,6 +20,7 @@ function ShoppingList() {
   const shoppingListHeading = useAppSelector((state) => state.shopping.heading);
   const shoppingListId = useAppSelector((state) => state.shopping._id);
   const [isShoppingListEmpty, setIsShoppingListEmpty] = useState<boolean>(itemsInShoppingList!.length === 0);
+  const innerHeight = useAppSelector((state) => state.app.innerHeight);
   const dispatch = useAppDispatch();
   const initialValues = useMemo(() => ({
     'shopping-list-heading': {
@@ -69,7 +70,12 @@ function ShoppingList() {
   return (
     isShoppingListEmpty
       ? (
-        <div className="shopping-list shopping-list_empty">
+        <div
+          className="shopping-list shopping-list_empty"
+          style={{
+            height: `calc(${innerHeight}px - 345px`,
+          } as MyCustomCSS}
+        >
           {shoppingListStatus !== 'idle'
                       && (
                       <EditSLHeadingForm

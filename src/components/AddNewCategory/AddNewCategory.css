@@ -31,8 +31,9 @@
 }
 
 .add-new-category-form__input:focus {
-  outline: 2px solid var(--orange-color);
-  outline-offset: -2px;
+  outline: none;
+  -webkit-appearance: none;
+  box-shadow: -.3px -.3px 2px 2px var(--orange-color);
 }
 
 .add-new-category-form__submit-btn {
@@ -75,6 +76,9 @@
   .add-new-category {
     width: 100%;
   }
+  .add-new-category-form {
+    gap: 8px;
+  }
   .add-new-category-form__submit-btn {
     width: 80px;
     font-size: 10px;
@@ -83,7 +87,7 @@
 
 @media  screen and (max-width: 375px) {
   .add-new-category-form {
-    gap: 5px;
+    gap: 2px;
   }
   .add-new-category-form__input {
     line-height: 1.2;

@@ -1,4 +1,6 @@
-import { ChangeEventHandler, FormEventHandler, MouseEventHandler } from 'react';
+import {
+  ChangeEventHandler, CSSProperties, FormEventHandler, MouseEventHandler,
+} from 'react';
 
 // Shopping List
 
@@ -187,6 +189,7 @@ export interface IAppSliceInitialState {
   appStatus: 'idle' | 'notIdle',
   scroll: number,
   logoHeight: number,
+  innerHeight: string | number
 }
 
 // Statistics
@@ -204,4 +207,8 @@ export interface ISorderItemsByDate {
     date: string,
     quantity: number
   }
+}
+
+export interface MyCustomCSS extends CSSProperties {
+  'height': number | string
 }

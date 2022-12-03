@@ -23,6 +23,12 @@ function Logo() {
     };
   }, [onResize]);
 
+  useEffect(() => {
+    logoHeight.current
+    && dispatch(setLogoHeight(window.getComputedStyle(logoHeight.current)
+      .height.slice(0, -2)));
+  }, []);
+
   return (
     <Link
       to="/"

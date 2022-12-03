@@ -30,8 +30,9 @@
 }
 
 .search-items-input:focus {
-  outline: 2px solid var(--orange-color);
-  outline-offset: -2px;
+  outline: none;
+  -webkit-appearance: none;
+  box-shadow: -.3px -.3px 2px 2px var(--orange-color);
 }
 
 .search-items-form__error {
