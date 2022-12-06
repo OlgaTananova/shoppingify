@@ -1,6 +1,6 @@
 .add-item-form {
   width: 100%;
-  background-color: var(--grey-color);
+  background-color: var(--white-color);
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -137,6 +137,9 @@
 }
 
 @media  screen and (max-width: 680px) {
+  .add-item-form {
+    background-color: var(--grey-color);
+  }
   .add-item-form__container {
     width: 80%;
   }

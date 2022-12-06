@@ -13,7 +13,7 @@
   cursor: pointer;
 }
 .category__item-name {
-  font-size: 16px;
+  font-size: 14px;
   line-height: 1.25;
   max-width: 90px;
   text-overflow: ellipsis;
@@ -31,7 +31,7 @@
   background-color: var(--white-color);
   background-image: url('../../images/add_FILL0_wght400_GRAD0_opsz48.svg');
   background-position: center;
-  background-size: contain;
+  background-size: cover;
   transition: all .3ms ease;
 }
 
@@ -46,6 +46,17 @@
     max-width: 75px;
   }
   .category__item-name {
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .category__item-button {
+    width: 15px;
+    height: 15px;
+  }
+  .category__item-name {
+    max-width: 50px;
     font-size: 12px;
   }
 }

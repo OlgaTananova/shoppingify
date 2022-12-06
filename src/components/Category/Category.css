@@ -16,7 +16,7 @@
 .category__item-list {
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 140px));
+  grid-template-columns: repeat(auto-fill, minmax(120px, 120px));
   margin: 0;
   padding: 0;
   column-gap: 20px;
@@ -39,9 +39,14 @@
     font-size: 14px;
   }
   .category__item-list {
-    column-gap: 10px;
+    column-gap: 7px;
     row-gap: 30px;
-    grid-template-columns: repeat(auto-fill, minmax(100px, 100px));
+    grid-template-columns: repeat(auto-fill, 90px);
   }
+}
 
+@media screen and (max-width: 425px) {
+  .category__item-list {
+    grid-template-columns: repeat(auto-fill, 80px);
+  }
 }

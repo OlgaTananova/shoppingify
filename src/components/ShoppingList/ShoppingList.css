@@ -42,9 +42,9 @@
 }
 
 @media screen and (max-width: 1005px) {
-  .shopping-list_empty {
-    height: calc(100vh - 265px);
-  }
+  /*.shopping-list_empty {*/
+  /*  height: calc(100vh - 265px);*/
+  /*}*/
 }
 
 @media screen and (max-width: 680px) {

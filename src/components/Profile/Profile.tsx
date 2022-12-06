@@ -10,6 +10,7 @@ import { setIsLoadingFalse, setIsLoadingTrue, setShowErrorTrue } from '../../sto
 function Profile() {
   const user = useAppSelector((state) => state.profile.user);
   const isEditProfile = useAppSelector((state) => state.profile.isEditProfile);
+  const innerHeight = useAppSelector((state) => state.app.innerHeight);
   const dispatch = useAppDispatch();
   const initialValues = useMemo(() => ({
     name: {
@@ -52,7 +53,10 @@ function Profile() {
   };
 
   return (
-    <div className="profile">
+    <div
+      className="profile"
+      style={{ minHeight: `${innerHeight}px` }}
+    >
       <form
         className="profile-form"
         onSubmit={handleEditProfileSubmit}

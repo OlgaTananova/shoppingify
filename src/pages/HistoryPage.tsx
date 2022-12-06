@@ -1,14 +1,12 @@
 import React from 'react';
-import Logo from '../components/Logo/Logo';
-import Navbar from '../components/Navbar/Navbar';
 import ShoppingHistory from '../components/ShoppingHistory/ShoppingHistory';
 import Shopping from '../components/Shopping/Shopping';
+import Sidebar from '../components/Sidebar/Sidebar';
 
 function HistoryPage() {
   return (
     <>
-      <Logo />
-      <Navbar />
+      <Sidebar />
       <ShoppingHistory />
       <Shopping />
     </>

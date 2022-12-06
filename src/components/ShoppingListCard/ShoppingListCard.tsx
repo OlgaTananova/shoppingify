@@ -12,6 +12,7 @@ function ShoppingListCard() {
   )) || null;
   const categories = useAppSelector((state) => state.categories.categories);
   const items = useAppSelector((state) => state.items.items);
+  const innerHeight = useAppSelector((state) => state.app.innerHeight);
 
   const handleClick: MouseEventHandler = () => {
     navigate(-1);
@@ -30,7 +31,10 @@ function ShoppingListCard() {
   }, {} as IShoppingCategory);
 
   return (
-    <div className="shopping-list-card">
+    <div
+      className="shopping-list-card"
+      style={{ minHeight: `${innerHeight}px` }}
+    >
       <button
         onClick={handleClick}
         className="item-info__return-btn"

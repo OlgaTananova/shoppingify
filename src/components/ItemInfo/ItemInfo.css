@@ -126,6 +126,7 @@
   .item-info {
     grid-column: 2/4;
     z-index: 3;
+    background-color: var(--grey-color);
   }
   .item-info__container {
     width: 80%;

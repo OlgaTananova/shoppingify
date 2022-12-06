@@ -1,14 +1,12 @@
 import React from 'react';
-import Logo from '../components/Logo/Logo';
-import Navbar from '../components/Navbar/Navbar';
 import Shopping from '../components/Shopping/Shopping';
 import ShoppingListCard from '../components/ShoppingListCard/ShoppingListCard';
+import Sidebar from '../components/Sidebar/Sidebar';
 
 function ShoppingListCardPage() {
   return (
     <>
-      <Logo />
-      <Navbar />
+      <Sidebar />
       <ShoppingListCard />
       <Shopping />
     </>

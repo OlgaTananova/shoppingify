@@ -72,9 +72,9 @@ function ShoppingList() {
       ? (
         <div
           className="shopping-list shopping-list_empty"
-          style={{
-            height: `calc(${innerHeight}px - 345px`,
-          } as MyCustomCSS}
+          // style={{
+          //   height: `calc(${innerHeight}px - 345px`,
+          // } as MyCustomCSS}
         >
           {shoppingListStatus !== 'idle'
                       && (

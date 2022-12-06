@@ -1,0 +1,54 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  justify-content: space-between;
+  background-color: var(--white-color);
+}
+
+.sidebar__shopping-cart {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: none;
+  background-color: var(--orange-color);
+  background-image: url('../../images/shopping_cart_FILL0_wght400_GRAD0_opsz48.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 20px;
+  margin-bottom: 20px;
+  position: relative;
+  pointer-events: none;
+  justify-self: center;
+  align-self: center;
+}
+
+.sidebar__shopping-cart::after {
+  content: attr(aria-label);
+  position: absolute;
+  right: -5px;
+  top: -5px;
+  width: 21px;
+  height: 20px;
+  background-color: var(--red-color);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+  text-align: center;
+  color: var(--white-color);
+  border-radius: 4px;
+  font-family: 'Quicksand', Arial, sans-serif;
+  transition: opacity .3s ease;
+}
+
+.sidebar__shopping-cart:hover {
+  cursor: pointer;
+  opacity: .7;
+}
+
+@media screen and (max-width: 740px) {
+  .sidebar__shopping-cart {
+    pointer-events: all;
+  }
+}

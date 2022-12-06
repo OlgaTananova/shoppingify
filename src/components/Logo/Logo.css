@@ -1,8 +1,6 @@
 .logo {
   width: 90px;
   background-color: var(--white-color);
-  grid-column: 1/2;
-  grid-row: 1/2;
   display: flex;
 }
 
@@ -22,6 +20,6 @@
     width: 70px;
   }
   .logo-img {
-    margin: auto;
+    margin: 20px auto;
   }
 }

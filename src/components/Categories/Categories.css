@@ -4,13 +4,12 @@
   gap: 50px;
   grid-row: 2;
   grid-column: 2/4;
-  padding: 20px 90px 80px;
+  padding: 20px 65px 80px;
   background-color: var(--grey-color);
 }
 
 @media screen and (max-width: 1005px) {
   .categories {
-    width: 80%;
     padding: 20px;
     gap: 20px;
   }
@@ -31,9 +30,9 @@
 
 @media screen and (max-width: 375px) {
   .categories {
-    grid-column: 2/3;
+    grid-column: 2/4;
     width: 100%;
-    padding: 5px;
+    padding: 5px 5px 5px 10px;
     box-sizing: border-box;
   }
 }

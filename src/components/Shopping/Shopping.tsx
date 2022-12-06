@@ -22,7 +22,7 @@ function Shopping() {
     <div
       className={`shopping ${showMobileSL && 'shopping_showMobileSL'}`}
       style={{
-        height: `calc(${innerHeight}px + ${scroll}px)`,
+        minHeight: `${innerHeight}px`,
       } as MyCustomCSS}
     >
       {showAddItemForm && <AddItemForm />}

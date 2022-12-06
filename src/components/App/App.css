@@ -37,7 +37,7 @@
   display: grid;
   /*grid-template-columns: 93px minmax(auto, 480px) minmax(auto, 480px) minmax(auto, 380px);*/
   grid-template-columns: 93px auto auto minmax(auto, 380px);
-  grid-auto-rows: minmax(100px, auto);
+  grid-auto-rows: 100px minmax(100px, auto);
 }
 
 @media screen and (max-width: 1005px) {

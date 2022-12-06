@@ -1,6 +1,6 @@
 import Header from '../components/Header/Header';
-import Logo from '../components/Logo/Logo';
 import Login from '../components/Login/Login';
+import Logo from '../components/Logo/Logo';
 
 function LoginPage() {
   return (

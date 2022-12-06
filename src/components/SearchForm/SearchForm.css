@@ -54,6 +54,12 @@
     grid-row: 2/3;
   }
   .search-items-input {
+    margin: 10px 0 5px 20px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .search-items-input {
     margin: 10px 0 5px 10px;
   }
 }

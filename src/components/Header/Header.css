@@ -19,7 +19,8 @@
   line-height: 1.2;
   font-weight: 700;
   align-self: flex-start;
-  margin: 0 auto;
+  /*margin: 0 auto;*/
+  margin: auto 0 auto 20px;
 }
 
 .header__heading-name {
@@ -46,6 +47,12 @@
     display: none;
   }
   .header__heading {
-    margin: auto 0;
+    margin: auto 0 auto 20px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .header__heading {
+    margin: auto 0 auto 10px;
   }
 }

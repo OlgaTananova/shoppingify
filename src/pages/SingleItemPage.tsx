@@ -1,16 +1,14 @@
 import React from 'react';
-import Logo from '../components/Logo/Logo';
-import Navbar from '../components/Navbar/Navbar';
 import Header from '../components/Header/Header';
 import SearchForm from '../components/SearchForm/SearchForm';
 import Categories from '../components/Categories/Categories';
 import ItemInfo from '../components/ItemInfo/ItemInfo';
+import Sidebar from '../components/Sidebar/Sidebar';
 
 function SingleItemPage() {
   return (
     <>
-      <Logo />
-      <Navbar />
+      <Sidebar />
       <Header />
       <SearchForm />
       <ItemInfo />

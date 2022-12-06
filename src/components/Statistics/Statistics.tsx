@@ -13,6 +13,7 @@ function Statistics() {
   const items = useAppSelector((state) => state.items.items);
   const categories = useAppSelector((state) => state.categories.categories);
   const shoppingLists = useAppSelector((state) => state.shoppingHistory.shoppingLists);
+  const innerHeight = useAppSelector((state) => state.app.innerHeight);
   const totalQty = useMemo(() => shoppingItems.reduce((prev, curr) => {
     curr && curr.forEach((i) => {
       if (i) {
@@ -92,7 +93,10 @@ function Statistics() {
   }, {} as ISorderItemsByDate), [shoppingLists]);
 
   return (
-    <div className="statistics">
+    <div
+      className="statistics"
+      style={{ minHeight: `${innerHeight}px` }}
+    >
       {shoppingLists.length !== 0
         ? (
           <>
