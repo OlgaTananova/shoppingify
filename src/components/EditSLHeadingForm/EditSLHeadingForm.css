@@ -76,9 +76,13 @@
   height: 12px;
 }
 
+.shopping-list__buttons {
+  display: flex;
+}
+
 .shopping-list__button {
-  width: 35px;
-  height: 35px;
+  width: 32px;
+  height: 32px;
   margin-left: 10px;
   background-repeat: no-repeat;
   background-position: center;
@@ -88,6 +92,11 @@
   transition: all .3ms ease;
   align-self: center;
   padding: 0;
+}
+
+.shopping-list__button:hover {
+  cursor: pointer;
+  opacity: .7;
 }
 
 .shopping-list__button_complete {
@@ -124,5 +133,10 @@
 @media screen and (max-width: 1005px) {
   .shopping-list__heading {
     font-size: 20px;
+  }
+}
+@media screen and (max-width: 375px) {
+  .shopping-list__heading {
+    font-size: 18px;
   }
 }

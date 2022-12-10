@@ -4,7 +4,12 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import {
   setIsLoadingFalse, setIsLoadingTrue, setShowCancelSLFalse, setShowErrorTrue,
 } from '../../store/appSlice';
-import { clearShoppingList, getActiveShoppingList, updateSLStatus } from '../../store/shoppingSlice';
+import {
+  clearShoppingList,
+  getActiveShoppingList,
+  setIsEditShoppingListFalse,
+  updateSLStatus,
+} from '../../store/shoppingSlice';
 import { getAllShoppingLists } from '../../store/shoppingHistorySlice';
 import { IShoppingList } from '../../types';
 
@@ -15,6 +20,7 @@ function CancelShoppingListPopup() {
 
   const handleCloseClick: MouseEventHandler = () => {
     dispatch(setShowCancelSLFalse());
+    dispatch(setIsEditShoppingListFalse());
   };
   const handleCancelSLClick: MouseEventHandler = () => {
     dispatch(setIsLoadingTrue());

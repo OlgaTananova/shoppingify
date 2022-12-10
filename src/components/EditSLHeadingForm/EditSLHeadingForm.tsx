@@ -36,11 +36,13 @@ function EditSLHeadingForm({
     : []), []);
 
   const copyToClipboardClick: MouseEventHandler = () => {
-    navigator.clipboard.writeText(shoppingListToClipboard.join(', \n'));
-    setShowCopyToClipboardMessage(true);
-    setTimeout(() => {
-      setShowCopyToClipboardMessage(false);
-    }, 5000);
+    navigator.clipboard.writeText(shoppingListToClipboard.join(', \n'))
+      .then(() => {
+        setShowCopyToClipboardMessage(true);
+        setTimeout(() => {
+          setShowCopyToClipboardMessage(false);
+        }, 5000);
+      });
   };
 
   return (
@@ -75,23 +77,27 @@ function EditSLHeadingForm({
             Edit
           </button>
         </form>
-        <button
-          onClick={handleEditShoppingListClick}
-          className="shopping-list__button shopping-list__button_complete"
-          type="button"
-          aria-label="Button to complete or cancel the active shopping list"
-        >
-          {}
-        </button>
-        <button
-          type="button"
-          className={`shopping-list__button shopping-list__button_copy 
+        <div className="shopping-list__buttons">
+          <button
+            onClick={handleEditShoppingListClick}
+            className="shopping-list__button shopping-list__button_complete"
+            type="button"
+            aria-label="Button to complete or cancel the active shopping list"
+          >
+            {}
+          </button>
+          <button
+            type="button"
+            className={`shopping-list__button shopping-list__button_copy 
           ${showCopyToClipboardMessage && 'shopping-list__button_copy_active'}`}
-          onClick={copyToClipboardClick}
-          title="The shopping list was copied to clipboard"
-        >
-          {}
-        </button>
+            onClick={copyToClipboardClick}
+            aria-label="Button to copy the shopping list to a clipboard"
+            title="The shopping list was copied to a clipboard"
+          >
+            {}
+          </button>
+        </div>
+
       </div>
       <span className="shopping-list__heading-error">{error}</span>
     </>
