@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/shoppingify/static/css/main.53784226.css",
-    "main.js": "/shoppingify/static/js/main.1f025ecc.js",
+    "main.css": "/shoppingify/static/css/main.bca905bf.css",
+    "main.js": "/shoppingify/static/js/main.5fb8aa61.js",
     "static/media/quicksand-v29-latin-500.ttf": "/shoppingify/static/media/quicksand-v29-latin-500.1d56a62d99b31d9d0454.ttf",
     "static/media/quicksand-v29-latin-700.ttf": "/shoppingify/static/media/quicksand-v29-latin-700.62f6cad8351b2810fb1b.ttf",
     "static/media/undraw_shopping_app_flsj 1.svg": "/shoppingify/static/media/undraw_shopping_app_flsj 1.2b324963ebfb109f86fc5a5f369cf9a5.svg",
@@ -16,23 +16,24 @@
     "static/media/shopping_cart_FILL0_wght400_GRAD0_opsz48.svg": "/shoppingify/static/media/shopping_cart_FILL0_wght400_GRAD0_opsz48.8adef702f47cc098de88.svg",
     "static/media/list_FILL0_wght400_GRAD0_opsz48.svg": "/shoppingify/static/media/list_FILL0_wght400_GRAD0_opsz48.f9840eee38388592256a.svg",
     "static/media/infopopup_icon_fail.svg": "/shoppingify/static/media/infopopup_icon_fail.df8eddf661ff88f2d0ef.svg",
+    "static/media/check_circle_FILL0_wght700_GRAD0_opsz48.svg": "/shoppingify/static/media/check_circle_FILL0_wght700_GRAD0_opsz48.515e3a9ab1e6ffc13712.svg",
     "index.html": "/shoppingify/index.html",
     "static/media/search_FILL0_wght400_GRAD0_opsz48.svg": "/shoppingify/static/media/search_FILL0_wght400_GRAD0_opsz48.4a3d702862b90186cc74.svg",
     "static/media/insert_chart_FILL0_wght400_GRAD0_opsz48.svg": "/shoppingify/static/media/insert_chart_FILL0_wght400_GRAD0_opsz48.ce0cdfd9c2c1969d2d8b.svg",
     "static/media/delete_FILL0_wght400_GRAD0_opsz48.svg": "/shoppingify/static/media/delete_FILL0_wght400_GRAD0_opsz48.e26b2b4ffa424841d833.svg",
     "static/media/refresh_FILL0_wght400_GRAD0_opsz48.svg": "/shoppingify/static/media/refresh_FILL0_wght400_GRAD0_opsz48.ebc63e0bf39f9208964e.svg",
-    "static/media/edit_FILL0_wght400_GRAD0_opsz48.svg": "/shoppingify/static/media/edit_FILL0_wght400_GRAD0_opsz48.01035c3d3348c5ae53f9.svg",
+    "static/media/edit_FILL0_wght700_GRAD0_opsz48.svg": "/shoppingify/static/media/edit_FILL0_wght700_GRAD0_opsz48.bd00323f96ed1d43eeb4.svg",
     "static/media/close_FILL0_wght400_GRAD0_opsz48.svg": "/shoppingify/static/media/close_FILL0_wght400_GRAD0_opsz48.8284dc095f1ba18c8f85.svg",
     "static/media/done_FILL0_wght400_GRAD0_opsz48.svg": "/shoppingify/static/media/done_FILL0_wght400_GRAD0_opsz48.126baab62ebba7f66d53.svg",
     "static/media/chevron_right_FILL0_wght400_GRAD0_opsz48.svg": "/shoppingify/static/media/chevron_right_FILL0_wght400_GRAD0_opsz48.5861a066b95aac3857d4.svg",
     "static/media/add_FILL0_wght400_GRAD0_opsz48.svg": "/shoppingify/static/media/add_FILL0_wght400_GRAD0_opsz48.07970cfdb69059e44c51.svg",
     "static/media/arrow_back_FILL0_wght400_GRAD0_opsz48.svg": "/shoppingify/static/media/arrow_back_FILL0_wght400_GRAD0_opsz48.7013036146c0a645f458.svg",
     "static/media/remove_FILL0_wght400_GRAD0_opsz48.svg": "/shoppingify/static/media/remove_FILL0_wght400_GRAD0_opsz48.6629b3c278ea8fbccd97.svg",
-    "main.53784226.css.map": "/shoppingify/static/css/main.53784226.css.map",
-    "main.1f025ecc.js.map": "/shoppingify/static/js/main.1f025ecc.js.map"
+    "main.bca905bf.css.map": "/shoppingify/static/css/main.bca905bf.css.map",
+    "main.5fb8aa61.js.map": "/shoppingify/static/js/main.5fb8aa61.js.map"
   },
   "entrypoints": [
-    "static/css/main.53784226.css",
-    "static/js/main.1f025ecc.js"
+    "static/css/main.bca905bf.css",
+    "static/js/main.5fb8aa61.js"
   ]
 }
