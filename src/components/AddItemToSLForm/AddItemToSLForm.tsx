@@ -66,6 +66,7 @@ function AddItemToSLForm() {
   }
   return (
     <div className="shopping-list__add-item-form-container shopping-list__add-item-form-container_editSL">
+      <h3 className="shopping-list__complete-heading">Do you want to complete or cancel the shopping list?</h3>
       <div className="shopping-list__complete-buttons">
         <button
           className="shopping-list__complete-btn shopping-list__complete-btn_cancel"

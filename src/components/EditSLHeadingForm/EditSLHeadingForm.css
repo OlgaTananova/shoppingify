@@ -76,11 +76,10 @@
   height: 12px;
 }
 
-.shopping-list__edit-btn {
-  width: 20px;
-  height: 20px;
+.shopping-list__button {
+  width: 35px;
+  height: 35px;
   margin-left: 10px;
-  background-image: url('../../images/edit_FILL0_wght400_GRAD0_opsz48.svg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
@@ -91,6 +90,32 @@
   padding: 0;
 }
 
+.shopping-list__button_complete {
+  background-image: url('../../images/check_circle_FILL0_wght700_GRAD0_opsz48.svg');
+}
+
+.shopping-list__button_copy {
+ background-image: url('../../images/edit_FILL0_wght700_GRAD0_opsz48.svg');
+  position: relative;
+}
+
+.shopping-list__button_copy_active::before {
+  position: absolute;
+  top: -45px;
+  left: -90px;
+  content: attr(title);
+  width: 150px;
+  height: 40px;
+  background-color: var(--grey-color);
+  color: var(--dark-brown-color);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.4;
+  border-radius: 4px;
+  text-align: center;
+  visibility: visible;
+  z-index: 1;
+}
 .shopping-list__edit-btn:hover {
   cursor: pointer;
   opacity: .7;

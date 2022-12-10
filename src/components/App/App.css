@@ -36,7 +36,7 @@
   margin: 0 auto;
   display: grid;
   /*grid-template-columns: 93px minmax(auto, 480px) minmax(auto, 480px) minmax(auto, 380px);*/
-  grid-template-columns: 93px auto auto minmax(auto, 380px);
+  grid-template-columns: 93px auto auto 380px;
   grid-auto-rows: 100px minmax(100px, auto);
 }
 
@@ -62,8 +62,13 @@
 
 @media screen and (max-width: 600px) {
   .app {
-    /*grid-template-columns: 70px 1fr .8fr;*/
     grid-template-columns: 70px auto auto;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .app {
+    grid-template-columns: 70px 1fr 1fr;
   }
 }
 

@@ -11,12 +11,12 @@
   font-size: 20px;
   line-height: 1.2;
   font-weight: 700;
-  justify-content: space-between;
 }
 
 .shopping-list__no-items {
   font-size: 18px;
   line-height: 1.25;
+  margin: 80px auto;
 }
 
 .shopping-list__create-list-btn {
@@ -49,14 +49,13 @@
 
 @media screen and (max-width: 680px) {
   .shopping-list {
-    width: 70%;
+    width: 90%;
   }
 }
 
-@media screen and (max-width: 380px) {
+@media screen and (max-width: 375px) {
   .shopping-list {
-    width: 65%;
-    margin: 0 0 0 10px;
+    margin: 0 auto;
   }
 }
 

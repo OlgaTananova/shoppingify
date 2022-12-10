@@ -1,7 +1,15 @@
 import './Navbar.css';
 import { NavLink } from 'react-router-dom';
+import { useAppDispatch } from '../../store/hooks';
+import { setShowMobileSLFalse } from '../../store/appSlice';
 
 function Navbar() {
+  const dispatch = useAppDispatch();
+
+  const handleLinkClick = () => {
+    dispatch(setShowMobileSLFalse());
+  };
+
   return (
     <nav className="navbar">
       <ul className="navbar__links">
@@ -11,6 +19,7 @@ function Navbar() {
         >
           <NavLink
             to="/items"
+            onClick={handleLinkClick}
             title="items"
             className={({ isActive }: { isActive: boolean }) => `navbar__navlink ${isActive
               ? 'navbar__navlink_active' : ''}`}
@@ -22,6 +31,7 @@ function Navbar() {
         >
           <NavLink
             to="/history"
+            onClick={handleLinkClick}
             className={({ isActive }: { isActive: boolean }) => `navbar__navlink ${isActive
               ? 'navbar__navlink_active' : ''}`}
             title="history"
@@ -33,6 +43,7 @@ function Navbar() {
         >
           <NavLink
             to="/statistics"
+            onClick={handleLinkClick}
             className={({ isActive }: { isActive: boolean }) => `navbar__navlink ${isActive
               ? 'navbar__navlink_active' : ''}`}
           />
@@ -43,6 +54,7 @@ function Navbar() {
         >
           <NavLink
             to="/profile"
+            onClick={handleLinkClick}
             className={({ isActive }: { isActive: boolean }) => `navbar__navlink ${isActive
               ? 'navbar__navlink_active' : ''}`}
           />

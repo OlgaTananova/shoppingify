@@ -212,3 +212,4 @@ export interface ISorderItemsByDate {
 export interface MyCustomCSS extends CSSProperties {
   'height': number | string
 }
+
