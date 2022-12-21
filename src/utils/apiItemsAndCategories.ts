@@ -1,4 +1,4 @@
-import { IAddItemPayload } from '../types';
+import { IAddItemPayload, IUpdateItemPayload } from '../types';
 import { checkResponse } from './utils';
 import { baseUrl } from '../constants';
 
@@ -59,4 +59,21 @@ export const deleteItem = async (id: string) => {
     credentials: 'include',
   });
   return checkResponse(deletedItem);
+};
+
+export const updateItem = async (values: IUpdateItemPayload) => {
+  const updatedInfo = await fetch(`${baseUrl}/items/${values.id}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include',
+    body: JSON.stringify({
+      name: values.name,
+      note: values.note,
+      image: values.image,
+      categoryId: values.categoryId,
+    }),
+  });
+  return checkResponse(updatedInfo);
 };

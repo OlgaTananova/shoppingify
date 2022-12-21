@@ -1,10 +1,13 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { IAddItemPayload, IItemInitialState } from '../types';
-import { addItem, getItems, deleteItem } from '../utils/apiItemsAndCategories';
+import { IAddItemPayload, IItemInitialState, IUpdateItemPayload } from '../types';
+import {
+  addItem, getItems, deleteItem, updateItem,
+} from '../utils/apiItemsAndCategories';
 
 const initialState: IItemInitialState = {
   items: [],
   status: 'idle',
+  isEditItem: false,
   error: null,
 };
 
@@ -14,6 +17,12 @@ const ItemInfoSlice = createSlice({
   reducers: {
     onLogoutItemsSlice(state) {
       state = initialState;
+    },
+    setIsEditItemTrue(state) {
+      state.isEditItem = true;
+    },
+    setIsEditItemFalse(state) {
+      state.isEditItem = false;
     },
   },
   extraReducers(builder) {
@@ -50,6 +59,22 @@ const ItemInfoSlice = createSlice({
       .addCase(deleteExistingItem.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.payload;
+      })
+      .addCase(updateExistingItem.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(updateExistingItem.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.items = state.items.map((item) => {
+          if (item._id === action.payload.updatedItem._id) {
+            item = action.payload.updatedItem;
+          }
+          return item;
+        });
+      })
+      .addCase(updateExistingItem.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload;
       });
   },
 });
@@ -60,6 +85,8 @@ export const addNewItem = createAsyncThunk('items/addItem', async (value: IAddIt
 
 export const deleteExistingItem = createAsyncThunk('items/deleteItem', async (id: string) => deleteItem(id));
 
-export const { onLogoutItemsSlice } = ItemInfoSlice.actions;
+export const updateExistingItem = createAsyncThunk('items/updateItem', async (values: IUpdateItemPayload) => updateItem(values));
+
+export const { onLogoutItemsSlice, setIsEditItemFalse, setIsEditItemTrue } = ItemInfoSlice.actions;
 
 export default ItemInfoSlice.reducer;

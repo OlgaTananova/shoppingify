@@ -1,0 +1,142 @@
+.edit-item-form {
+  width: 100%;
+  background-color: var(--white-color);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.edit-item-form__container {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-item-form__heading {
+  background-color: var(--grey-color);
+  font-size: 24px;
+  line-height: 1.25;
+  margin: 0 0 34px 0;
+}
+
+.edit-item-form__label {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  line-height: 1.25;
+  gap: 6px;
+}
+
+.edit-item-form__input {
+  border: 2px solid #BDBDBD;
+  border-radius: 12px;
+  padding: 17px 21px;
+  font-size: 14px;
+  line-height: 1.28;
+}
+
+.add-item-form__input:focus {
+  outline: none;
+  border: none;
+  -webkit-appearance: none;
+  box-shadow: -.3px -.3px 2px 2px var(--orange-color);
+}
+
+.edit-item-form__label:focus-within {
+  color: var(--orange-color);
+}
+
+.edit-item-form__label_type_name {
+  margin: 0 0 18px;
+}
+
+.edit-item-form__label_type_note {
+  margin: 0 0 25px;
+}
+
+.edit-item-form__label_type_image {
+  margin: 0 0 33px;
+}
+
+.edit-item-form__buttons {
+  margin: 10px auto;
+}
+
+.edit-item-form__btn {
+  width: 87px;
+  font-size: 12px;
+  line-height: 1.25;
+  font-weight: 700;
+  border-radius: 12px;
+  border: none;
+  padding: 21px 0;
+}
+
+.edit-item-form__btn_type_reset {
+  background-color: var(--white-color);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  margin-right: 10px;
+}
+
+.edit-item-form__btn_type_submit {
+  background-color: var(--orange-color);
+  color: var(--white-color);
+  opacity: .8;
+}
+
+.edit-item-form__btn:hover {
+  opacity: .5;
+  cursor: pointer;
+}
+
+.edit-item-form__error {
+  font-size: 12px;
+  line-height: 1.25;
+  height: 14px;
+  color: var(--red-color);
+}
+
+.edit-item-form__btn_disabled {
+  background-color: var(--grey-color2);
+  color: var(--white-color);
+}
+
+@media screen and (max-width: 768px) {
+  .edit-item-form__container {
+    margin: 10px;
+  }
+  .edit-item-form__heading {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  .edit-item-form__input {
+    padding: 10px 10px;
+    font-size: 12px;
+  }
+  .edit-item-form__label_type_name {
+    margin: 0 0 10px;
+  }
+  .edit-item-form__label_type_note {
+    margin: 0 0 10px;
+  }
+  .edit-item-form__label_type_image {
+    margin: 0 0 10px;
+  }
+  .edit-item-form__buttons {
+    position: relative;
+    bottom: 0;
+  }
+  .edit-item-form__btn {
+    width: 70px;
+    padding: 15px 0;
+  }
+}
+
+@media  screen and (max-width: 680px) {
+  .edit-item-form {
+    background-color: var(--grey-color);
+  }
+  .edit-item-form__container {
+    width: 80%;
+  }
+}

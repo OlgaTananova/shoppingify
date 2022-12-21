@@ -12,7 +12,9 @@ const shoppingHistorySlice = createSlice({
   name: 'shoppingHistory',
   initialState,
   reducers: {
-
+    onUpdateShoppingLists(state, action) {
+      state.shoppingLists = action.payload;
+    },
   },
   extraReducers(builder) {
     builder
@@ -31,5 +33,5 @@ const shoppingHistorySlice = createSlice({
 });
 
 export const getAllShoppingLists = createAsyncThunk('shoppingHistory/getShoppingLists', async () => getShoppingLists());
-
+export const { onUpdateShoppingLists } = shoppingHistorySlice.actions;
 export default shoppingHistorySlice.reducer;

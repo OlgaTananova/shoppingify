@@ -87,6 +87,7 @@ export interface IItem {
 
 export interface IItemInitialState {
   items: IItem[],
+  isEditItem: boolean,
   status: 'idle' | 'loading' | 'succeeded' | 'failed',
   error: string | null | undefined | unknown
 }
@@ -96,6 +97,10 @@ export interface IAddItemPayload {
   note?: string,
   image?: string,
   categoryId: string
+}
+
+export interface IUpdateItemPayload extends IAddItemPayload {
+  id: string,
 }
 
 export interface ICategory {
@@ -212,4 +217,3 @@ export interface ISorderItemsByDate {
 export interface MyCustomCSS extends CSSProperties {
   'height': number | string
 }
-

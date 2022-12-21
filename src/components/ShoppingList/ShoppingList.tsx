@@ -27,19 +27,22 @@ function ShoppingList() {
     },
   }), []);
   const editSLHeadingForm = useForm(initialValues);
+  const [itemsByCategory, setItemsByCategory] = useState<IShoppingItem | null >();
 
-  // @ts-ignore
-  const itemsByCategory = itemsInShoppingList!.length !== 0 ? itemsInShoppingList!.reduce((prev: IShoppingCategory, value: IShoppingItem) => {
-    if (!prev[value.categoryId]) {
-      // eslint-disable-next-line no-param-reassign
-      prev[value.categoryId] = [];
-      prev[value.categoryId].push(value);
-    } else {
-      prev[value.categoryId].push(value);
-    }
-    return prev;
-  }, {})
-    : null;
+  useEffect(() => {
+    // @ts-ignore
+    const sortedItems = itemsInShoppingList!.length !== 0 ? itemsInShoppingList!.reduce((prev: IShoppingCategory, value: IShoppingItem) => {
+      if (!prev[value.categoryId]) {
+        prev[value.categoryId] = [];
+        prev[value.categoryId].push(value);
+      } else {
+        prev[value.categoryId].push(value);
+      }
+      return prev;
+    }, {})
+      : null;
+    setItemsByCategory(sortedItems);
+  }, [itemsInShoppingList]);
 
   useEffect(() => {
     if (itemsInShoppingList!.length === 0) {
@@ -65,6 +68,7 @@ function ShoppingList() {
       });
   };
 
+  // @ts-ignore
   return (
     isShoppingListEmpty
       ? (

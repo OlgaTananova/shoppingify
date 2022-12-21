@@ -104,6 +104,11 @@
   color: var(--white-color);
 }
 
+.item-info__btn_edit {
+  background-color: var(--orange-color);
+  color: var(--white-color);
+}
+
 @media screen and (max-width: 1005px) {
   .item-info__btn {
     width: 100px;
@@ -134,10 +139,17 @@
   .item-info__buttons {
     align-self: flex-start;
   }
+  .item-info__btn {
+    width: 85px;
+  }
 }
 
 @media screen and (max-width: 375px) {
   .item-info__container {
     margin: 10px;
+  }
+  .item-info__btn {
+    width: 70px;
+    font-size: 12px;
   }
 }
