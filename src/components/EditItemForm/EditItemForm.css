@@ -35,7 +35,7 @@
   line-height: 1.28;
 }
 
-.add-item-form__input:focus {
+.edit-item-form__input:focus {
   outline: none;
   border: none;
   -webkit-appearance: none;

@@ -1,20 +1,20 @@
 import './Logo.css';
 import { Link, useLocation } from 'react-router-dom';
-import { useCallback, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import logo from '../../images/logo.svg';
 import { useAppDispatch } from '../../store/hooks';
 import { setLogoHeight } from '../../store/appSlice';
+import { throttle } from '../../utils/utils';
 
 function Logo() {
   const logoHeight = useRef<null | HTMLAnchorElement | Element >(null);
   const dispatch = useAppDispatch();
   const location = useLocation();
 
-  const onResize: EventListener = useCallback(() => {
+  const onResize: EventListener = throttle(() => {
     logoHeight.current
-    && dispatch(setLogoHeight(window.getComputedStyle(logoHeight.current)
-      .height.slice(0, -2)));
-  }, [dispatch]);
+    && dispatch(setLogoHeight(logoHeight.current?.clientHeight));
+  });
 
   useEffect(() => {
     window.addEventListener('resize', onResize);
@@ -25,8 +25,7 @@ function Logo() {
 
   useEffect(() => {
     logoHeight.current
-    && dispatch(setLogoHeight(window.getComputedStyle(logoHeight.current)
-      .height.slice(0, -2)));
+    && dispatch(setLogoHeight(logoHeight.current?.clientHeight));
   }, []);
 
   return (

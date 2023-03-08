@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import {
   Routes, Route, useNavigate,
@@ -31,6 +31,7 @@ import InfoPopup from '../InfoPopup/InfoPopup';
 import { getAllShoppingLists } from '../../store/shoppingHistorySlice';
 import { clearShoppingList, getActiveShoppingList } from '../../store/shoppingSlice';
 import { IShoppingList } from '../../types';
+import { throttle } from '../../utils/utils';
 
 function App() {
   const appStatus = useAppSelector((state) => state.app.appStatus);
@@ -40,13 +41,13 @@ function App() {
   const isUserChecked = useAppSelector((state) => state.app.isUserChecked);
   const navigate = useNavigate();
 
-  const onScroll: EventListener = useCallback(() => {
+  const onScroll = throttle(() => {
     dispatch(setScroll(window.scrollY));
-  }, []);
+  });
 
-  const onResize: EventListener = useCallback(() => {
+  const onResize = throttle(() => {
     dispatch(setInnerHeight(window.innerHeight));
-  }, []);
+  });
 
   useEffect(() => {
     dispatch(setInnerHeight(window.innerHeight));

@@ -7,3 +7,18 @@ export const checkResponse = ((response: Response) => {
     throw new Error(error.message);
   });
 });
+
+export const throttle = (cb: EventListener, delay = 100) => {
+  let shouldWait: boolean = false;
+  return (...arg: any) => {
+    if (shouldWait) {
+      return;
+    }
+    // @ts-ignore
+    cb(...arg);
+    shouldWait = true;
+    setTimeout(() => {
+      shouldWait = false;
+    }, delay);
+  };
+};

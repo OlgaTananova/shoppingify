@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './styles/index.css';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, HashRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import App from './components/App/App';
 import { store } from './store/store';
@@ -21,9 +21,9 @@ store.dispatch(checkUser()).unwrap().then(() => {
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter basename="/shoppingify">
+      <HashRouter>
         <App />
-      </BrowserRouter>
+      </HashRouter>
     </Provider>
   </React.StrictMode>,
 );

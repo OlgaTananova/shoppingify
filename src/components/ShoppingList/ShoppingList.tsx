@@ -87,7 +87,7 @@ function ShoppingList() {
                       />
                       )}
           <p className="shopping-list__no-items">No Items</p>
-          <img className="shopping-list-empty-img" alt="Empty shopping list" src={image} />
+          <img className="shopping-list-empty-img" alt="Empty shopping list" src={image} loading="lazy" />
         </div>
       )
       : (
