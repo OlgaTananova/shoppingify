@@ -1,10 +1,12 @@
 import './EditSLHeadingForm.css';
 import {
-  ChangeEventHandler, FormEventHandler, MouseEventHandler, useMemo, useState,
+  ChangeEventHandler, FormEventHandler, MouseEventHandler, useEffect, useState,
 } from 'react';
 import { setIsEditShoppingListFalse, setIsEditShoppingListTrue } from '../../store/shoppingSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 
+// @ts-ignore
+// @ts-ignore
 function EditSLHeadingForm({
   value, onChange, error, required, onSubmit, isValid,
 }: {
@@ -20,20 +22,24 @@ function EditSLHeadingForm({
   const dispatch = useAppDispatch();
   const [showEditHeadingButton, setShowEditHeadingButton] = useState<boolean>(false);
   const [showCopyToClipboardMessage, setShowCopyToClipboardMessage] = useState<boolean>(false);
-
+  const [shoppingListToClipboard, setShoppingListToClipBoard] = useState([]);
   const handleEditShoppingListClick: MouseEventHandler = () => {
     !isEditShoppingList
       ? dispatch(setIsEditShoppingListTrue())
       : dispatch(setIsEditShoppingListFalse());
   };
-
-  const shoppingListToClipboard = useMemo(() => (shoppingList!.length !== 0 ? shoppingList!.reduce((prev, item) => {
-    const itemInItems = itemsInItems.find((i) => i._id === item!.itemId);
-    const name = itemInItems!.name || 'Unknown item';
-    prev.push(name.concat(' ', item!.quantity.toString()));
-    return prev;
-  }, [] as unknown as [string])
-    : []), []);
+  // update shoppingListToClipboard if shoppingList has been changed
+  useEffect(() => {
+    // @ts-ignore
+    setShoppingListToClipBoard(() => (shoppingList!.length !== 0
+      ? shoppingList!.reduce((prev, item) => {
+        const itemInItems = itemsInItems.find((i) => i._id === item!.itemId);
+        const name = itemInItems!.name || 'Unknown item';
+        prev.push(name.concat(' ', item!.quantity.toString()));
+        return prev;
+      }, [] as unknown as [string])
+      : []));
+  }, [shoppingList]);
 
   const copyToClipboardClick: MouseEventHandler = () => {
     navigator.clipboard.writeText(shoppingListToClipboard.join(', \n'))

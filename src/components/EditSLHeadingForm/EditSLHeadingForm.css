@@ -111,7 +111,7 @@
 .shopping-list__button_copy_active::before {
   position: absolute;
   top: -45px;
-  left: -90px;
+  left: -100px;
   content: attr(title);
   width: 150px;
   height: 40px;
