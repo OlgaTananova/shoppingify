@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { openAddItemForm } from '../../store/shoppingSlice';
 import { setShowMobileSLTrue } from '../../store/appSlice';
 import { MyCustomCSS } from '../../types';
+import BillLoader from '../BillLoader/BillLoader';
 
 function Shopping() {
   const scroll = useAppSelector((state) => state.app.scroll);
@@ -39,6 +40,7 @@ function Shopping() {
           </button>
         </div>
         <AddItemToSLForm />
+        <BillLoader />
         <ShoppingList />
       </>
       )}

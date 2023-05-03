@@ -1,5 +1,6 @@
 .shopping-list__heading-section {
   display: flex;
+  width: 100%;
   flex-wrap: nowrap;
   justify-content: space-between;
 }

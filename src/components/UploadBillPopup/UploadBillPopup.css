@@ -1,0 +1,136 @@
+.upload-bill-popup {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left:0;
+  display: flex;
+}
+
+.upload-bill-popup_inactive {
+  display: none;
+}
+
+.upload-bill-popup__inner-container {
+  width: 40%;
+  background-color: var(--white-color);
+  border-radius: 24px;
+  margin: auto;
+  position: relative;
+  padding: 21px 35px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.upload-bill-popup__close-btn {
+  position: absolute;
+  top: 21px;
+  right: 35px;
+  width: 20px;
+  height: 20px;
+  background-image: url('../../images/close_FILL0_wght400_GRAD0_opsz48.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  border: none;
+  background-color: var(--white-color);
+  padding: 0;
+  transition: all .3ms ease;
+}
+
+.upload-bill-popup__close-btn:hover {
+  cursor: pointer;
+  opacity: .7;
+}
+
+.upload-bill-popup__heading {
+  margin: 20px 0 35px 0;
+  font-size: 24px;
+  line-height: 1.25;
+  font-weight: 700;
+}
+
+.upload-bill-popup__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.upload-bill-popup__actions-section {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin: 20px 0 0 0;
+}
+
+.upload-bill-popup__action-btn {
+  width: 95px;
+  border: none;
+  background-color: var(--orange-color);
+  padding: 20px 0;
+  font-size: 14px;
+  line-height: 1.25;
+  font-weight: 500;
+  color: var(--white-color);
+  border-radius: 12px;
+  transition: all .3ms ease;
+}
+
+.upload-bill-popup__action-btn:hover {
+  cursor: pointer;
+  opacity: .7;
+}
+
+.upload-bill-popup__list-item {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.upload-bill-popup__list-header {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+  list-style: none;
+  margin: 0 0 10px 0;
+  padding: 0;
+}
+
+.upload-bill-popup__list-footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.upload-bill-popup__item-name {
+  font-size: 14px;
+  line-height: 1.25;
+  font-weight: 500;
+  width: 60%;
+}
+
+.upload-bill-popup__item-small-cell {
+  font-size: 14px;
+  line-height: 1.25;
+  font-weight: 500;
+  width: 10%;
+}
+
+.upload-bill-popup__list-header > .upload-bill-popup__item-small-cell {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.upload-bill-popup__list-footer > .upload-bill-popup__item-small-cell {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.upload-bill-popup__list-footer > .upload-bill-popup__item-name {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+

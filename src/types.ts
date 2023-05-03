@@ -9,6 +9,27 @@ export interface IShoppingItem {
   itemId: string,
   quantity: number,
   status: 'completed' | 'pending',
+  units?: string,
+  pricePerUnit?: number,
+  price?: number,
+}
+
+export interface IUploadedShoppingItem {
+  itemName: string,
+  itemQuantity: string,
+  itemUnits: string,
+  itemPricePerUnit: string,
+  itemPrice: string,
+  salesTax?: string,
+}
+export interface IFullShoppingItem extends IShoppingItem {
+  itemName?: string,
+  itemCategoryName?: string,
+}
+
+export interface IMergeBillPayload {
+  items: [IFullShoppingItem?] | [],
+  uploadedList: [IUploadedShoppingItem?] | [],
 }
 
 export interface IShoppingCategory {
@@ -22,6 +43,8 @@ export interface IShoppingList {
   items?: [IShoppingItem?],
   status: 'completed' | 'cancelled' | 'active' | 'idle',
   _id?: string,
+  uploadedItems?: [IUploadedShoppingItem?],
+  isUploadBillFormOpened?: boolean,
 }
 
 export interface IShoppingListInitialState extends IShoppingList {
@@ -195,6 +218,7 @@ export interface IAppSliceInitialState {
   scroll: number,
   logoHeight: number,
   innerHeight: string | number
+  showUploadBillPopup: boolean,
 }
 
 // Statistics

@@ -6,18 +6,19 @@ import {
 import {
   IAddItemToShoppingListPayload,
   ICreateShoppingListPayload,
-  IDeleteItemFromShoppingListPayload,
+  IDeleteItemFromShoppingListPayload, IMergeBillPayload, IShoppingItem,
   IShoppingListInitialState,
   IUpdateItemQtyInShoppingList,
   IUpdateItemStatusInShoppingList,
   IUpdateSLHeadingPayload,
-  IUpdateSLStatusPayload,
+  IUpdateSLStatusPayload, IUploadedShoppingItem,
 } from '../types';
 import {
   createShoppingList,
   addItemToShoppingList,
   deleteItemFromShoppingList,
   updateItemQtyInShoppingList, updateItemStatusInShoppingList, updateShoppingListHeading, updateShoppingListStatus,
+  uploadBillAndGetShoppingList, mergeShoppingLists,
 } from '../utils/apiShoppingLists';
 
 const initialState: IShoppingListInitialState = {
@@ -31,6 +32,8 @@ const initialState: IShoppingListInitialState = {
   requestStatus: 'idle',
   _id: '',
   error: null,
+  uploadedItems: [],
+  isUploadBillFormOpened: false,
 };
 
 const changeState = (state: IShoppingListInitialState, action: PayloadAction<IShoppingListInitialState>) => {
@@ -66,6 +69,12 @@ const shoppingSlice = createSlice({
     clearShoppingList(state) {
       state = Object.assign(state, initialState);
     },
+    openUploadBillForm(state) {
+      state.isUploadBillFormOpened = true;
+    },
+    closeUploadBillForm(state) {
+      state.isUploadBillFormOpened = false;
+    },
   },
   extraReducers(builder) {
     builder
@@ -75,6 +84,7 @@ const shoppingSlice = createSlice({
       .addCase(createNewShoppingList.fulfilled, (state, action) => {
         state.requestStatus = 'succeeded';
         changeState(state, action);
+        state.isUploadBillFormOpened = false;
       })
       .addCase(createNewShoppingList.rejected, (state, action) => {
         state.requestStatus = 'failed';
@@ -86,6 +96,7 @@ const shoppingSlice = createSlice({
       .addCase(addNewItemToShoppingList.fulfilled, (state, action) => {
         state.requestStatus = 'succeeded';
         changeState(state, action);
+        state.isUploadBillFormOpened = false;
       })
       .addCase(addNewItemToShoppingList.rejected, (state, action) => {
         state.requestStatus = 'failed';
@@ -145,6 +156,28 @@ const shoppingSlice = createSlice({
       .addCase(updateSLStatus.rejected, (state, action) => {
         state.requestStatus = 'failed';
         state.error = action.error.message;
+      })
+      .addCase(uploadBillAndSL.pending, (state) => {
+        state.requestStatus = 'loading';
+      })
+      .addCase(uploadBillAndSL.fulfilled, (state, action) => {
+        state.requestStatus = 'succeeded';
+        state.uploadedItems = action.payload;
+        state.error = null;
+      })
+      .addCase(uploadBillAndSL.rejected, (state, action) => {
+        state.requestStatus = 'failed';
+        state.error = action.error.message;
+      })
+      .addCase(mergeBill.pending, (state) => {
+        state.requestStatus = 'loading';
+      })
+      .addCase(mergeBill.fulfilled, (state, action) => {
+        state.requestStatus = 'succeeded';
+      })
+      .addCase(mergeBill.rejected, (state, action) => {
+        state.requestStatus = 'failed';
+        state.error = action.error.message;
       });
   },
 });
@@ -162,6 +195,10 @@ export const updateExistingSLHeading = createAsyncThunk('shoppingList/updSLHeadi
 
 export const updateSLStatus = createAsyncThunk('shoppingList/updSLStatus', async (values: IUpdateSLStatusPayload) => updateShoppingListStatus(values));
 
+export const uploadBillAndSL = createAsyncThunk('shoppingList/uploadBillAndSL', async (values: FormData) => uploadBillAndGetShoppingList(values));
+
+export const mergeBill = createAsyncThunk('shoppingList/mergeShoppingList', async (values: IMergeBillPayload) => mergeShoppingLists(values));
+
 export const {
   closeAddItemForm,
   openAddItemForm,
@@ -169,6 +206,8 @@ export const {
   setIsEditShoppingListTrue,
   getActiveShoppingList,
   clearShoppingList,
+  openUploadBillForm,
+  closeUploadBillForm,
 } = shoppingSlice.actions;
 
 export default shoppingSlice.reducer;

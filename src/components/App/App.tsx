@@ -32,6 +32,7 @@ import { getAllShoppingLists } from '../../store/shoppingHistorySlice';
 import { clearShoppingList, getActiveShoppingList } from '../../store/shoppingSlice';
 import { IShoppingList } from '../../types';
 import { throttle } from '../../utils/utils';
+import UploadBillPopup from '../UploadBillPopup/UploadBillPopup';
 
 function App() {
   const appStatus = useAppSelector((state) => state.app.appStatus);
@@ -114,6 +115,7 @@ function App() {
       <CancelShoppingListPopup />
       {isLoading && <Preloader />}
       <InfoPopup />
+      <UploadBillPopup />
     </div>
   );
 }

@@ -3,8 +3,13 @@ import { baseUrl } from '../constants';
 import {
   IAddItemToShoppingListPayload,
   ICreateShoppingListPayload,
-  IDeleteItemFromShoppingListPayload,
-  IUpdateItemQtyInShoppingList, IUpdateItemStatusInShoppingList, IUpdateSLHeadingPayload, IUpdateSLStatusPayload,
+  IDeleteItemFromShoppingListPayload, IMergeBillPayload,
+  IShoppingItem,
+  IUpdateItemQtyInShoppingList,
+  IUpdateItemStatusInShoppingList,
+  IUpdateSLHeadingPayload,
+  IUpdateSLStatusPayload,
+  IUploadedShoppingItem,
 } from '../types';
 
 export const getShoppingLists = async () => {
@@ -100,4 +105,25 @@ export const updateShoppingListStatus = async (values: IUpdateSLStatusPayload) =
     body: JSON.stringify(values),
   });
   return checkResponse(updatedShoppingList);
+};
+
+export const uploadBillAndGetShoppingList = async (values: FormData) => {
+  const shoppingList = await fetch(`${baseUrl}/upload-bill`, {
+    method: 'POST',
+    credentials: 'include',
+    body: values,
+  });
+  return checkResponse(shoppingList);
+};
+
+export const mergeShoppingLists = async (values: IMergeBillPayload) => {
+  const mergedShoppingList = await fetch(`${baseUrl}/merge-lists`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include',
+    body: JSON.stringify(values),
+  });
+  return checkResponse(mergedShoppingList);
 };

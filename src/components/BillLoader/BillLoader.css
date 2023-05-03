@@ -1,0 +1,53 @@
+.upload-bill-sector {
+  display: flex;
+  margin: 0 auto;
+  width: 90%;
+  gap: 15px;
+}
+
+.upload-bill-button {
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  border: none;
+  background-image: url('../../images/upload_file_FILL0_wght400_GRAD0_opsz48.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-color: var(--light-orange-color);
+}
+.upload-bill-heading {
+  text-align: center;
+  margin: 0;
+  line-height: 1.2;
+  display: flex;
+  align-items: center;
+}
+
+.upload-bill-form {
+  display: flex;
+  justify-content: center;
+  margin: 0 20px 10px 20px;
+  padding: 10px;
+}
+
+.upload-bill-form__input::file-selector-button {
+  border: none;
+  background-color: var(--orange-color);
+  color: var(--white-color);
+  padding: 10px 15px;
+  border-radius: 10px;
+}
+
+.upload-bill-form__input::file-selector-button:hover {
+  opacity: .7;
+  cursor: pointer;
+}
+
+.upload-bill-form__submit-btn {
+  border: none;
+  background-color: var(--orange-color);
+  color: var(--white-color);
+  padding: 10px 15px;
+  border-radius: 10px;
+}
