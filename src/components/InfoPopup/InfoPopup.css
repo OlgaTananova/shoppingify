@@ -12,6 +12,7 @@
 .infopopup_opened {
   display: flex;
   pointer-events: all;
+  z-index: 10;
 }
 
 .infopopup__container {

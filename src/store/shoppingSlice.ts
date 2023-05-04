@@ -6,7 +6,7 @@ import {
 import {
   IAddItemToShoppingListPayload,
   ICreateShoppingListPayload,
-  IDeleteItemFromShoppingListPayload, IMergeBillPayload, IShoppingItem,
+  IDeleteItemFromShoppingListPayload, IFullShoppingItem, IMergeBillPayload, IMergeListPayload, IShoppingItem,
   IShoppingListInitialState,
   IUpdateItemQtyInShoppingList,
   IUpdateItemStatusInShoppingList,
@@ -18,7 +18,7 @@ import {
   addItemToShoppingList,
   deleteItemFromShoppingList,
   updateItemQtyInShoppingList, updateItemStatusInShoppingList, updateShoppingListHeading, updateShoppingListStatus,
-  uploadBillAndGetShoppingList, mergeShoppingLists,
+  uploadBillAndGetShoppingList, mergeShoppingLists, uploadShoppingList,
 } from '../utils/apiShoppingLists';
 
 const initialState: IShoppingListInitialState = {
@@ -34,6 +34,7 @@ const initialState: IShoppingListInitialState = {
   error: null,
   uploadedItems: [],
   isUploadBillFormOpened: false,
+  salesTax: 0,
 };
 
 const changeState = (state: IShoppingListInitialState, action: PayloadAction<IShoppingListInitialState>) => {
@@ -43,6 +44,7 @@ const changeState = (state: IShoppingListInitialState, action: PayloadAction<ISh
   state.items = action.payload.items;
   state.status = action.payload.status;
   state._id = action.payload._id;
+  state.salesTax = action.payload.salesTax;
   state.error = null;
 };
 
@@ -174,8 +176,20 @@ const shoppingSlice = createSlice({
       })
       .addCase(mergeBill.fulfilled, (state, action) => {
         state.requestStatus = 'succeeded';
+        changeState(state, action);
       })
       .addCase(mergeBill.rejected, (state, action) => {
+        state.requestStatus = 'failed';
+        state.error = action.error.message;
+      })
+      .addCase(mergeList.pending, (state) => {
+        state.requestStatus = 'loading';
+      })
+      .addCase(mergeList.fulfilled, (state, action) => {
+        state.requestStatus = 'succeeded';
+        changeState(state, action);
+      })
+      .addCase(mergeList.rejected, (state, action) => {
         state.requestStatus = 'failed';
         state.error = action.error.message;
       });
@@ -198,7 +212,7 @@ export const updateSLStatus = createAsyncThunk('shoppingList/updSLStatus', async
 export const uploadBillAndSL = createAsyncThunk('shoppingList/uploadBillAndSL', async (values: FormData) => uploadBillAndGetShoppingList(values));
 
 export const mergeBill = createAsyncThunk('shoppingList/mergeShoppingList', async (values: IMergeBillPayload) => mergeShoppingLists(values));
-
+export const mergeList = createAsyncThunk('shoppingList/mergeList', async (values: IMergeListPayload) => uploadShoppingList(values));
 export const {
   closeAddItemForm,
   openAddItemForm,

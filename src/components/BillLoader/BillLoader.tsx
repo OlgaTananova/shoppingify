@@ -1,3 +1,6 @@
+/*
+  This component is responsible for uploading the bill to the server.
+*/
 import './BillLoader.css';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
@@ -9,14 +12,15 @@ import { closeUploadBillForm, openUploadBillForm, uploadBillAndSL } from '../../
 export default function BillLoader() {
   const [file, setFile] = useState<File | null>(null);
   const isUploadBillFormOpened = useAppSelector((state) => state.shopping.isUploadBillFormOpened);
-  const shoppingItems = useAppSelector((state) => state.shopping.items);
   const dispatch = useAppDispatch();
 
+  // handler to store the file in the state in the component
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files && event.target.files[0];
     setFile(selectedFile);
   };
 
+  // handler to open/close the upload bill form
   const handleUploadBillButtonClick = () => {
     if (!isUploadBillFormOpened) {
       dispatch(openUploadBillForm());
@@ -25,6 +29,10 @@ export default function BillLoader() {
     }
   };
 
+  // handler to submit the form to the server
+  // the file is sent as a form data
+  // after the file is uploaded, UploadBillPopup is shown
+  // TODO: add validation to check if the file is a pdf
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!file) {

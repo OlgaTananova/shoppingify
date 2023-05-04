@@ -133,4 +133,9 @@
   font-weight: 700;
 }
 
+.upload-bill-popup__action-btn_merge[disabled] {
+  background-color: var(--grey-color);
+  color: var(--black-grey-color);
+}
+
 

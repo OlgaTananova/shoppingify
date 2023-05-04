@@ -3,7 +3,7 @@ import { baseUrl } from '../constants';
 import {
   IAddItemToShoppingListPayload,
   ICreateShoppingListPayload,
-  IDeleteItemFromShoppingListPayload, IMergeBillPayload,
+  IDeleteItemFromShoppingListPayload, IFullShoppingItem, IMergeBillPayload, IMergeListPayload,
   IShoppingItem,
   IUpdateItemQtyInShoppingList,
   IUpdateItemStatusInShoppingList,
@@ -126,4 +126,16 @@ export const mergeShoppingLists = async (values: IMergeBillPayload) => {
     body: JSON.stringify(values),
   });
   return checkResponse(mergedShoppingList);
+};
+
+export const uploadShoppingList = async (values: IMergeListPayload) => {
+  const shoppingList = await fetch(`${baseUrl}/upload-list`, {
+    method: 'POST',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(values),
+  });
+  return checkResponse(shoppingList);
 };
