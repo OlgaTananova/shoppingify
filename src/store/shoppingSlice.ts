@@ -9,7 +9,7 @@ import {
   IDeleteItemFromShoppingListPayload, IFullShoppingItem, IMergeBillPayload, IMergeListPayload, IShoppingItem,
   IShoppingListInitialState,
   IUpdateItemQtyInShoppingList,
-  IUpdateItemStatusInShoppingList,
+  IUpdateItemStatusInShoppingList, IUpdateItemUnitsInShoppingList,
   IUpdateSLHeadingPayload,
   IUpdateSLStatusPayload, IUploadedShoppingItem,
 } from '../types';
@@ -18,7 +18,7 @@ import {
   addItemToShoppingList,
   deleteItemFromShoppingList,
   updateItemQtyInShoppingList, updateItemStatusInShoppingList, updateShoppingListHeading, updateShoppingListStatus,
-  uploadBillAndGetShoppingList, mergeShoppingLists, uploadShoppingList,
+  uploadBillAndGetShoppingList, mergeShoppingLists, uploadShoppingList, updateItemUnitsInShoppingList,
 } from '../utils/apiShoppingLists';
 
 const initialState: IShoppingListInitialState = {
@@ -76,6 +76,9 @@ const shoppingSlice = createSlice({
     },
     closeUploadBillForm(state) {
       state.isUploadBillFormOpened = false;
+    },
+    clearUploadedItems(state) {
+      state.uploadedItems = [];
     },
   },
   extraReducers(builder) {
@@ -192,6 +195,18 @@ const shoppingSlice = createSlice({
       .addCase(mergeList.rejected, (state, action) => {
         state.requestStatus = 'failed';
         state.error = action.error.message;
+      })
+      .addCase(updateUnitsOfItemInSL.pending, (state) => {
+        state.requestStatus = 'loading';
+      })
+      .addCase(updateUnitsOfItemInSL.fulfilled, (state, action) => {
+        state.requestStatus = 'succeeded';
+        state.items = action.payload.items;
+        state.error = null;
+      })
+      .addCase(updateUnitsOfItemInSL.rejected, (state, action) => {
+        state.requestStatus = 'failed';
+        state.error = action.error.message;
       });
   },
 });
@@ -213,6 +228,7 @@ export const uploadBillAndSL = createAsyncThunk('shoppingList/uploadBillAndSL', 
 
 export const mergeBill = createAsyncThunk('shoppingList/mergeShoppingList', async (values: IMergeBillPayload) => mergeShoppingLists(values));
 export const mergeList = createAsyncThunk('shoppingList/mergeList', async (values: IMergeListPayload) => uploadShoppingList(values));
+export const updateUnitsOfItemInSL = createAsyncThunk('shoppingList/updateUnitsOfItemInSL', async (values: IUpdateItemUnitsInShoppingList) => updateItemUnitsInShoppingList(values));
 export const {
   closeAddItemForm,
   openAddItemForm,
@@ -222,6 +238,7 @@ export const {
   clearShoppingList,
   openUploadBillForm,
   closeUploadBillForm,
+  clearUploadedItems,
 } = shoppingSlice.actions;
 
 export default shoppingSlice.reducer;

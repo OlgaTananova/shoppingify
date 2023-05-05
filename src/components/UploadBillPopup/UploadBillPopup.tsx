@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import {
   closeUploadBillPopup, setIsLoadingFalse, setIsLoadingTrue, setShowErrorTrue,
 } from '../../store/appSlice';
-import { mergeBill, mergeList } from '../../store/shoppingSlice';
+import { clearUploadedItems, mergeBill, mergeList } from '../../store/shoppingSlice';
 import { IFullShoppingItem, IShoppingItem } from '../../types';
 
 function UploadBillPopup() {
@@ -30,6 +30,7 @@ function UploadBillPopup() {
   // handler to close the popup
   const handleUploadBillPopupCloseBtnClick = () => {
     dispatch(closeUploadBillPopup());
+    dispatch(clearUploadedItems());
   };
     // handler to merge the bill with the active shopping list:
     // 1. it checks if the length of the items from the shopping list is equal to the length of the items from the uploaded bill
@@ -84,13 +85,14 @@ function UploadBillPopup() {
             setSalesTax(0);
             setDateOfBill('');
             setTotalSum(0);
+            dispatch(clearUploadedItems());
           });
       }
     }
   };
 
   // function to upload the bill:
-  // 1. it check if there is no active shopping list
+  // 1. it checks if there is no active shopping list
   // 2. it iterates over the list of uploaded items and finds the corresponding item in the store
   // 3. it creates a new array of items with the fields from the uploaded items
   // 4. it sets the merged bill to the state
@@ -140,6 +142,7 @@ function UploadBillPopup() {
             setSalesTax(0);
             setDateOfBill('');
             setTotalSum(0);
+            dispatch(clearUploadedItems());
           });
       }
     }

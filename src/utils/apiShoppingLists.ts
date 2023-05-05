@@ -6,7 +6,7 @@ import {
   IDeleteItemFromShoppingListPayload, IFullShoppingItem, IMergeBillPayload, IMergeListPayload,
   IShoppingItem,
   IUpdateItemQtyInShoppingList,
-  IUpdateItemStatusInShoppingList,
+  IUpdateItemStatusInShoppingList, IUpdateItemUnitsInShoppingList,
   IUpdateSLHeadingPayload,
   IUpdateSLStatusPayload,
   IUploadedShoppingItem,
@@ -138,4 +138,16 @@ export const uploadShoppingList = async (values: IMergeListPayload) => {
     body: JSON.stringify(values),
   });
   return checkResponse(shoppingList);
+};
+
+export const updateItemUnitsInShoppingList = async (values: IUpdateItemUnitsInShoppingList) => {
+  const updatedShoppingList = await fetch(`${baseUrl}/shoppinglists/updItemUnits`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include',
+    body: JSON.stringify(values),
+  });
+  return checkResponse(updatedShoppingList);
 };

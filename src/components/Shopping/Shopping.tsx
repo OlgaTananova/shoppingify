@@ -1,3 +1,6 @@
+/*
+* This component is responsible for rendering the shopping list, bill loader, and the add item form.
+* */
 import './Shopping.css';
 import AddItemForm from '../AddItemForm/AddItemForm';
 import ShoppingList from '../ShoppingList/ShoppingList';
@@ -9,12 +12,11 @@ import { MyCustomCSS } from '../../types';
 import BillLoader from '../BillLoader/BillLoader';
 
 function Shopping() {
-  const scroll = useAppSelector((state) => state.app.scroll);
   const dispatch = useAppDispatch();
   const showAddItemForm = useAppSelector((state) => state.shopping.isAddItemFormOpened);
   const showMobileSL = useAppSelector((state) => state.app.showMobileSL);
   const innerHeight = useAppSelector((state) => state.app.innerHeight);
-  const handleClick = () => {
+  const handleAddItemFormClick = () => {
     dispatch(openAddItemForm());
     dispatch(setShowMobileSLTrue());
   };
@@ -34,7 +36,7 @@ function Shopping() {
           <button
             className="add-item-section__btn"
             type="button"
-            onClick={handleClick}
+            onClick={handleAddItemFormClick}
           >
             Add item
           </button>

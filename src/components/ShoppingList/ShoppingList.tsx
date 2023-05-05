@@ -1,3 +1,7 @@
+/*
+* This component is responsible for rendering the shopping list with its heading.
+* Additionally it sorts the items by category and renders the ShoppingCategory component.
+* */
 import './ShoppingList.css';
 import {
   FormEventHandler, useEffect, useMemo, useState,

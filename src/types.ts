@@ -100,6 +100,10 @@ export interface IUpdateItemStatusInShoppingList extends IDeleteItemFromShopping
   status: 'pending' | 'completed'
 }
 
+export interface IUpdateItemUnitsInShoppingList extends IDeleteItemFromShoppingListPayload {
+  units: string,
+}
+
 export interface IUpdateSLHeadingPayload {
   shoppingListId: string | undefined
   heading: string,
