@@ -272,6 +272,9 @@ export interface IExpensesByMonth {
   }
 }
 
+export interface IExpensesByYear extends IExpensesByMonth {
+}
+
 export interface IExpensesByCategory {
   [key: string]: {
     categoryName: string,

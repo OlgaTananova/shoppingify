@@ -1,0 +1,54 @@
+.statistics__byYear {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  padding: 0 20px 20px 20px;
+  margin: 0;
+  gap: 10px;
+}
+
+.statistics__byYear-heading {
+  font-size: 24px;
+  line-height: 1.25;
+  font-weight: 700;
+  margin: 0;
+}
+
+.statistics__byYear-month-selector {
+  border-radius: 5px;
+  border: 2px solid var(--orange-color);
+}
+
+.statistics__byYear-salesTax-section, .statistics__byYear-total-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.statistics__byYear-salesTax-heading, .statistics__byYear-salesTax-value,
+.statistics__byYear-total-heading, .statistics__byYear-total-value {
+  font-size: 14px;
+  line-height: 1.25;
+  font-weight: 700;
+  margin: 0;
+}
+
+@media screen and (max-width: 1024px) {
+  .statistics__byYear-heading {
+    font-size: 20px;
+  }
+
+  .statistics__byYear {
+    padding: 15px;
+  }
+
+  .statistics__byYear-heading {
+    margin: 0;
+  }
+
+  .statistics__byYear {
+    width: 85%;
+    gap: 15px;
+  }
+
+}
