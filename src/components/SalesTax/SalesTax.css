@@ -1,0 +1,31 @@
+.sales-tax {
+  display: flex;
+  align-items: center;
+  position: relative;
+  justify-content: space-between;
+}
+
+.sales-tax__action-button {
+  width: 80px;
+  height: 37px;
+  border-radius: 24px;
+  background-color: var(--light-orange-color);
+  border: 3px solid var(--orange-color);
+  color: var(--orange-color);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.25;
+  transition: all .3ms ease;
+}
+
+.shopping-list__edit-item-editSalesTaxForm-input {
+  width: 80px;
+  height: 45px;
+  border: none;
+  border-radius: 12px;
+  background-color: var(--white-color);
+  font-size: 16px;
+  line-height: 1.2;
+  color: var(--medium-grey-color);
+  text-align: center;
+}

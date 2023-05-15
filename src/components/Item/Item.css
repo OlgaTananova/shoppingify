@@ -12,6 +12,11 @@
 .category__item:hover {
   cursor: pointer;
 }
+
+.category__item-link{
+  display: flex;
+}
+
 .category__item-name {
   font-size: 14px;
   line-height: 1.25;
@@ -51,12 +56,19 @@
 }
 
 @media screen and (max-width: 425px) {
+  .category__item {
+    padding: 0 10px;
+  }
   .category__item-button {
     width: 15px;
     height: 15px;
   }
   .category__item-name {
-    max-width: 50px;
+    width: 50px;
     font-size: 12px;
+    text-overflow: unset;
+    white-space: normal;
+    overflow: unset;
+    overflow-wrap: break-word;
   }
 }

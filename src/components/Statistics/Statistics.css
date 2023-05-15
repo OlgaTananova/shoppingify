@@ -7,7 +7,7 @@
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   column-gap: 30px;
-  row-gap: 65px;
+  row-gap: 30px;
   padding-top: 30px;
 }
 
@@ -17,17 +17,40 @@
   margin: 0 auto;
 }
 
-.statistics__top-section {
+.statistics__top-section, .statistics__byMonth {
   display: flex;
   flex-direction: column;
   list-style: none;
-  padding: 0 40px 40px 40px;
+  padding: 0 20px 20px 20px;
   margin: 0;
   gap: 29px;
 }
 
-.statistics__top-section-heading {
+.statistics__byMonth {
+  gap: 10px;
+}
+
+.statistics__top-section-heading, .statistics__ByMonth-heading {
   font-size: 24px;
+  line-height: 1.25;
+  font-weight: 700;
+  margin: 0;
+}
+
+.statistics__byMonth-month-selector {
+  border-radius: 5px;
+  border: 2px solid var(--orange-color);
+}
+
+.statistics__ByMonth-salesTax-section, .statistics__ByMonth-total-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.statistics__ByMonth-salesTax-heading, .statistics__ByMonth-salesTax-value,
+.statistics__ByMonth-total-heading, .statistics__ByMonth-total-value {
+  font-size: 14px;
   line-height: 1.25;
   font-weight: 700;
   margin: 0;
@@ -90,11 +113,11 @@
 }
 
 @media screen and (max-width: 1024px) {
-  .statistics__top-section-heading {
+  .statistics__top-section-heading, .statistics__ByMonth-heading {
     font-size: 20px;
   }
 
-  .statistics__top-section {
+  .statistics__top-section, .statistics__byMonth {
     padding: 15px;
   }
 
@@ -103,7 +126,7 @@
     font-size: 20px;
   }
 
-  .statistics__top-section-heading {
+  .statistics__top-section-heading, .statistics__ByMonth-heading {
     margin: 0;
   }
 
@@ -115,7 +138,7 @@
     align-items: center;
   }
 
-  .statistics__top-section {
+  .statistics__top-section, .statistics__byMonth {
     width: 85%;
     gap: 15px;
   }

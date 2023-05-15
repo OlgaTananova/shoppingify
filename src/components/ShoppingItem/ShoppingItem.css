@@ -71,6 +71,11 @@
   cursor: pointer;
 }
 
+.shopping-list__item-action-button_total:hover {
+  opacity: 1;
+  cursor: auto;
+}
+
 .shopping-list__edit-item {
   position: absolute;
   right: 0;

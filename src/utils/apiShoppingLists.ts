@@ -4,9 +4,9 @@ import {
   IAddItemToShoppingListPayload,
   ICreateShoppingListPayload,
   IDeleteItemFromShoppingListPayload, IFullShoppingItem, IMergeBillPayload, IMergeListPayload,
-  IShoppingItem,
+  IShoppingItem, IUpdateItemPricePerUnitInShoppingList,
   IUpdateItemQtyInShoppingList,
-  IUpdateItemStatusInShoppingList, IUpdateItemUnitsInShoppingList,
+  IUpdateItemStatusInShoppingList, IUpdateItemUnitsInShoppingList, IUpdateSalesTaxPayload,
   IUpdateSLHeadingPayload,
   IUpdateSLStatusPayload,
   IUploadedShoppingItem,
@@ -149,5 +149,30 @@ export const updateItemUnitsInShoppingList = async (values: IUpdateItemUnitsInSh
     credentials: 'include',
     body: JSON.stringify(values),
   });
+  return checkResponse(updatedShoppingList);
+};
+
+export const updateItemPricePerUnitInShoppingList = async (values: IUpdateItemPricePerUnitInShoppingList) => {
+  const updatedShoppingList = await fetch(`${baseUrl}/shoppinglists/updItemPrice`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include',
+    body: JSON.stringify(values),
+  });
+  return checkResponse(updatedShoppingList);
+};
+
+export const updateSalesTaxInShoppingList = async (values: IUpdateSalesTaxPayload) => {
+  const updatedShoppingList = await fetch(`${baseUrl}/shoppinglists/updSalesTax`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include',
+    body: JSON.stringify(values),
+  });
+
   return checkResponse(updatedShoppingList);
 };

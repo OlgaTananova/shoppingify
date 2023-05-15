@@ -11,18 +11,21 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import {
   updateExistingSLHeading,
 } from '../../store/shoppingSlice';
-import { IShoppingCategory, IShoppingItem, MyCustomCSS } from '../../types';
+import { IShoppingCategory, IShoppingItem } from '../../types';
 import useForm from '../../utils/useForm';
 import EditSLHeadingForm from '../EditSLHeadingForm/EditSLHeadingForm';
 import { setIsLoadingFalse, setIsLoadingTrue, setShowErrorTrue } from '../../store/appSlice';
 import image from '../../images/undraw_shopping_app_flsj 1.svg';
+import SalesTax from '../SalesTax/SalesTax';
 
 function ShoppingList() {
   const itemsInShoppingList = useAppSelector((state) => state.shopping.items);
   const shoppingListStatus = useAppSelector((state) => state.shopping.status);
   const shoppingListHeading = useAppSelector((state) => state.shopping.heading);
+  const shoppingListSalesTax = useAppSelector((state) => state.shopping.salesTax);
   const shoppingListId = useAppSelector((state) => state.shopping._id);
   const [isShoppingListEmpty, setIsShoppingListEmpty] = useState<boolean>(itemsInShoppingList!.length === 0);
+  const [totalSum, setTotalSum] = useState<number>(0);
   const dispatch = useAppDispatch();
   const initialValues = useMemo(() => ({
     'shopping-list-heading': {
@@ -32,7 +35,6 @@ function ShoppingList() {
   }), []);
   const editSLHeadingForm = useForm(initialValues);
   const [itemsByCategory, setItemsByCategory] = useState<IShoppingItem | null >();
-
   useEffect(() => {
     // @ts-ignore
     const sortedItems = itemsInShoppingList!.length !== 0 ? itemsInShoppingList!.reduce((prev: IShoppingCategory, value: IShoppingItem) => {
@@ -47,6 +49,12 @@ function ShoppingList() {
       : null;
     setItemsByCategory(sortedItems);
   }, [itemsInShoppingList]);
+
+  useEffect(() => {
+    let sum = itemsInShoppingList?.reduce((prev, curr) => prev + (curr?.price || 0), 0) || 0;
+    sum += (shoppingListSalesTax || 0);
+    setTotalSum(sum);
+  }, [itemsInShoppingList, shoppingListSalesTax]);
 
   useEffect(() => {
     if (itemsInShoppingList!.length === 0) {
@@ -72,7 +80,6 @@ function ShoppingList() {
       });
   };
 
-  // @ts-ignore
   return (
     isShoppingListEmpty
       ? (
@@ -111,6 +118,11 @@ function ShoppingList() {
               key={item[0]}
             />
           ))}
+          <SalesTax />
+          <div className="shopping-list__total">
+            <p className="shopping-list__total-heading">Total</p>
+            <p className="shopping-list__total-sum">{`$ ${totalSum.toFixed(2)}`}</p>
+          </div>
         </div>
       )
   );

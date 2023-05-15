@@ -1,5 +1,7 @@
 import './ShoppingItem.css';
 import {
+  Dispatch,
+  EventHandler,
   FormEventHandler,
   MouseEventHandler, useEffect, useMemo, useState,
 } from 'react';
@@ -9,15 +11,15 @@ import { setIsLoadingFalse, setIsLoadingTrue, setShowErrorTrue } from '../../sto
 import {
   deleteExistingItemFromSL,
   updateItemQtyInExistingSL,
-  updateItemStatusExistingSL, updateUnitsOfItemInSL,
+  updateItemStatusExistingSL, updatePricePerUnitOfItemInSL, updateUnitsOfItemInSL,
 } from '../../store/shoppingSlice';
 import useForm from '../../utils/useForm';
 import { updateItemUnitsInShoppingList } from '../../utils/apiShoppingLists';
 
 function ShoppingItem({ item }: { item: IShoppingItem }) {
-  const [isEditQtyMenuOpen, setIsEditQtyMenuOpen] = useState<boolean>(false);
-  const [isEditUnitsMenuOpen, setIsEditUnitsMenuOpen] = useState<boolean>(false);
-  const [isEditPriceMenuOpen, setIsEditPriceMenuOpen] = useState<boolean>(false);
+  const [isEditQtyMenuOpened, setIsEditQtyMenuOpened] = useState(false);
+  const [isEditUnitsMenuOpened, setIsEditUnitsMenuOpened] = useState(false);
+  const [isEditPriceMenuOpened, setIsEditPriceMenuOpened] = useState(false);
   const items = useAppSelector((state) => state.items.items);
   const activeShoppingList = useAppSelector((state) => state.shopping._id);
   const dispatch = useAppDispatch();
@@ -47,15 +49,15 @@ function ShoppingItem({ item }: { item: IShoppingItem }) {
   }, [item.pricePerUnit]);
 
   const openEditQtyBarHandleClick: MouseEventHandler = () => {
-    setIsEditQtyMenuOpen(!isEditQtyMenuOpen);
+    setIsEditQtyMenuOpened(!isEditQtyMenuOpened);
   };
 
-  const openEditUnitsBarHandleClick: MouseEventHandler = (event) => {
-    setIsEditUnitsMenuOpen(!isEditUnitsMenuOpen);
+  const openEditUnitsBarHandleClick: MouseEventHandler = () => {
+    setIsEditUnitsMenuOpened(!isEditUnitsMenuOpened);
   };
 
   const openEditPriceBarHandleClick: MouseEventHandler = () => {
-    setIsEditPriceMenuOpen(!isEditPriceMenuOpen);
+    setIsEditPriceMenuOpened(!isEditPriceMenuOpened);
   };
   const deleteItemHandleClick: MouseEventHandler = () => {
     dispatch(setIsLoadingTrue());
@@ -74,6 +76,7 @@ function ShoppingItem({ item }: { item: IShoppingItem }) {
       shoppingListId: activeShoppingList,
       itemId: item.itemId,
       quantity: item.quantity + 1,
+      pricePerUnit: item.pricePerUnit,
     })).unwrap()
       .catch((err) => {
         setShowErrorTrue(err.message);
@@ -93,6 +96,7 @@ function ShoppingItem({ item }: { item: IShoppingItem }) {
       shoppingListId: activeShoppingList,
       itemId: item.itemId,
       quantity: item.quantity - 1,
+      pricePerUnit: item.pricePerUnit,
     })).unwrap()
       .catch((err) => {
         setShowErrorTrue(err.message);
@@ -123,7 +127,22 @@ function ShoppingItem({ item }: { item: IShoppingItem }) {
       })
       .finally(() => {
         dispatch(setIsLoadingFalse());
-        setIsEditUnitsMenuOpen(false);
+        setIsEditUnitsMenuOpened(false);
+      });
+  };
+
+  const handleEditItemPricePerUnitClick: FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault();
+    dispatch(setIsLoadingTrue());
+    dispatch(updatePricePerUnitOfItemInSL({
+      shoppingListId: activeShoppingList, itemId: item.itemId, pricePerUnit: editItemPricePerUnitForm.values['price-per-unit'].value, quantity: item.quantity,
+    })).unwrap()
+      .catch((err) => {
+        setShowErrorTrue(err.message);
+      })
+      .finally(() => {
+        dispatch(setIsLoadingFalse());
+        setIsEditPriceMenuOpened(false);
       });
   };
 
@@ -137,7 +156,7 @@ function ShoppingItem({ item }: { item: IShoppingItem }) {
         <button type="button" onClick={openEditPriceBarHandleClick} className="shopping-list__item-action-button">{`$${item.pricePerUnit?.toFixed(2)}`}</button>
         <span className="shopping-list__item-action-button shopping-list__item-action-button_total">{`$${item.price?.toFixed(2)}`}</span>
       </div>
-      {isEditQtyMenuOpen
+      {isEditQtyMenuOpened
         ? (
           <div className="shopping-list__edit-item">
             <button type="button" onClick={deleteItemHandleClick} className="shopping-list__edit-item-action-button shopping-list__edit-item-action-button_delete">{}</button>
@@ -148,22 +167,21 @@ function ShoppingItem({ item }: { item: IShoppingItem }) {
           </div>
         )
         : null}
-      {isEditUnitsMenuOpen ? (
+      {isEditUnitsMenuOpened ? (
         <form onSubmit={handleEditItemUnitsClick} className="shopping-list__edit-item" noValidate name="shopping-list__edit-item-editUnitsForm">
           <input name="item-units" value={editItemUnitsForm.values['item-units'].value} onChange={editItemUnitsForm.handleChange} className="shopping-list__edit-item-editUnitsForm-input" type="text" />
           <button className="shopping-list__edit-item-action-button shopping-list__edit-item-action-button_submit" type="submit">{}</button>
           <button onClick={openEditUnitsBarHandleClick} className="shopping-list__edit-item-action-button shopping-list__edit-item-action-button_cancel" type="button">{}</button>
         </form>
       ) : null}
-      {isEditPriceMenuOpen ? (
-        <form className="shopping-list__edit-item" noValidate name="shopping-list__edit-item-ediPricePerUnitForm">
+      {isEditPriceMenuOpened ? (
+        <form onSubmit={handleEditItemPricePerUnitClick} className="shopping-list__edit-item" noValidate name="shopping-list__edit-item-ediPricePerUnitForm">
           <input required name="price-per-unit" value={editItemPricePerUnitForm.values['price-per-unit'].value} onChange={editItemPricePerUnitForm.handleChange} className="shopping-list__edit-item-editUnitsForm-input" type="number" />
           <button className="shopping-list__edit-item-action-button shopping-list__edit-item-action-button_submit" type="submit">{}</button>
           <button onClick={openEditPriceBarHandleClick} className="shopping-list__edit-item-action-button shopping-list__edit-item-action-button_cancel" type="button">{}</button>
         </form>
       )
         : null}
-
     </div>
   );
 }

@@ -7,9 +7,9 @@ import {
   IAddItemToShoppingListPayload,
   ICreateShoppingListPayload,
   IDeleteItemFromShoppingListPayload, IFullShoppingItem, IMergeBillPayload, IMergeListPayload, IShoppingItem,
-  IShoppingListInitialState,
+  IShoppingListInitialState, IUpdateItemPricePerUnitInShoppingList,
   IUpdateItemQtyInShoppingList,
-  IUpdateItemStatusInShoppingList, IUpdateItemUnitsInShoppingList,
+  IUpdateItemStatusInShoppingList, IUpdateItemUnitsInShoppingList, IUpdateSalesTaxPayload,
   IUpdateSLHeadingPayload,
   IUpdateSLStatusPayload, IUploadedShoppingItem,
 } from '../types';
@@ -17,8 +17,15 @@ import {
   createShoppingList,
   addItemToShoppingList,
   deleteItemFromShoppingList,
-  updateItemQtyInShoppingList, updateItemStatusInShoppingList, updateShoppingListHeading, updateShoppingListStatus,
-  uploadBillAndGetShoppingList, mergeShoppingLists, uploadShoppingList, updateItemUnitsInShoppingList,
+  updateItemQtyInShoppingList,
+  updateItemStatusInShoppingList,
+  updateShoppingListHeading,
+  updateShoppingListStatus,
+  uploadBillAndGetShoppingList,
+  mergeShoppingLists,
+  uploadShoppingList,
+  updateItemUnitsInShoppingList,
+  updateItemPricePerUnitInShoppingList, updateSalesTaxInShoppingList,
 } from '../utils/apiShoppingLists';
 
 const initialState: IShoppingListInitialState = {
@@ -207,6 +214,30 @@ const shoppingSlice = createSlice({
       .addCase(updateUnitsOfItemInSL.rejected, (state, action) => {
         state.requestStatus = 'failed';
         state.error = action.error.message;
+      })
+      .addCase(updatePricePerUnitOfItemInSL.pending, (state) => {
+        state.requestStatus = 'loading';
+      })
+      .addCase(updatePricePerUnitOfItemInSL.fulfilled, (state, action) => {
+        state.requestStatus = 'succeeded';
+        state.items = action.payload.items;
+        state.error = null;
+      })
+      .addCase(updatePricePerUnitOfItemInSL.rejected, (state, action) => {
+        state.requestStatus = 'failed';
+        state.error = action.error.message;
+      })
+      .addCase(updateSalesTaxInSL.pending, (state) => {
+        state.requestStatus = 'loading';
+      })
+      .addCase(updateSalesTaxInSL.fulfilled, (state, action) => {
+        state.requestStatus = 'succeeded';
+        state.salesTax = action.payload.salesTax;
+        state.error = null;
+      })
+      .addCase(updateSalesTaxInSL.rejected, (state, action) => {
+        state.requestStatus = 'failed';
+        state.error = action.error.message;
       });
   },
 });
@@ -229,6 +260,8 @@ export const uploadBillAndSL = createAsyncThunk('shoppingList/uploadBillAndSL', 
 export const mergeBill = createAsyncThunk('shoppingList/mergeShoppingList', async (values: IMergeBillPayload) => mergeShoppingLists(values));
 export const mergeList = createAsyncThunk('shoppingList/mergeList', async (values: IMergeListPayload) => uploadShoppingList(values));
 export const updateUnitsOfItemInSL = createAsyncThunk('shoppingList/updateUnitsOfItemInSL', async (values: IUpdateItemUnitsInShoppingList) => updateItemUnitsInShoppingList(values));
+export const updatePricePerUnitOfItemInSL = createAsyncThunk('shoppingList/updatePricePerUnitOfItemInSL', async (values: IUpdateItemPricePerUnitInShoppingList) => updateItemPricePerUnitInShoppingList(values));
+export const updateSalesTaxInSL = createAsyncThunk('shoppingList/updateSalesTaxInSL', async (values: IUpdateSalesTaxPayload) => updateSalesTaxInShoppingList(values));
 export const {
   closeAddItemForm,
   openAddItemForm,

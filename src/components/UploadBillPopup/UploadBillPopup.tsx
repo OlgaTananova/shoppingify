@@ -40,54 +40,27 @@ function UploadBillPopup() {
   const handleUploadBillPopupMergeBtnClick = () => {
     if (itemsFromSL && itemsFromSL.length === 0) {
       dispatch(setShowErrorTrue('Please add items to the shopping list before merging'));
+    } else if (mergedSL.length === 0 || mergedSL.some((item) => item.itemId === '')) {
+      dispatch(setShowErrorTrue('Please add all the items to the shopping list before merging the bill'));
     } else {
-      const items = itemsFromSLWithNames?.map((item) => {
-        // @ts-ignore
-        const itemInUploadedItems = uploadedItems?.find((i) => {
-          const whereToSearch = i?.itemName?.toLowerCase() || '';
-          const wordToSearch = item?.itemName?.toLowerCase()?.trim() || '';
-          const regexToSearchPluralFormWord = new RegExp(`\\b${wordToSearch}s?\\b`, 'gi');
-          const regexToSearchSingularFormWord = new RegExp(`\\b${wordToSearch.slice(0, -1)}s?\\b`, 'gi');
-          const match = regexToSearchPluralFormWord.test(whereToSearch) || regexToSearchSingularFormWord.test(whereToSearch);
-          return match;
+      dispatch(setIsLoadingTrue());
+      dispatch(mergeBill({
+        items: mergedSL, salesTax, date: dateOfBill, _id: activeShoppingList || '',
+      })).unwrap()
+        .then(() => {
+        })
+        .catch((err) => {
+          dispatch(setShowErrorTrue(err.message));
+        })
+        .finally(() => {
+          dispatch(setIsLoadingFalse());
+          dispatch(closeUploadBillPopup());
+          setMergedSL([]);
+          setSalesTax(0);
+          setDateOfBill('');
+          setTotalSum(0);
+          dispatch(clearUploadedItems());
         });
-        return {
-          itemId: item?.itemId || '',
-          itemName: item?.itemName || '',
-          itemCategoryName: item?.itemCategoryName || '',
-          categoryId: item?.categoryId || '',
-          quantity: Number(itemInUploadedItems?.itemQuantity) || 0,
-          units: item?.units || '',
-          status: 'completed',
-          pricePerUnit: Number(itemInUploadedItems?.itemPricePerUnit) || 0,
-          price: Number(itemInUploadedItems?.itemPrice) || 0,
-        };
-      });
-      // @ts-ignore
-      // set the merged shopping list to the state
-      setMergedSL(items);
-      if (mergedSL.some((item) => item.itemId === '')) {
-        dispatch(setShowErrorTrue('Please add all the items to the shopping list before merging the bill'));
-      } else {
-        dispatch(setIsLoadingTrue());
-        dispatch(mergeBill({
-          items: mergedSL, salesTax, date: dateOfBill, _id: activeShoppingList || '',
-        })).unwrap()
-          .then(() => {
-          })
-          .catch((err) => {
-            dispatch(setShowErrorTrue(err.message));
-          })
-          .finally(() => {
-            dispatch(setIsLoadingFalse());
-            dispatch(closeUploadBillPopup());
-            setMergedSL([]);
-            setSalesTax(0);
-            setDateOfBill('');
-            setTotalSum(0);
-            dispatch(clearUploadedItems());
-          });
-      }
     }
   };
 
@@ -101,50 +74,25 @@ function UploadBillPopup() {
   const handleUploadListClickButton = () => {
     if (activeShoppingList) {
       dispatch(setShowErrorTrue('You already have an active shopping list. Please use "Merge" button to merge the bill with the active shopping list'));
+    } else if (mergedBill.some((item) => item.itemId === '')) {
+      dispatch(setShowErrorTrue('Please add all the items to the store before merging the bill'));
     } else {
-      const items = uploadedItems?.reduce((acc: IShoppingItem[], item) => {
-        if (typeof item?.salesTax === 'number') return acc;
-        const itemInStore = itemsFromItems?.find((i) => {
-          const whereToSearch = item?.itemName?.toLowerCase() || '';
-          const wordToSearch = i?.name?.toLowerCase().trim() || '';
-          const regexToSearchPluralFormWord = new RegExp(`\\b${wordToSearch}s?\\b`, 'gi');
-          const regexToSearchSingularFormWord = new RegExp(`\\b${wordToSearch.slice(0, -1)}s?\\b`, 'gi');
-          const match = regexToSearchPluralFormWord.test(whereToSearch) || regexToSearchSingularFormWord.test(whereToSearch);
-          return match;
+      dispatch(setIsLoadingTrue());
+      dispatch(mergeList({ items: mergedBill, salesTax, date: dateOfBill })).unwrap()
+        .then((data) => {
+        })
+        .catch((err) => {
+          dispatch(setShowErrorTrue(err.message));
+        })
+        .finally(() => {
+          dispatch(setIsLoadingFalse());
+          dispatch(closeUploadBillPopup());
+          setMergedBill([]);
+          setSalesTax(0);
+          setDateOfBill('');
+          setTotalSum(0);
+          dispatch(clearUploadedItems());
         });
-        return [
-          ...acc,
-          {
-            itemId: itemInStore?._id || '',
-            categoryId: itemInStore?.categoryId || '',
-            quantity: Number(item?.itemQuantity) || 0,
-            status: 'completed',
-            units: item?.itemUnits || '',
-            pricePerUnit: Number(item?.itemPricePerUnit) || 0,
-            price: Number(item?.itemPrice) || 0,
-          }];
-      }, []) || [];
-      setMergedBill(items);
-      if (mergedBill.some((item) => item.itemId === '')) {
-        dispatch(setShowErrorTrue('Please add all the items to the store before merging the bill'));
-      } else {
-        dispatch(setIsLoadingTrue());
-        dispatch(mergeList({ items, salesTax, date: dateOfBill })).unwrap()
-          .then((data) => {
-          })
-          .catch((err) => {
-            dispatch(setShowErrorTrue(err.message));
-          })
-          .finally(() => {
-            dispatch(setIsLoadingFalse());
-            dispatch(closeUploadBillPopup());
-            setMergedBill([]);
-            setSalesTax(0);
-            setDateOfBill('');
-            setTotalSum(0);
-            dispatch(clearUploadedItems());
-          });
-      }
     }
   };
 
@@ -173,6 +121,59 @@ function UploadBillPopup() {
       setItemsFromSLWithNames(list);
     }
   }, [itemsFromSL, itemsFromItems, categories]);
+
+  useEffect(() => {
+    const items = uploadedItems?.reduce((acc: IShoppingItem[], item) => {
+      if (typeof item?.salesTax === 'number') return acc;
+      const itemInStore = itemsFromItems?.find((i) => {
+        const whereToSearch = item?.itemName?.toLowerCase() || '';
+        const wordToSearch = i?.name?.toLowerCase().trim() || '';
+        const regexToSearchPluralFormWord = new RegExp(`\\b${wordToSearch}s?\\b`, 'gi');
+        const regexToSearchSingularFormWord = new RegExp(`\\b${wordToSearch.slice(0, -1)}s?\\b`, 'gi');
+        const match = regexToSearchPluralFormWord.test(whereToSearch) || regexToSearchSingularFormWord.test(whereToSearch);
+        return match;
+      });
+      return [
+        ...acc,
+        {
+          itemId: itemInStore?._id || '',
+          categoryId: itemInStore?.categoryId || '',
+          quantity: Number(item?.itemQuantity) || 0,
+          status: 'completed',
+          units: item?.itemUnits || '',
+          pricePerUnit: Number(item?.itemPricePerUnit) || 0,
+          price: Number(item?.itemPrice) || 0,
+        }];
+    }, []) || [];
+    setMergedBill(items);
+  }, [uploadedItems, itemsFromItems]);
+
+  // function to merge the active shopping list with the uploaded bill
+  useEffect(() => {
+    const items = itemsFromSLWithNames?.map((item) => {
+      // @ts-ignore
+      const itemInUploadedItems = uploadedItems?.find((i) => {
+        const whereToSearch = i?.itemName?.toLowerCase() || '';
+        const wordToSearch = item?.itemName?.toLowerCase()?.trim() || '';
+        const regexToSearchPluralFormWord = new RegExp(`\\b${wordToSearch}s?\\b`, 'gi');
+        const regexToSearchSingularFormWord = new RegExp(`\\b${wordToSearch.slice(0, -1)}s?\\b`, 'gi');
+        const match = regexToSearchPluralFormWord.test(whereToSearch) || regexToSearchSingularFormWord.test(whereToSearch);
+        return match;
+      });
+      return {
+        itemId: item?.itemId || '',
+        itemName: item?.itemName || '',
+        itemCategoryName: item?.itemCategoryName || '',
+        categoryId: item?.categoryId || '',
+        quantity: Number(itemInUploadedItems?.itemQuantity) || 0,
+        units: item?.units || '',
+        status: 'completed',
+        pricePerUnit: Number(itemInUploadedItems?.itemPricePerUnit) || 0,
+        price: Number(itemInUploadedItems?.itemPrice) || 0,
+      };
+    });
+    setMergedSL(items);
+  }, [itemsFromSLWithNames, uploadedItems]);
 
   return (
     <div className={`upload-bill-popup ${!showUploadBillPopup && 'upload-bill-popup_inactive'}`}>
@@ -210,15 +211,17 @@ function UploadBillPopup() {
             <div className="upload-bill-popup__item-small-cell">{totalSum?.toFixed(2)}</div>
           </li>
         </ul>
+
         <div className="upload-bill-popup__actions-section">
+          {/* TODO: add change list button functionality */}
+          {/* <button */}
+          {/*  className="upload-bill-popup__action-btn upload-bill-popup__action-btn_change" */}
+          {/*  type="button" */}
+          {/* > */}
+          {/*  Change List */}
+          {/* </button> */}
           <button
-            className="upload-bill-popup__action-btn upload-bill-popup__action-btn_change"
-            type="button"
-          >
-            Change List
-          </button>
-          <button
-            disabled={mergedSL.length === 0}
+            disabled={uploadedItems?.length === 0}
             type="button"
             onClick={handleUploadBillPopupMergeBtnClick}
             className="upload-bill-popup__action-btn upload-bill-popup__action-btn_merge"

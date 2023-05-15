@@ -1,0 +1,48 @@
+.statistics__ByMonth-categories {
+  display: flex;
+  flex-direction: column;
+}
+
+.statistics__ByMonth-categories-section {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+
+.statistics__ByMonth-categories-section-name,
+.statistics__ByMonth-categories-section-value {
+  font-size: 14px;
+  line-height: 1.25;
+  margin: 0 0 14px 0;
+  font-weight: 700;
+}
+
+.statistics__ByMonth-categories-section-showItemsButton {
+  border: none;
+  width: 20px;
+  height: 20px;
+  background-color: var(--white-color);
+  background-image: url('./../../images/add_FILL0_wght400_GRAD0_opsz48 (1).svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.statistics__ByMonth-categories-section-showItemsButton:hover {
+  cursor: pointer;
+}
+
+.statistics__ByMonth-categories-section-items {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+}
+
+.statistics__ByMonth-categories-section-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  line-height: 1.25;
+  font-weight: 500;
+}

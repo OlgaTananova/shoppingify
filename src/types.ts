@@ -94,6 +94,7 @@ export interface IDeleteItemFromShoppingListPayload {
 
 export interface IUpdateItemQtyInShoppingList extends IDeleteItemFromShoppingListPayload {
   quantity: number,
+  pricePerUnit?: number,
 }
 
 export interface IUpdateItemStatusInShoppingList extends IDeleteItemFromShoppingListPayload {
@@ -104,6 +105,11 @@ export interface IUpdateItemUnitsInShoppingList extends IDeleteItemFromShoppingL
   units: string,
 }
 
+export interface IUpdateItemPricePerUnitInShoppingList extends IDeleteItemFromShoppingListPayload {
+  pricePerUnit: number,
+  quantity?: number,
+}
+
 export interface IUpdateSLHeadingPayload {
   shoppingListId: string | undefined
   heading: string,
@@ -112,6 +118,11 @@ export interface IUpdateSLHeadingPayload {
 export interface IUpdateSLStatusPayload {
   shoppingListId: string | undefined,
   status: 'completed' | 'cancelled'
+}
+
+export interface IUpdateSalesTaxPayload {
+  shoppingListId: string | undefined,
+  salesTax: number,
 }
 
 export interface IItem {
@@ -240,15 +251,45 @@ export interface IAppSliceInitialState {
 export interface ISortedItems {
   [key: string]: {
     name: string,
-    quantity: number,
+    price: number,
     share: number,
   }
 }
 
-export interface ISorderItemsByDate {
+export interface ISortedItemsByDate {
   [key: string]: {
     date: string,
-    quantity: number
+    price: number
+  }
+}
+
+export interface IExpensesByMonth {
+  [key: string]: {
+    date: string,
+    categories: IExpensesByCategory
+    salesTax: number,
+    total: number,
+  }
+}
+
+export interface IExpensesByCategory {
+  [key: string]: {
+    categoryName: string,
+    total: number,
+    items?: IExpensesByItem
+  }
+}
+
+export interface IExpensesBySingleCategory {
+  categoryName: string,
+  total: number,
+  items?: IExpensesByItem
+}
+
+export interface IExpensesByItem {
+  [key: string]: {
+    itemName: string,
+    total: number,
   }
 }
 

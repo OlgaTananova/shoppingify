@@ -41,6 +41,12 @@
   object-fit: contain;
 }
 
+.shopping-list__total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 @media screen and (max-width: 1005px) {
   /*.shopping-list_empty {*/
   /*  height: calc(100vh - 265px);*/
