@@ -7,6 +7,7 @@ import {
 export interface IShoppingItem {
   categoryId: string,
   itemId: string,
+  itemName?: string,
   quantity: number,
   status: 'completed' | 'pending' | string
   units?: string,
@@ -22,6 +23,47 @@ export interface IUploadedShoppingItem {
   itemPrice: string,
   salesTax?: string,
   dateOfPurchase?: string
+}
+
+export interface IUploadedShoppingItemInitialState {
+  itemName: {
+    value: string,
+    required: boolean,
+  },
+  itemQuantity: {
+    value: number,
+    required: boolean,
+  },
+  itemUnits: {
+    value: string,
+    required: boolean,
+  },
+  itemPricePerUnit: {
+    value: number,
+    required: boolean,
+  },
+  itemPrice: {
+    value: number,
+    required: boolean,
+  }
+}
+
+export interface IUploadedShoppingItemErrors {
+  itemName: {
+    error: string,
+  },
+  itemQuantity: {
+    error: string,
+  },
+  itemUnits: {
+    error: string,
+  },
+  itemPricePerUnit: {
+    error: string,
+  },
+  itemPrice: {
+    error: string,
+  }
 }
 export interface IFullShoppingItem extends IShoppingItem {
   itemName?: string,
@@ -244,6 +286,7 @@ export interface IAppSliceInitialState {
   logoHeight: number,
   innerHeight: string | number
   showUploadBillPopup: boolean,
+  infoMessage?: boolean,
 }
 
 // Statistics
@@ -253,13 +296,6 @@ export interface ISortedItems {
     name: string,
     price: number,
     share: number,
-  }
-}
-
-export interface ISortedItemsByDate {
-  [key: string]: {
-    date: string,
-    price: number
   }
 }
 

@@ -1,8 +1,12 @@
 /* This component displays expenses by month with categories and items */
 import './ExpensesByMonth.css';
-import { ChangeEventHandler, useEffect, useState } from 'react';
+import {
+  ChangeEventHandler, useEffect, useMemo, useState,
+} from 'react';
 import { useAppSelector } from '../../store/hooks';
-import { IExpensesByCategory, IExpensesByMonth, IExpensesBySingleCategory } from '../../types';
+import {
+  IExpensesByCategory, IExpensesByMonth, IExpensesBySingleCategory,
+} from '../../types';
 import CategoriesByMonth from '../CategoriesByMonth/CategoriesByMonth';
 
 export default function ExpensesByMonth() {
@@ -100,10 +104,10 @@ export default function ExpensesByMonth() {
     }
   }, [shoppingLists]);
 
-  // This function sets the selected month to the first month in the object of expenses by month
+  // This function sets the selected month to the last month
   useEffect(() => {
-    if (Object.keys(spendingByMonth).length !== 0) {
-      const firstValue = Object.keys(spendingByMonth)[0];
+    if (sortedSpendingByMonth.length !== 0) {
+      const firstValue = sortedSpendingByMonth[0][0];
       setSelectedMonth(firstValue);
     }
   }, [spendingByMonth]);
@@ -111,6 +115,12 @@ export default function ExpensesByMonth() {
   const handleSelectMonth: ChangeEventHandler<HTMLSelectElement> = (e) => {
     setSelectedMonth(e.target.value);
   };
+  // sort the expenses by month in descending order
+  const sortedSpendingByMonth = useMemo(() => Object.entries(spendingByMonth).sort((a, b) => {
+    const dateA = new Date(a[1].date);
+    const dateB = new Date(b[1].date);
+    return dateB.getTime() - dateA.getTime();
+  }), [spendingByMonth]);
 
   return (
     <div className="statistics__byMonth">
@@ -120,8 +130,8 @@ export default function ExpensesByMonth() {
       {
             Object.keys(spendingByMonth).length !== 0 ? (
               <select className="statistics__byMonth-month-selector" onChange={handleSelectMonth}>
-                {Object.keys(spendingByMonth).map((value, index) => (
-                  <option key={index} value={value}>{value}</option>))}
+                {sortedSpendingByMonth.map((value, index) => (
+                  <option key={index} value={value[0]}>{value[0]}</option>))}
               </select>
             )
               : null
@@ -131,7 +141,7 @@ export default function ExpensesByMonth() {
             Object.keys(spendingByMonth).length !== 0
               ? (spendingByMonth[selectedMonth]?.categories
                     && Object.entries(spendingByMonth[selectedMonth].categories).map((value) => (
-                      <CategoriesByMonth category={value[1] as IExpensesBySingleCategory} index={value[0]} totalInMonth={spendingByMonth[selectedMonth].total} />
+                      <CategoriesByMonth category={value[1] as IExpensesBySingleCategory} key={value[0]} index={value[0]} totalInMonth={spendingByMonth[selectedMonth].total} />
 
                     )))
               : null

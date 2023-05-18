@@ -82,6 +82,10 @@
   transition: all .3ms ease;
 }
 
+.upload-bill-popup__action-btn_disabled {
+  background-color: var(--grey-color2);
+}
+
 .upload-bill-popup__action-btn:hover {
   cursor: pointer;
   opacity: .7;
@@ -92,6 +96,23 @@
   justify-content: flex-start;
   gap: 10px;
   margin-bottom: 20px;
+  position: relative;
+}
+
+.upload-bill-popup__list-item_notfound > input {
+  color: var(--burgundy-color);
+}
+
+.upload-bill-popup__item-error{
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  color: var(--red-color);
+  font-size: 10px;
+  line-height: 1.25;
+  font-weight: 500;
+  margin: 0;
+  padding: 0;
 }
 
 .upload-bill-popup__list-header {
@@ -104,6 +125,11 @@
 }
 
 .upload-bill-popup__list-footer {
+  display: flex;
+  flex-direction: column;
+}
+
+.upload-bill-popup__list-footer-section {
   display: flex;
   justify-content: space-between;
 }
@@ -122,6 +148,19 @@
   width: 10%;
 }
 
+.upload-bill-popup__item-input {
+  border: 1px solid var(--orange-color);
+  border-radius: 5px;
+}
+
+.upload-bill-popup__item-input:focus {
+  outline: none;
+}
+
+.upload-bill-popup__item-input:focus-visible{
+  outline: 1px solid var(--orange-color);
+}
+
 .upload-bill-popup__list-header > .upload-bill-popup__item-small-cell {
   font-size: 16px;
   font-weight: 700;
@@ -132,24 +171,19 @@
   font-weight: 700;
 }
 
-.upload-bill-popup__list-footer > .upload-bill-popup__item-small-cell {
+.upload-bill-popup__list-footer-section > .upload-bill-popup__item-small-cell {
   font-size: 16px;
   font-weight: 700;
-  width: 50%;
+  width: 15%;
   text-align: right;
   padding-right: 15px;
 }
 
-.upload-bill-popup__list-footer > .upload-bill-popup__item-name {
+.upload-bill-popup__list-footer-section > .upload-bill-popup__item-name {
   font-size: 16px;
   font-weight: 700;
   width: 50%;
   text-align: left;
-}
-
-.upload-bill-popup__action-btn_merge[disabled] {
-  background-color: var(--grey-color);
-  color: var(--black-grey-color);
 }
 
 @media screen and (max-width: 1340px) {

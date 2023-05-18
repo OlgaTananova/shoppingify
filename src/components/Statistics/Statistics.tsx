@@ -19,14 +19,17 @@ function Statistics() {
   const categories = useAppSelector((state) => state.categories.categories);
   const shoppingLists = useAppSelector((state) => state.shoppingHistory.shoppingLists);
   const innerHeight = useAppSelector((state) => state.app.innerHeight);
-  const totalSum = useMemo(() => shoppingItems.reduce((prev, curr) => {
-    curr && curr.forEach((i) => {
-      if (i) {
-        prev += i?.price || 0;
-      }
-    });
-    return prev;
-  }, 0), [shoppingItems]);
+  const totalSum = useMemo(() => {
+    const result = shoppingItems.reduce((prev, curr) => {
+      curr && curr.forEach((i) => {
+        if (i) {
+          prev += i?.price || 0;
+        }
+      });
+      return prev;
+    }, 0);
+    return result === 0 ? 1 : result;
+  }, [shoppingItems]);
 
   const topItems = useMemo(() => shoppingItems.reduce((prev, value) => {
     const name = (i: IShoppingItem) => items.find((v: IItem) => v._id === i.itemId);

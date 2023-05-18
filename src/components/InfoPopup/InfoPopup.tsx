@@ -1,14 +1,16 @@
 import './InfoPopup.css';
 import { MouseEventHandler } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { setShowErrorFalse } from '../../store/appSlice';
+import { setInfoMessage, setShowErrorFalse } from '../../store/appSlice';
 
 function InfoPopup() {
   const errors = useAppSelector((state) => state.app);
+  const infoMessage = useAppSelector((state) => state.app.infoMessage);
   const dispatch = useAppDispatch();
 
   const handleClose: MouseEventHandler = () => {
     dispatch(setShowErrorFalse());
+    dispatch(setInfoMessage(false));
   };
 
   return (
@@ -24,7 +26,7 @@ function InfoPopup() {
         </button>
         <p className="infopopup__message">{errors.error}</p>
         <div
-          className="infopopup__icon"
+          className={`infopopup__icon ${infoMessage && 'infopopup__icon_type_success'}`}
           aria-label="Icon"
         >
           {}

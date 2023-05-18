@@ -1,7 +1,5 @@
 import './ShoppingItem.css';
 import {
-  Dispatch,
-  EventHandler,
   FormEventHandler,
   MouseEventHandler, useEffect, useMemo, useState,
 } from 'react';
@@ -14,7 +12,6 @@ import {
   updateItemStatusExistingSL, updatePricePerUnitOfItemInSL, updateUnitsOfItemInSL,
 } from '../../store/shoppingSlice';
 import useForm from '../../utils/useForm';
-import { updateItemUnitsInShoppingList } from '../../utils/apiShoppingLists';
 
 function ShoppingItem({ item }: { item: IShoppingItem }) {
   const [isEditQtyMenuOpened, setIsEditQtyMenuOpened] = useState(false);
@@ -23,6 +20,12 @@ function ShoppingItem({ item }: { item: IShoppingItem }) {
   const items = useAppSelector((state) => state.items.items);
   const activeShoppingList = useAppSelector((state) => state.shopping._id);
   const dispatch = useAppDispatch();
+  const initialValuesForQty = useMemo(() => ({
+    'item-qty': {
+      value: 0,
+      required: true,
+    },
+  }), []);
   const initialValuesForUnits = useMemo(() => ({
     'item-units': {
       value: '',
@@ -37,28 +40,43 @@ function ShoppingItem({ item }: { item: IShoppingItem }) {
   }), []);
   const editItemUnitsForm = useForm(initialValuesForUnits);
   const editItemPricePerUnitForm = useForm(initialValuesForPricePerUnit);
+  const editItemQtyForm = useForm(initialValuesForQty);
   const itemInItems = () => items.find((i) => i._id === item.itemId);
-
+  // function to update item units in the form
   useEffect(() => {
     editItemUnitsForm.setValues({ 'item-units': { value: item?.units || '', required: true } });
-  }, [item.units]);
-
+  }, [item.units, isEditUnitsMenuOpened]);
+  // function to update item price per unit in the form
   useEffect(() => {
     // @ts-ignore
     editItemPricePerUnitForm.setValues({ 'price-per-unit': { value: item?.pricePerUnit, required: true } });
-  }, [item.pricePerUnit]);
-
+  }, [item.pricePerUnit, isEditPriceMenuOpened]);
+  // function to update item quantity in the form
+  useEffect(() => {
+    editItemQtyForm.setValues({ 'item-qty': { value: item?.quantity, required: true } });
+  }, [item.quantity, isEditQtyMenuOpened]);
+  // function to open and close edit qty menu
   const openEditQtyBarHandleClick: MouseEventHandler = () => {
     setIsEditQtyMenuOpened(!isEditQtyMenuOpened);
+    if (!isEditQtyMenuOpened) {
+      editItemQtyForm.resetForm();
+    }
   };
-
+  // function to open and close edit units menu
   const openEditUnitsBarHandleClick: MouseEventHandler = () => {
     setIsEditUnitsMenuOpened(!isEditUnitsMenuOpened);
+    if (!isEditUnitsMenuOpened) {
+      editItemUnitsForm.resetForm();
+    }
   };
-
+  // function to open and close edit price menu
   const openEditPriceBarHandleClick: MouseEventHandler = () => {
     setIsEditPriceMenuOpened(!isEditPriceMenuOpened);
+    if (!isEditPriceMenuOpened) {
+      editItemPricePerUnitForm.resetForm();
+    }
   };
+    // function to delete item from shopping list
   const deleteItemHandleClick: MouseEventHandler = () => {
     dispatch(setIsLoadingTrue());
     dispatch(deleteExistingItemFromSL({ shoppingListId: activeShoppingList, itemId: item.itemId })).unwrap()
@@ -69,13 +87,14 @@ function ShoppingItem({ item }: { item: IShoppingItem }) {
         dispatch(setIsLoadingFalse());
       });
   };
-
-  const incrementItemQtyHandleClick: MouseEventHandler = () => {
+  // function to update item quantity in shopping list
+  const changeItemQtySubmitHandler: FormEventHandler = (e) => {
+    e.preventDefault();
     dispatch(setIsLoadingTrue());
     dispatch(updateItemQtyInExistingSL({
       shoppingListId: activeShoppingList,
       itemId: item.itemId,
-      quantity: item.quantity + 1,
+      quantity: editItemQtyForm.values['item-qty'].value,
       pricePerUnit: item.pricePerUnit,
     })).unwrap()
       .catch((err) => {
@@ -83,29 +102,22 @@ function ShoppingItem({ item }: { item: IShoppingItem }) {
       })
       .finally(() => {
         dispatch(setIsLoadingFalse());
+        setIsEditQtyMenuOpened(false);
       });
   };
-
+  // function to increment item quantity in the form
+  const incrementItemQtyHandleClick: MouseEventHandler = () => {
+    editItemQtyForm.setValues({ 'item-qty': { value: editItemQtyForm.values['item-qty'].value + 1, required: true } });
+  };
+  // function to decrement item quantity in the form
   const decrementItemQtyHandleClick: MouseEventHandler = () => {
     if (item.quantity === 1) {
       dispatch(setShowErrorTrue('Item quantity cannot be 0. If you want to delete this item, please, click "delete" button.'));
       return;
     }
-    dispatch(setIsLoadingTrue());
-    dispatch(updateItemQtyInExistingSL({
-      shoppingListId: activeShoppingList,
-      itemId: item.itemId,
-      quantity: item.quantity - 1,
-      pricePerUnit: item.pricePerUnit,
-    })).unwrap()
-      .catch((err) => {
-        setShowErrorTrue(err.message);
-      })
-      .finally(() => {
-        dispatch(setIsLoadingFalse());
-      });
+    editItemQtyForm.setValues({ 'item-qty': { value: editItemQtyForm.values['item-qty'].value - 1, required: true } });
   };
-
+  // function to update item status in shopping list
   const updateItemStateHandleClick: MouseEventHandler = () => {
     const status = item.status === 'pending' ? 'completed' : 'pending';
     dispatch(setIsLoadingTrue());
@@ -117,7 +129,7 @@ function ShoppingItem({ item }: { item: IShoppingItem }) {
         dispatch(setIsLoadingFalse());
       });
   };
-
+  // function to update item units in shopping list
   const handleEditItemUnitsClick: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     dispatch(setIsLoadingTrue());
@@ -130,7 +142,7 @@ function ShoppingItem({ item }: { item: IShoppingItem }) {
         setIsEditUnitsMenuOpened(false);
       });
   };
-
+  // function to update item price per unit in shopping list
   const handleEditItemPricePerUnitClick: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     dispatch(setIsLoadingTrue());
@@ -158,18 +170,21 @@ function ShoppingItem({ item }: { item: IShoppingItem }) {
       </div>
       {isEditQtyMenuOpened
         ? (
-          <div className="shopping-list__edit-item">
+          <form onSubmit={changeItemQtySubmitHandler} noValidate name="shopping-list__edit-item-form" className="shopping-list__edit-item">
             <button type="button" onClick={deleteItemHandleClick} className="shopping-list__edit-item-action-button shopping-list__edit-item-action-button_delete">{}</button>
             <button type="button" onClick={decrementItemQtyHandleClick} className="shopping-list__change-qty shopping-list__change-qty_decrease">{}</button>
-            <button type="button" onClick={openEditQtyBarHandleClick} className="shopping-list__item-action-button shopping-list__item-quantity_edit">{`${item.quantity}`}</button>
+            <input required type="number" name="item-qty" value={editItemQtyForm.values['item-qty'].value} onChange={editItemQtyForm.handleChange} className="shopping-list__item-action-button shopping-list__item-quantity_edit" />
+            {editItemQtyForm.errors['item-qty'] && <span className="shopping-list__edit-item-input-error shopping-list__edit-item-editQtyForm-error">{editItemQtyForm.errors['item-qty']}</span>}
             <button onClick={incrementItemQtyHandleClick} type="button" className="shopping-list__change-qty shopping-list__change-qty_increase">{}</button>
+            <button className="shopping-list__edit-item-action-button shopping-list__edit-item-action-button_submit" type="submit">{}</button>
             <button onClick={openEditQtyBarHandleClick} className="shopping-list__edit-item-action-button shopping-list__edit-item-action-button_cancel" type="button">{}</button>
-          </div>
+          </form>
         )
         : null}
       {isEditUnitsMenuOpened ? (
         <form onSubmit={handleEditItemUnitsClick} className="shopping-list__edit-item" noValidate name="shopping-list__edit-item-editUnitsForm">
-          <input name="item-units" value={editItemUnitsForm.values['item-units'].value} onChange={editItemUnitsForm.handleChange} className="shopping-list__edit-item-editUnitsForm-input" type="text" />
+          <input minLength={1} maxLength={5} required name="item-units" value={editItemUnitsForm.values['item-units'].value} onChange={editItemUnitsForm.handleChange} className="shopping-list__edit-item-editUnitsForm-input" type="text" />
+          {editItemUnitsForm.errors['item-units'] && <span className="shopping-list__edit-item-input-error shopping-list__edit-item-editUnitsForm-error">{editItemUnitsForm.errors['item-units']}</span>}
           <button className="shopping-list__edit-item-action-button shopping-list__edit-item-action-button_submit" type="submit">{}</button>
           <button onClick={openEditUnitsBarHandleClick} className="shopping-list__edit-item-action-button shopping-list__edit-item-action-button_cancel" type="button">{}</button>
         </form>
@@ -177,6 +192,7 @@ function ShoppingItem({ item }: { item: IShoppingItem }) {
       {isEditPriceMenuOpened ? (
         <form onSubmit={handleEditItemPricePerUnitClick} className="shopping-list__edit-item" noValidate name="shopping-list__edit-item-ediPricePerUnitForm">
           <input required name="price-per-unit" value={editItemPricePerUnitForm.values['price-per-unit'].value} onChange={editItemPricePerUnitForm.handleChange} className="shopping-list__edit-item-editUnitsForm-input" type="number" />
+          {editItemPricePerUnitForm.errors['price-per-unit'] && <span className="shopping-list__edit-item-input-error shopping-list__edit-item-editPricePerUnitForm-error">{editItemPricePerUnitForm.errors['price-per-unit']}</span>}
           <button className="shopping-list__edit-item-action-button shopping-list__edit-item-action-button_submit" type="submit">{}</button>
           <button onClick={openEditPriceBarHandleClick} className="shopping-list__edit-item-action-button shopping-list__edit-item-action-button_cancel" type="button">{}</button>
         </form>

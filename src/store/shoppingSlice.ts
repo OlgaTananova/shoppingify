@@ -87,6 +87,9 @@ const shoppingSlice = createSlice({
     clearUploadedItems(state) {
       state.uploadedItems = [];
     },
+    updateUploadedItems(state, action) {
+      state.uploadedItems = action.payload;
+    },
   },
   extraReducers(builder) {
     builder
@@ -272,6 +275,7 @@ export const {
   openUploadBillForm,
   closeUploadBillForm,
   clearUploadedItems,
+  updateUploadedItems,
 } = shoppingSlice.actions;
 
 export default shoppingSlice.reducer;

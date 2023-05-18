@@ -68,9 +68,13 @@
   background-image: url('../../images/infopopup_icon_fail.svg');
 }
 
+.infopopup__icon_type_success {
+  background-image: url('../../images/done_icon_orange.svg');
+}
+
 @media  screen and (max-width: 740px) {
   .infopopup {
-    z-index: 5;
+    z-index: 10;
   }
 }
 

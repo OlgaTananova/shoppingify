@@ -17,6 +17,14 @@
   font-weight: 700;
 }
 
+.statistics__ByMonth-categories-section-name {
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
 .statistics__ByMonth-categories-section-showItemsButton {
   border: none;
   width: 20px;

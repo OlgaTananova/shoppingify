@@ -32,7 +32,7 @@ export default function CategoriesByMonth({
             {}
           </button>
           <p className="statistics__ByMonth-categories-section-name">{category.categoryName}</p>
-          <p className="statistics__ByMonth-categories-section-value">{`% ${((category.total / totalInMonth) * 100).toFixed(2) || 0}`}</p>
+          <p className="statistics__ByMonth-categories-section-value">{`% ${category.total !== 0 ? ((category.total / totalInMonth) * 100).toFixed(2) : ((category.total) * 100).toFixed(2)}`}</p>
           <p className="statistics__ByMonth-categories-section-value">{`$ ${category?.total.toFixed(2)}`}</p>
         </div>
         <div className="statistics__ByMonth-categories-section-items">

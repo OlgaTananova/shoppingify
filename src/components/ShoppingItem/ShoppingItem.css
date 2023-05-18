@@ -86,6 +86,15 @@
   border-radius: 12px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+
+.shopping-list__edit-item-input-error{
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  color: var(--red-color);
+  font-size: 10px;
 }
 
 .shopping-list__edit-item-editUnitsForm-input {
@@ -98,9 +107,18 @@
   line-height: 1.2;
   color: var(--medium-grey-color);
   text-align: center;
+  padding: 0;
 }
 .shopping-list__edit-item-editUnitsForm-input:hover {
   cursor: pointer;
+}
+
+.shopping-list__edit-item-editUnitsForm-input:focus {
+  outline: none;
+}
+
+.shopping-list__edit-item-editUnitsForm-input:focus-visible {
+  outline: 2px solid var(--orange-color);
 }
 
 .shopping-list__edit-item-action-button {
@@ -159,6 +177,8 @@
   align-self: center;
   background-color: var(--white-color);
   font-size: 16px;
+  text-align: center;
+  width: 20px;
 }
 
 .shopping-list__item-quantity_edit:hover {

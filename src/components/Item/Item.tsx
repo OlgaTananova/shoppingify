@@ -1,5 +1,6 @@
+/* This component displays items in categories */
 import './Item.css';
-import { MouseEventHandler } from 'react';
+import { MouseEventHandler, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { IItem } from '../../types';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
@@ -9,7 +10,8 @@ import { addNewItemToShoppingList, createNewShoppingList } from '../../store/sho
 function Item({ item }: { item:IItem }) {
   const dispatch = useAppDispatch();
   const activeShoppingList = useAppSelector((state) => state.shopping);
-
+  const wordRef = useRef<HTMLParagraphElement>(null);
+  const containerRef = useRef<HTMLParagraphElement>(null);
   const handleAddItemToShoppingListClick: MouseEventHandler = () => {
     if (activeShoppingList.status === 'idle') {
       dispatch(setIsLoadingTrue());
@@ -41,9 +43,27 @@ function Item({ item }: { item:IItem }) {
         });
     }
   };
+  // This useEffect is used to check if the word is too long to fit in the container
+  // If it is, it will be cut and replaced with '...'
+  useEffect(() => {
+    const word = wordRef !== null ? wordRef!.current!.offsetWidth : null;
+    const numberOfWords = item.name.split(' ').length;
+    const container = containerRef !== null ? containerRef!.current!.offsetWidth - 18 : null;
+    if (word && container && word > container && numberOfWords === 1) {
+      wordRef!.current!.style.overflow = 'hidden';
+      wordRef!.current!.style.textOverflow = 'ellipsis';
+      wordRef!.current!.style.whiteSpace = 'nowrap';
+    } else {
+      wordRef!.current!.style.overflow = 'unset';
+      wordRef!.current!.style.textOverflow = 'unset';
+      wordRef!.current!.style.overflowWrap = 'break-word';
+      wordRef!.current!.style.whiteSpace = 'normal';
+    }
+  }, []);
+
   return (
     <li className="category__item">
-      <Link className="category__item-link" to={`/items/${item._id}`}><p className="category__item-name">{item.name}</p></Link>
+      <Link ref={containerRef} className="category__item-link" to={`/items/${item._id}`}><p ref={wordRef} className="category__item-name">{item.name}</p></Link>
       <button type="button" onClick={handleAddItemToShoppingListClick} className="category__item-button">{}</button>
     </li>
   );

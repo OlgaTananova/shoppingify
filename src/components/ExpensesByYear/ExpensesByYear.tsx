@@ -1,5 +1,7 @@
 import './ExpensesByYear.css';
-import { ChangeEventHandler, useEffect, useState } from 'react';
+import {
+  ChangeEventHandler, useEffect, useMemo, useState,
+} from 'react';
 import {
   IExpensesByCategory, IExpensesByMonth, IExpensesBySingleCategory, IExpensesByYear,
 } from '../../types';
@@ -95,13 +97,16 @@ export default function ExpensesByYear() {
     setSpendingByYear(sortedExpensesByYear);
   }, [shoppingLists]);
 
-  // This function sets the selected year to the first year in the object of expenses by year
+  // This function sets the selected year to the last year in the list of years
   useEffect(() => {
-    if (Object.keys(spendingByYear).length !== 0) {
-      const firstValue = Object.keys(spendingByYear)[0];
+    if (sortedSpendingByYear.length !== 0) {
+      const firstValue = sortedSpendingByYear[0][0];
       setSelectedYear(firstValue);
     }
   }, [spendingByYear]);
+
+  // This function sorts the expenses by year in descending order
+  const sortedSpendingByYear = useMemo(() => Object.entries(spendingByYear).sort((a, b) => parseInt(b[0], 10) - parseInt(a[0], 10)), [spendingByYear]);
 
   const handleSelectYear: ChangeEventHandler<HTMLSelectElement> = (e) => {
     setSelectedYear(e.target.value);
@@ -114,8 +119,8 @@ export default function ExpensesByYear() {
       {
           Object.keys(spendingByYear).length !== 0 ? (
             <select className="statistics__byYear-month-selector" onChange={handleSelectYear}>
-              {Object.keys(spendingByYear).map((value, index) => (
-                <option key={index} value={value}>{value}</option>))}
+              {sortedSpendingByYear.map((value, index) => (
+                <option key={index} value={value[0]}>{value[0]}</option>))}
             </select>
           )
             : null
@@ -125,7 +130,7 @@ export default function ExpensesByYear() {
           Object.keys(spendingByYear).length !== 0
             ? (spendingByYear[selectedYear]?.categories
                   && Object.entries(spendingByYear[selectedYear].categories).map((value) => (
-                    <CategoriesByMonth category={value[1] as IExpensesBySingleCategory} index={value[0]} totalInMonth={spendingByYear[selectedYear].total} />
+                    <CategoriesByMonth category={value[1] as IExpensesBySingleCategory} key={value[0]} index={value[0]} totalInMonth={spendingByYear[selectedYear].total} />
 
                   )))
             : null
