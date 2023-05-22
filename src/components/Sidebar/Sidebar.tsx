@@ -1,4 +1,4 @@
-import { MouseEventHandler } from 'react';
+import { MouseEventHandler, useEffect, useState } from 'react';
 import Logo from '../Logo/Logo';
 import Navbar from '../Navbar/Navbar';
 import './Sidebar.css';
@@ -10,7 +10,7 @@ function Sidebar() {
   const activeShoppingList = useAppSelector((state) => state.shopping.items);
   const dispatch = useAppDispatch();
   const showMobileSL = useAppSelector((state) => state.app.showMobileSL);
-
+  const [shoppingListItemQty, setShoppingListItemQty] = useState(0);
   const handleSLIconClick: MouseEventHandler = () => {
     if (!showMobileSL) {
       dispatch(setShowMobileSLTrue());
@@ -18,6 +18,10 @@ function Sidebar() {
       dispatch(setShowMobileSLFalse());
     }
   };
+
+  useEffect(() => {
+    setShoppingListItemQty(activeShoppingList?.length || 0);
+  }, [activeShoppingList]);
 
   return (
     <nav
@@ -30,7 +34,7 @@ function Sidebar() {
         type="button"
         className="sidebar__shopping-cart"
         onClick={handleSLIconClick}
-        aria-label={`${activeShoppingList!.length}`}
+        aria-label={`${shoppingListItemQty}`}
       />
     </nav>
   );

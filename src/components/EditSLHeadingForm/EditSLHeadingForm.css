@@ -82,8 +82,8 @@
 }
 
 .shopping-list__button {
-  width: 32px;
-  height: 32px;
+  width: 25px;
+  height: 25px;
   margin-left: 10px;
   background-repeat: no-repeat;
   background-position: center;
@@ -107,6 +107,10 @@
 .shopping-list__button_copy {
  background-image: url('../../images/edit_FILL0_wght700_GRAD0_opsz48.svg');
   position: relative;
+}
+
+.shopping-list__button_delete-list {
+  background-image: url('../../images/delete_FILL0_wght400_GRAD0_opsz48.svg');
 }
 
 .shopping-list__button_copy_active::before {
@@ -138,6 +142,10 @@
 }
 @media screen and (max-width: 375px) {
   .shopping-list__heading {
-    font-size: 18px;
+    font-size: 14px;
+  }
+  .shopping-list__button {
+    width: 20px;
+    height: 20px;
   }
 }

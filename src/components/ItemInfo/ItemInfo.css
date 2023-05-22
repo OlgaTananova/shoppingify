@@ -16,7 +16,7 @@
 
 .item-info__return-btn {
   width: 55px;
-  background-color: var(--white-color);
+  background-color: var(--grey-color);
   border: none;
   background-image: url('../../images/arrow_back_FILL0_wght400_GRAD0_opsz48.svg');
   background-repeat: no-repeat;

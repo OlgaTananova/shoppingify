@@ -62,15 +62,10 @@
 
 @media screen and (max-width: 600px) {
   .app {
-    grid-template-columns: 70px auto auto;
-  }
-}
-
-@media screen and (max-width: 375px) {
-  .app {
     grid-template-columns: 70px 1fr 1fr;
   }
 }
+
 
 
 

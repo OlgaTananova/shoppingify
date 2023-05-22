@@ -71,7 +71,7 @@
   font-size: 16px;
   line-height: 1.2;
   font-weight: 700;
-  padding: 21px 0;
+  padding: 15px 0;
   border: none;
   border-radius: 12px;
   transition: all .3ms ease;
@@ -104,7 +104,7 @@
 
 .shopping-list__complete-buttons {
   display: flex;
-  margin: auto;
+  margin: 0 auto 20px;
 }
 
 .shopping-list__add-item-error {

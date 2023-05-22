@@ -140,6 +140,18 @@ export const uploadShoppingList = async (values: IMergeListPayload) => {
   return checkResponse(shoppingList);
 };
 
+export const deleteShoppingList = async (values: { id: string }) => {
+  const shoppingList = await fetch(`${baseUrl}/shoppinglists/deleteList`, {
+    method: 'DELETE',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(values),
+  });
+  return checkResponse(shoppingList);
+};
+
 export const updateItemUnitsInShoppingList = async (values: IUpdateItemUnitsInShoppingList) => {
   const updatedShoppingList = await fetch(`${baseUrl}/shoppinglists/updItemUnits`, {
     method: 'PATCH',

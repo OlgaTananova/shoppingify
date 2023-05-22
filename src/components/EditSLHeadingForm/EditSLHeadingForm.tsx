@@ -2,8 +2,18 @@ import './EditSLHeadingForm.css';
 import {
   ChangeEventHandler, FormEventHandler, MouseEventHandler, useEffect, useState,
 } from 'react';
-import { setIsEditShoppingListFalse, setIsEditShoppingListTrue } from '../../store/shoppingSlice';
+import {
+  clearShoppingList,
+  deleteSL, getActiveShoppingList,
+  setIsEditShoppingListFalse,
+  setIsEditShoppingListTrue,
+} from '../../store/shoppingSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import {
+    setIsLoadingFalse, setIsLoadingTrue, setIsToDeleteSL, setShowCancelSLTrue, setShowErrorTrue,
+} from '../../store/appSlice';
+import { getAllShoppingLists } from '../../store/shoppingHistorySlice';
+import { IShoppingList } from '../../types';
 
 // @ts-ignore
 // @ts-ignore
@@ -17,7 +27,8 @@ function EditSLHeadingForm({
   onSubmit: FormEventHandler, isValid: boolean
 }) {
   const isEditShoppingList = useAppSelector((state) => state.shopping.isEditShoppingList);
-  const shoppingList = useAppSelector((state) => state.shopping.items);
+  const shoppingList = useAppSelector((state) => state.shopping);
+  const shoppingListItems = useAppSelector((state) => state.shopping.items);
   const itemsInItems = useAppSelector((state) => state.items.items);
   const dispatch = useAppDispatch();
   const [showEditHeadingButton, setShowEditHeadingButton] = useState<boolean>(false);
@@ -28,18 +39,18 @@ function EditSLHeadingForm({
       ? dispatch(setIsEditShoppingListTrue())
       : dispatch(setIsEditShoppingListFalse());
   };
-  // update shoppingListToClipboard if shoppingList has been changed
+    // update shoppingListToClipboard if shoppingList has been changed
   useEffect(() => {
     // @ts-ignore
     setShoppingListToClipBoard(() => (shoppingList!.length !== 0
-      ? shoppingList!.reduce((prev, item) => {
+      ? shoppingListItems!.reduce((prev, item) => {
         const itemInItems = itemsInItems.find((i) => i._id === item!.itemId);
         const name = itemInItems!.name || 'Unknown item';
         prev.push(name.concat(' ', item!.quantity.toString()));
         return prev;
       }, [] as unknown as [string])
       : []));
-  }, [shoppingList]);
+  }, [shoppingListItems]);
 
   const copyToClipboardClick: MouseEventHandler = () => {
     navigator.clipboard.writeText(shoppingListToClipboard.join(', \n'))
@@ -49,6 +60,33 @@ function EditSLHeadingForm({
           setShowCopyToClipboardMessage(false);
         }, 5000);
       });
+  };
+
+  const handleDeleteShoppingListClick: MouseEventHandler = () => {
+    // if (shoppingList.status !== 'active') {
+    //   dispatch(setShowErrorTrue('You don\'t have an active shopping list to delete.'));
+    // } else {
+    //   dispatch(setIsLoadingTrue());
+    //   dispatch(deleteSL({ id: shoppingList?._id || '' })).unwrap()
+    //     .then(() => {
+    //       dispatch(getAllShoppingLists()).unwrap()
+    //         .then((data) => {
+    //           dispatch(clearShoppingList());
+    //           const activeSL = data.find((list: IShoppingList) => list.status === 'active');
+    //           if (activeSL) {
+    //             dispatch(getActiveShoppingList(activeSL));
+    //           }
+    //         });
+    //     })
+    //     .catch((err) => {
+    //       dispatch(setShowErrorTrue(err.message));
+    //     })
+    //     .finally(() => {
+    //       dispatch(setIsLoadingFalse());
+    //     });
+    // }
+    dispatch(setShowCancelSLTrue());
+    dispatch(setIsToDeleteSL(true));
   };
 
   return (
@@ -85,6 +123,14 @@ function EditSLHeadingForm({
         </form>
         <div className="shopping-list__buttons">
           <button
+            onClick={handleDeleteShoppingListClick}
+            type="button"
+            aria-label="Button to delete the active shopping list"
+            className="shopping-list__button shopping-list__button_delete-list"
+          >
+            {}
+          </button>
+          <button
             onClick={handleEditShoppingListClick}
             className="shopping-list__button shopping-list__button_complete"
             type="button"
@@ -103,7 +149,6 @@ function EditSLHeadingForm({
             {}
           </button>
         </div>
-
       </div>
       <span className="shopping-list__heading-error">{error}</span>
     </>

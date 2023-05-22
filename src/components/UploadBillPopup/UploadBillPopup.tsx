@@ -32,7 +32,7 @@ function UploadBillPopup() {
   const showUploadBillPopup = useAppSelector((state) => state.app.showUploadBillPopup);
   const [itemsFromSLWithNames, setItemsFromSLWithNames] = useState<IFullShoppingItem[]>([]);
   const [mergedSL, setMergedSL] = useState<IFullShoppingItem[]>([]);
-  const [mergedBill, setMergedBill] = useState<IShoppingItem[]>([]);
+  const [uploadedBill, setUploadedBill] = useState<IShoppingItem[]>([]);
   const [dateOfBill, setDateOfBill] = useState('');
   const [totalSum, setTotalSum] = useState(0);
   const dispatch = useAppDispatch();
@@ -55,12 +55,12 @@ function UploadBillPopup() {
   // 2. it checks if the items from the shopping list and the items from the uploaded bill have the same names
   // 3. it merges the items from the shopping list with the items from the uploaded bill
   // 4. it merges the shopping list with the uploaded bill
-  const handleUploadBillPopupMergeBtnClick = () => {
+  const handleMergeListPopupMergeBtnClick = () => {
     if (itemsFromSL && itemsFromSL.length === 0) {
       dispatch(setShowErrorTrue('Please add items to the shopping list before merging'));
     } else if (mergedSL.length === 0 || mergedSL.some((item) => item.itemId === '')) {
       dispatch(setShowErrorTrue('Please add all the items to the shopping list before merging the bill'));
-    } else if (mergedSL.length !== activeShoppingList?.length) {
+    } else if (mergedSL.length !== itemsFromSL?.length) {
       dispatch(setShowErrorTrue('Please add all the items to the shopping list before merging the bill'));
     } else {
       dispatch(setIsLoadingTrue());
@@ -94,14 +94,14 @@ function UploadBillPopup() {
   // 4. it sets the merged bill to the state
   // 5. it checks if all the items have been found in the store
   // 6. it dispatches the mergeList thunk
-  const handleUploadListClickButton = () => {
+  const handleUploadBillClickButton = () => {
     if (activeShoppingList) {
       dispatch(setShowErrorTrue('You already have an active shopping list. Please use "Merge" button to merge the bill with the active shopping list'));
-    } else if (mergedBill.some((item) => item.itemId === '')) {
+    } else if (uploadedBill.some((item) => item.itemId === '')) {
       dispatch(setShowErrorTrue('Please add all the items to the store before merging the bill'));
     } else {
       dispatch(setIsLoadingTrue());
-      dispatch(mergeList({ items: mergedBill, salesTax: editSalesTaxForm.values['sales-tax'].value, date: dateOfBill })).unwrap()
+      dispatch(mergeList({ items: uploadedBill, salesTax: editSalesTaxForm.values['sales-tax'].value, date: dateOfBill })).unwrap()
         .then((data) => {
         })
         .catch((err) => {
@@ -110,7 +110,7 @@ function UploadBillPopup() {
         .finally(() => {
           dispatch(setIsLoadingFalse());
           dispatch(closeUploadBillPopup());
-          setMergedBill([]);
+          setUploadedBill([]);
           setDateOfBill('');
           editUploadedItemsForm.resetForm();
           editSalesTaxForm.resetForm();
@@ -202,7 +202,7 @@ function UploadBillPopup() {
   // Function to set values of the list of items to upload it to the server (without active shopping list)
   useEffect(() => {
     const items = uploadedItems?.reduce((acc: IShoppingItem[], item) => {
-      if (typeof item?.salesTax === 'number') return acc;
+      if (item && Object.keys(item).includes('salesTax')) return acc;
       const itemInStore = itemsFromItems?.find((i) => {
         const whereToSearch = item?.itemName?.toLowerCase() || '';
         const wordToSearch = i?.name?.toLowerCase().trim() || '';
@@ -224,14 +224,14 @@ function UploadBillPopup() {
           price: Number(item?.itemPrice) || 0,
         }];
     }, []) || [];
-    setMergedBill(items);
+    setUploadedBill(items);
   }, [uploadedItems, itemsFromItems]);
 
   // function to set the list of items to be merged with the current shopping list
   useEffect(() => {
-    const items = itemsFromSLWithNames?.map((item) => {
-      // @ts-ignore
-      const itemInUploadedItems = uploadedItems?.find((i) => {
+    const items = uploadedItems?.reduce((prev: IFullShoppingItem[], item) => {
+      if (item && Object.keys(item).includes('salesTax')) return prev;
+      const itemFromSL = itemsFromSLWithNames?.find((i) => {
         const whereToSearch = i?.itemName?.toLowerCase() || '';
         const wordToSearch = item?.itemName?.toLowerCase()?.trim() || '';
         const regexToSearchPluralFormWord = new RegExp(`\\b${wordToSearch}s?\\b`, 'gi');
@@ -239,18 +239,18 @@ function UploadBillPopup() {
         const match = regexToSearchPluralFormWord.test(whereToSearch) || regexToSearchSingularFormWord.test(whereToSearch);
         return match;
       });
-      return {
-        itemId: item?.itemId || '',
-        itemName: item?.itemName || '',
-        itemCategoryName: item?.itemCategoryName || '',
-        categoryId: item?.categoryId || '',
-        quantity: Number(itemInUploadedItems?.itemQuantity) || 0,
-        units: item?.units || '',
+      return [...prev, {
+        itemId: itemFromSL?.itemId || '',
+        itemName: itemFromSL?.itemName || '',
+        itemCategoryName: itemFromSL?.itemCategoryName || '',
+        categoryId: itemFromSL?.categoryId || '',
+        quantity: itemFromSL?.quantity || 0,
+        units: itemFromSL?.units || '',
         status: 'completed',
-        pricePerUnit: Number(itemInUploadedItems?.itemPricePerUnit) || 0,
-        price: Number(itemInUploadedItems?.itemPrice) || 0,
-      };
-    });
+        pricePerUnit: Number(itemFromSL?.pricePerUnit) || 0,
+        price: Number(itemFromSL?.price) || 0,
+      }];
+    }, []) || [];
     setMergedSL(items);
   }, [itemsFromSLWithNames, uploadedItems]);
 
@@ -339,24 +339,24 @@ function UploadBillPopup() {
             <li
               key={index}
               data-index={index}
-              className={`${mergedBill.find((i) => i?.itemName === item?.itemName.value)?.itemId ? '' : 'upload-bill-popup__list-item_notfound'} upload-bill-popup__list-item`}
+              className={`${uploadedBill.find((i) => i?.itemName === item?.itemName.value)?.itemId ? '' : 'upload-bill-popup__list-item_notfound'} upload-bill-popup__list-item`}
             >
               <input required minLength={2} name="itemName" value={item.itemName.value} onChange={handleEditFormChange} className="upload-bill-popup__item-name upload-bill-popup__item-input" />
               {errorsForUploadedItems[index].itemName.error && <span className="upload-bill-popup__item-error">{errorsForUploadedItems[index].itemName.error}</span>}
               <input minLength={1} required name="itemUnits" value={item.itemUnits.value} onChange={handleEditFormChange} className="upload-bill-popup__item-small-cell upload-bill-popup__item-input upload-bill-popup__item-small-cell_units" />
               {errorsForUploadedItems[index].itemUnits.error && <span className="upload-bill-popup__item-error">{errorsForUploadedItems[index].itemUnits.error}</span>}
-              <input required type="number" name="itemQuantity" value={item.itemQuantity.value} onChange={handleEditFormChange} className="upload-bill-popup__item-small-cell upload-bill-popup__item-input upload-bill-popup__item-small-cell_quantity" />
+              <input required type="number" step="0.01" name="itemQuantity" value={item.itemQuantity.value} onChange={handleEditFormChange} className="upload-bill-popup__item-small-cell upload-bill-popup__item-input upload-bill-popup__item-small-cell_quantity" />
               {errorsForUploadedItems[index].itemQuantity.error && <span className="upload-bill-popup__item-error">{errorsForUploadedItems[index].itemQuantity.error}</span>}
-              <input required type="number" name="itemPricePerUnit" value={item.itemPricePerUnit.value} onChange={handleEditFormChange} className="upload-bill-popup__item-small-cell upload-bill-popup__item-input upload-bill-popup__item-small-cell_pricePerUnit" />
+              <input required type="number" step="0.01" name="itemPricePerUnit" value={item.itemPricePerUnit.value} onChange={handleEditFormChange} className="upload-bill-popup__item-small-cell upload-bill-popup__item-input upload-bill-popup__item-small-cell_pricePerUnit" />
               {errorsForUploadedItems[index].itemPricePerUnit.error && <span className="upload-bill-popup__item-error">{errorsForUploadedItems[index].itemPricePerUnit.error}</span>}
-              <input required type="number" name="itemPrice" value={item.itemPrice.value} onChange={handleEditFormChange} className="upload-bill-popup__item-small-cell  upload-bill-popup__item-input upload-bill-popup__item-small-cell_price" />
+              <input required type="number" step="0.01" name="itemPrice" value={item.itemPrice.value} onChange={handleEditFormChange} className="upload-bill-popup__item-small-cell  upload-bill-popup__item-input upload-bill-popup__item-small-cell_price" />
               {errorsForUploadedItems[index].itemPrice.error && <span className="upload-bill-popup__item-error">{errorsForUploadedItems[index].itemPrice.error}</span>}
             </li>
           ))}
           <li className="upload-bill-popup__list-footer">
             <div className="upload-bill-popup__list-footer-section">
               <div className="upload-bill-popup__item-name">Sales Tax</div>
-              <input type="number" name="sales-tax" value={editSalesTaxForm.values['sales-tax'].value} onChange={editSalesTaxForm.handleChange} className="upload-bill-popup__item-small-cell upload-bill-popup__item-input" />
+              <input type="number" step="0.01" name="sales-tax" value={editSalesTaxForm.values['sales-tax'].value} onChange={editSalesTaxForm.handleChange} className="upload-bill-popup__item-small-cell upload-bill-popup__item-input" />
             </div>
             <div className="upload-bill-popup__list-footer-section">
               <div className="upload-bill-popup__item-name">Total</div>
@@ -377,7 +377,7 @@ function UploadBillPopup() {
           <button
             disabled={uploadedItems?.length === 0 || !isUploadedItemsValid}
             type="button"
-            onClick={handleUploadBillPopupMergeBtnClick}
+            onClick={handleMergeListPopupMergeBtnClick}
             className={`${(!isUploadedItemsValid || uploadedItems?.length === 0) && 'upload-bill-popup__action-btn_disabled'} upload-bill-popup__action-btn upload-bill-popup__action-btn_merge`}
           >
             Merge
@@ -387,7 +387,7 @@ function UploadBillPopup() {
           <button
             type="button"
             disabled={uploadedItems?.length === 0 || !isUploadedItemsValid}
-            onClick={handleUploadListClickButton}
+            onClick={handleUploadBillClickButton}
             className={`${(!isUploadedItemsValid || uploadedItems?.length === 0) && 'upload-bill-popup__action-btn_disabled'} upload-bill-popup__action-btn upload-bill-popup__action-btn_upload-list`}
           >
             Upload

@@ -287,6 +287,7 @@ export interface IAppSliceInitialState {
   innerHeight: string | number
   showUploadBillPopup: boolean,
   infoMessage?: boolean,
+  isToDeleteSL?: boolean,
 }
 
 // Statistics

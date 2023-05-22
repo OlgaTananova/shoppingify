@@ -25,7 +25,7 @@ import {
   mergeShoppingLists,
   uploadShoppingList,
   updateItemUnitsInShoppingList,
-  updateItemPricePerUnitInShoppingList, updateSalesTaxInShoppingList,
+  updateItemPricePerUnitInShoppingList, updateSalesTaxInShoppingList, deleteShoppingList,
 } from '../utils/apiShoppingLists';
 
 const initialState: IShoppingListInitialState = {
@@ -190,6 +190,7 @@ const shoppingSlice = createSlice({
       .addCase(mergeBill.fulfilled, (state, action) => {
         state.requestStatus = 'succeeded';
         changeState(state, action);
+        state.error = null;
       })
       .addCase(mergeBill.rejected, (state, action) => {
         state.requestStatus = 'failed';
@@ -241,6 +242,18 @@ const shoppingSlice = createSlice({
       .addCase(updateSalesTaxInSL.rejected, (state, action) => {
         state.requestStatus = 'failed';
         state.error = action.error.message;
+      })
+      .addCase(deleteSL.pending, (state) => {
+        state.requestStatus = 'loading';
+      })
+      .addCase(deleteSL.fulfilled, (state, action) => {
+        state.requestStatus = 'succeeded';
+        state.error = null;
+        // changeState(state, action);
+      })
+      .addCase(deleteSL.rejected, (state, action) => {
+        state.requestStatus = 'failed';
+        state.error = action.error.message;
       });
   },
 });
@@ -265,6 +278,7 @@ export const mergeList = createAsyncThunk('shoppingList/mergeList', async (value
 export const updateUnitsOfItemInSL = createAsyncThunk('shoppingList/updateUnitsOfItemInSL', async (values: IUpdateItemUnitsInShoppingList) => updateItemUnitsInShoppingList(values));
 export const updatePricePerUnitOfItemInSL = createAsyncThunk('shoppingList/updatePricePerUnitOfItemInSL', async (values: IUpdateItemPricePerUnitInShoppingList) => updateItemPricePerUnitInShoppingList(values));
 export const updateSalesTaxInSL = createAsyncThunk('shoppingList/updateSalesTaxInSL', async (values: IUpdateSalesTaxPayload) => updateSalesTaxInShoppingList(values));
+export const deleteSL = createAsyncThunk('shoppingList/deleteSL', async (values:{ id: string }) => deleteShoppingList(values));
 export const {
   closeAddItemForm,
   openAddItemForm,

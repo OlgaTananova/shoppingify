@@ -225,5 +225,32 @@
   }
   .upload-bill-popup__list-header > .upload-bill-popup__item-small-cell {
    padding-right: 0;
+    font-size: 10px;
+  }
+  .upload-bill-popup__list-header > .upload-bill-popup__item-name {
+    padding-right: 0;
+    font-size: 10px;
+  }
+  .upload-bill-popup__item-input {
+    font-size: 10px;
+  }
+  .upload-bill-popup__action-btn {
+    font-size: 10px;
+  }
+  .upload-bill-popup__list-footer-section > .upload-bill-popup__item-small-cell {
+    font-size: 12px;
+  }
+  .upload-bill-popup__list-footer-section > .upload-bill-popup__item-name{
+    font-size: 12px;
+  }
+
+}
+
+@media screen and (max-width: 375px) {
+  .upload-bill-popup__item-small-cell {
+    width: 15%;
+  }
+  .upload-bill-popup__item-small-cell {
+    gap: 7px;
   }
 }

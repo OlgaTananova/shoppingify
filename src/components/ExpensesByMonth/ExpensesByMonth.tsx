@@ -121,7 +121,6 @@ export default function ExpensesByMonth() {
     const dateB = new Date(b[1].date);
     return dateB.getTime() - dateA.getTime();
   }), [spendingByMonth]);
-
   return (
     <div className="statistics__byMonth">
 

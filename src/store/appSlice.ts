@@ -14,6 +14,7 @@ const initialState: IAppSliceInitialState = {
   innerHeight: 0,
   showUploadBillPopup: false,
   infoMessage: false,
+  isToDeleteSL: false,
 };
 
 const appSlice = createSlice({
@@ -80,12 +81,15 @@ const appSlice = createSlice({
     setInfoMessage(state, action) {
       state.infoMessage = action.payload;
     },
+    setIsToDeleteSL(state, action) {
+      state.isToDeleteSL = action.payload;
+    },
   },
 });
 
 export const {
   setIsLoadingFalse, setIsLoadingTrue, setShowErrorFalse, setShowErrorTrue,
   setIsUserCheckedTrue, setIsUserCheckedFalse, setShowMobileSLFalse, onLogout, setShowMobileSLTrue, onLogin, setShowCancelSLFalse,
-  setShowCancelSLTrue, setScroll, setLogoHeight, setInnerHeight, showUploadBillPopup, closeUploadBillPopup, setInfoMessage,
+  setShowCancelSLTrue, setScroll, setLogoHeight, setInnerHeight, showUploadBillPopup, closeUploadBillPopup, setInfoMessage, setIsToDeleteSL,
 } = appSlice.actions;
 export default appSlice.reducer;

@@ -139,4 +139,9 @@
   .edit-item-form__container {
     width: 80%;
   }
+  .edit-item-form {
+    grid-column: 2/4;
+    grid-row: 2/-1;
+    z-index: 3;
+  }
 }
