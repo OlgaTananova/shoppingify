@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/shoppingify/static/css/main.b9ee9efc.css",
+    "main.css": "/shoppingify/static/css/main.1962f0f6.css",
     "main.js": "/shoppingify/static/js/main.f22d20a4.js",
     "static/media/quicksand-v29-latin-500.ttf": "/shoppingify/static/media/quicksand-v29-latin-500.1d56a62d99b31d9d0454.ttf",
     "static/media/quicksand-v29-latin-700.ttf": "/shoppingify/static/media/quicksand-v29-latin-700.62f6cad8351b2810fb1b.ttf",
@@ -33,11 +33,11 @@
     "static/media/arrow_back_FILL0_wght400_GRAD0_opsz48.svg": "/shoppingify/static/media/arrow_back_FILL0_wght400_GRAD0_opsz48.7013036146c0a645f458.svg",
     "static/media/add_FILL0_wght400_GRAD0_opsz48 (1).svg": "/shoppingify/static/media/add_FILL0_wght400_GRAD0_opsz48 (1).46ae0e09d1132337aa92.svg",
     "static/media/remove_FILL0_wght400_GRAD0_opsz48.svg": "/shoppingify/static/media/remove_FILL0_wght400_GRAD0_opsz48.6629b3c278ea8fbccd97.svg",
-    "main.b9ee9efc.css.map": "/shoppingify/static/css/main.b9ee9efc.css.map",
+    "main.1962f0f6.css.map": "/shoppingify/static/css/main.1962f0f6.css.map",
     "main.f22d20a4.js.map": "/shoppingify/static/js/main.f22d20a4.js.map"
   },
   "entrypoints": [
-    "static/css/main.b9ee9efc.css",
+    "static/css/main.1962f0f6.css",
     "static/js/main.f22d20a4.js"
   ]
 }
