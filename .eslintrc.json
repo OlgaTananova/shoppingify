@@ -57,7 +57,8 @@
     "react/no-array-index-key": "off",
     "max-len": "off",
     "no-param-reassign": "off",
-    "import/prefer-default-export": "off"
-
+    "import/prefer-default-export": "off",
+    "no-nested-ternary": "off",
+    "@typescript-eslint/no-nested-ternary": "off"
   }
 }

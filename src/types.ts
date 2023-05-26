@@ -70,14 +70,14 @@ export interface IFullShoppingItem extends IShoppingItem {
   itemCategoryName?: string,
 }
 
-export interface IMergeBillPayload {
+export interface IMergeListPayload {
   items: IFullShoppingItem[],
   salesTax: number,
   date: string,
   _id?: string,
 }
 
-export interface IMergeListPayload {
+export interface IMergeBillPayload {
   items: IShoppingItem[],
   salesTax: number,
   date: string,

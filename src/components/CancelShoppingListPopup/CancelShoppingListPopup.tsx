@@ -87,7 +87,7 @@ function CancelShoppingListPopup() {
             <button type="button" onClick={handleCloseClick} className="cancel-shopping-list-popup__close-btn">{}</button>
             <h2 className="cancel-shopping-list-popup__heading">Are you sure you want to cancel this list?</h2>
             <div className="cancel-shopping-list-popup__buttons">
-              <button type="button" onClick={handleCloseClick} className="cancel-shopping-list-popup__button cancel-shopping-list-popup__button_cancel">cancel</button>
+              <button type="button" onClick={handleCloseClick} className="cancel-shopping-list-popup__button cancel-shopping-list-popup__button_cancel">No</button>
               <button type="button" onClick={handleCancelSLClick} className="cancel-shopping-list-popup__button cancel-shopping-list-popup__button_confirm">Yes</button>
             </div>
           </div>

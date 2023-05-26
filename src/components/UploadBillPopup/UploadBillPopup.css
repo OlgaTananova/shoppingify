@@ -53,6 +53,12 @@
   font-weight: 700;
 }
 
+.upload-bill-popup__warning {
+  font-size: 10px;
+  line-height: 1.25;
+  color: darkred;
+  margin: 10px 0;
+}
 .upload-bill-popup__list {
   margin: 0;
   padding: 0;
@@ -100,7 +106,7 @@
 }
 
 .upload-bill-popup__list-item_notfound > input {
-  color: var(--burgundy-color);
+  color: darkred;
 }
 
 .upload-bill-popup__item-error{

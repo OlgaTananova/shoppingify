@@ -170,7 +170,7 @@ function ShoppingItem({ item }: { item: IShoppingItem }) {
       </div>
       {isEditQtyMenuOpened
         ? (
-          <form onSubmit={changeItemQtySubmitHandler} noValidate name="shopping-list__edit-item-form" className="shopping-list__edit-item">
+          <form onSubmit={changeItemQtySubmitHandler} noValidate name="shopping-list__edit-item-form" className="shopping-list__edit-item shopping-list__edit-item_editQtyForm">
             <button type="button" onClick={deleteItemHandleClick} className="shopping-list__edit-item-action-button shopping-list__edit-item-action-button_delete">{}</button>
             <button type="button" onClick={decrementItemQtyHandleClick} className="shopping-list__change-qty shopping-list__change-qty_decrease">{}</button>
             <input required type="number" name="item-qty" value={editItemQtyForm.values['item-qty'].value} onChange={editItemQtyForm.handleChange} className="shopping-list__item-action-button shopping-list__item-quantity_edit" />

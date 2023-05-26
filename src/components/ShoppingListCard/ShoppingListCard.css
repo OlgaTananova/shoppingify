@@ -88,6 +88,21 @@
   line-height: 1.25;
 }
 
+.shopping-list-card__delete-btn {
+  width: 150px;
+  border: none;
+  background-color: var(--orange-color);
+  border-radius: 12px;
+  padding: 10px 0;
+  color: var(--white-color);
+  font-size: 14px;
+}
+
+.shopping-list-card__delete-btn:hover {
+  opacity: .7;
+  cursor: pointer;
+}
+
 @media screen and (max-width: 768px) {
   .shopping-list-card {
     padding: 20px;

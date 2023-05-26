@@ -48,7 +48,8 @@ export default function SalesTax() {
       {isEditSalesTaxOpened
         ? (
           <form onSubmit={handleUpdateSalesTaxSubmitForm} className="shopping-list__edit-item" noValidate name="shopping-list__edit-item-editSalesTaxForm">
-            <input name="sales-tax" value={editSalesTaxForm.values['sales-tax'].value} onChange={editSalesTaxForm.handleChange} className="shopping-list__edit-item-editSalesTaxForm-input" type="number" />
+            <input name="sales-tax" required value={editSalesTaxForm.values['sales-tax'].value} onChange={editSalesTaxForm.handleChange} className="shopping-list__edit-item-editSalesTaxForm-input" type="number" />
+            {editSalesTaxForm.errors['sales-tax'] && <span className="shopping-list__edit-item-input-error shopping-list__edit-item-editSalesTaxForm-error">{editSalesTaxForm.errors['sales-tax']}</span>}
             <button className="shopping-list__edit-item-action-button shopping-list__edit-item-action-button_submit" type="submit">{}</button>
             <button onClick={handleEditSalesTaxBarClick} className="shopping-list__edit-item-action-button shopping-list__edit-item-action-button_cancel" type="button">{}</button>
           </form>

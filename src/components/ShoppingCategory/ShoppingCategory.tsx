@@ -26,8 +26,8 @@ function ShoppingCategory({ items, categoryId }:
         <span className="shopping-list__category-total">{`$ ${categoryTotal.toFixed(2)}`}</span>
       </div>
       {
-                items.map((item) => (
-                  <ShoppingItem item={item} key={item.itemId} />
+                items.map((item, index) => (
+                  <ShoppingItem item={item} key={index} />
                 ))
             }
     </div>

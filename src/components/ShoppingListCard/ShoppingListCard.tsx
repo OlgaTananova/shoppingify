@@ -1,8 +1,15 @@
 import './ShoppingListCard.css';
 import { MouseEventHandler } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useAppSelector } from '../../store/hooks';
-import { IShoppingCategory } from '../../types';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { IShoppingCategory, IShoppingList } from '../../types';
+import {
+  setIsLoadingFalse,
+  setIsLoadingTrue,
+  setShowErrorTrue,
+} from '../../store/appSlice';
+import { clearShoppingList, deleteSL, getActiveShoppingList } from '../../store/shoppingSlice';
+import { getAllShoppingLists } from '../../store/shoppingHistorySlice';
 
 function ShoppingListCard() {
   const { shoppingListId } = useParams<string>();
@@ -13,6 +20,7 @@ function ShoppingListCard() {
   const categories = useAppSelector((state) => state.categories.categories);
   const items = useAppSelector((state) => state.items.items);
   const innerHeight = useAppSelector((state) => state.app.innerHeight);
+  const dispatch = useAppDispatch();
   let totalSum = 0;
   const handleClick: MouseEventHandler = () => {
     navigate(-1);
@@ -29,6 +37,28 @@ function ShoppingListCard() {
     }
     return prev;
   }, {} as IShoppingCategory);
+
+  const handleDeleteSLClick: MouseEventHandler = () => {
+    dispatch(setIsLoadingTrue());
+    dispatch(deleteSL({ id: shoppingListId || '' })).unwrap()
+      .then(() => {
+        dispatch(getAllShoppingLists()).unwrap()
+          .then((data) => {
+            dispatch(clearShoppingList());
+            const activeSL = data.find((list: IShoppingList) => list.status === 'active');
+            if (activeSL) {
+              dispatch(getActiveShoppingList(activeSL));
+            }
+          });
+      })
+      .catch((err) => {
+        dispatch(setShowErrorTrue(err.message));
+      })
+      .finally(() => {
+        dispatch(setIsLoadingFalse());
+        navigate(-1);
+      });
+  };
 
   return (
     <div
@@ -96,6 +126,7 @@ function ShoppingListCard() {
               <p className="shopping-list-card__totalSum-value">{`$${(totalSum + (shoppingList?.salesTax || 0)).toFixed(2)}`}</p>
             </div>
             <div />
+            <button onClick={handleDeleteSLClick} type="button" className="shopping-list-card__delete-btn">Delete</button>
           </>
         )}
     </div>

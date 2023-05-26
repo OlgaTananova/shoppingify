@@ -89,6 +89,10 @@
   align-items: center;
 }
 
+.shopping-list__edit-item_editQtyForm{
+  width: 200px;
+}
+
 .shopping-list__edit-item-input-error{
   position: absolute;
   top: calc(100% + 5px);
@@ -208,5 +212,21 @@
 @media screen and (max-width: 480px) {
   .shopping-list__item-action-button {
     font-size: 10px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .shopping-list__edit-item {
+    width: 150px;
+  }
+  .shopping-list__edit-item_editQtyForm {
+    width: 160px;
+  }
+  .shopping-list__edit-item-editUnitsForm-input {
+    width: 60px;
+  }
+  .shopping-list__edit-item_editQtyForm > .shopping-list__edit-item-action-button {
+    width: 25px;
+    background-size: 20px 20px;
   }
 }

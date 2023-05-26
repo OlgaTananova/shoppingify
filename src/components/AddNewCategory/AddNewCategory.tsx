@@ -57,7 +57,7 @@ function AddNewCategory() {
           Add category
         </button>
       </form>
-      <span className="add-new-category-form__error">{form.errors.category}</span>
+      {form.errors.category && <span className="add-new-category-form__error">{form.errors.category}</span>}
     </div>
   );
 }

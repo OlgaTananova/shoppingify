@@ -4,7 +4,8 @@
   font-size: 14px;
   line-height: 1.25;
   gap: 6px;
-  margin: 0 0 7px 0;
+  margin: 0 0 30px 0;
+  position: relative;
 }
 
 .auth-form__input {
@@ -31,9 +32,11 @@
 }
 
 .auth-form__input-error {
-  font-size: 10px;
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
   color: var(--red-color);
-  min-height: 10px;
+  font-size: 10px;
 }
 
 @media screen and (max-width: 475px) {

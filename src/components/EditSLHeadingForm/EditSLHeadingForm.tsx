@@ -3,17 +3,13 @@ import {
   ChangeEventHandler, FormEventHandler, MouseEventHandler, useEffect, useState,
 } from 'react';
 import {
-  clearShoppingList,
-  deleteSL, getActiveShoppingList,
   setIsEditShoppingListFalse,
   setIsEditShoppingListTrue,
 } from '../../store/shoppingSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import {
-    setIsLoadingFalse, setIsLoadingTrue, setIsToDeleteSL, setShowCancelSLTrue, setShowErrorTrue,
+  setIsToDeleteSL, setShowCancelSLTrue,
 } from '../../store/appSlice';
-import { getAllShoppingLists } from '../../store/shoppingHistorySlice';
-import { IShoppingList } from '../../types';
 
 // @ts-ignore
 // @ts-ignore
@@ -63,28 +59,6 @@ function EditSLHeadingForm({
   };
 
   const handleDeleteShoppingListClick: MouseEventHandler = () => {
-    // if (shoppingList.status !== 'active') {
-    //   dispatch(setShowErrorTrue('You don\'t have an active shopping list to delete.'));
-    // } else {
-    //   dispatch(setIsLoadingTrue());
-    //   dispatch(deleteSL({ id: shoppingList?._id || '' })).unwrap()
-    //     .then(() => {
-    //       dispatch(getAllShoppingLists()).unwrap()
-    //         .then((data) => {
-    //           dispatch(clearShoppingList());
-    //           const activeSL = data.find((list: IShoppingList) => list.status === 'active');
-    //           if (activeSL) {
-    //             dispatch(getActiveShoppingList(activeSL));
-    //           }
-    //         });
-    //     })
-    //     .catch((err) => {
-    //       dispatch(setShowErrorTrue(err.message));
-    //     })
-    //     .finally(() => {
-    //       dispatch(setIsLoadingFalse());
-    //     });
-    // }
     dispatch(setShowCancelSLTrue());
     dispatch(setIsToDeleteSL(true));
   };

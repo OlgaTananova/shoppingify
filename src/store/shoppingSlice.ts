@@ -273,8 +273,8 @@ export const updateSLStatus = createAsyncThunk('shoppingList/updSLStatus', async
 
 export const uploadBillAndSL = createAsyncThunk('shoppingList/uploadBillAndSL', async (values: FormData) => uploadBillAndGetShoppingList(values));
 
-export const mergeBill = createAsyncThunk('shoppingList/mergeShoppingList', async (values: IMergeBillPayload) => mergeShoppingLists(values));
-export const mergeList = createAsyncThunk('shoppingList/mergeList', async (values: IMergeListPayload) => uploadShoppingList(values));
+export const mergeList = createAsyncThunk('shoppingList/mergeShoppingList', async (values: IMergeListPayload) => mergeShoppingLists(values));
+export const mergeBill = createAsyncThunk('shoppingList/mergeList', async (values: IMergeBillPayload) => uploadShoppingList(values));
 export const updateUnitsOfItemInSL = createAsyncThunk('shoppingList/updateUnitsOfItemInSL', async (values: IUpdateItemUnitsInShoppingList) => updateItemUnitsInShoppingList(values));
 export const updatePricePerUnitOfItemInSL = createAsyncThunk('shoppingList/updatePricePerUnitOfItemInSL', async (values: IUpdateItemPricePerUnitInShoppingList) => updateItemPricePerUnitInShoppingList(values));
 export const updateSalesTaxInSL = createAsyncThunk('shoppingList/updateSalesTaxInSL', async (values: IUpdateSalesTaxPayload) => updateSalesTaxInShoppingList(values));

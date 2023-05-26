@@ -17,7 +17,7 @@ function AuthInput({
         onChange={onChange}
         {...rest}
       />
-      <span className="auth-form__input-error">{error}</span>
+      { error && <span className="auth-form__input-error">{error}</span>}
     </label>
   );
 }

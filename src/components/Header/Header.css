@@ -19,8 +19,12 @@
   line-height: 1.2;
   font-weight: 700;
   align-self: flex-start;
-  /*margin: 0 auto;*/
-  margin: auto 0 auto 20px;
+  margin: 0 auto;
+}
+
+.header__heading_authbar {
+  width: 100%;
+  margin: auto 0;
 }
 
 .header__heading-name {
@@ -49,6 +53,18 @@
   .header__heading {
     margin: auto 0 auto 20px;
   }
+  .header__heading_authbar {
+    margin: auto 0;
+  }
+}
+@media screen and (max-width: 600px) {
+  .header__heading_authbar {
+    grid-column: 1/-1;
+  }
+  .header_type_authbar {
+    grid-column: 1/-1;
+  }
+
 }
 
 @media screen and (max-width: 375px) {
