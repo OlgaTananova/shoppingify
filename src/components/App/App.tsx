@@ -20,6 +20,7 @@ import { fetchItems } from '../../store/itemInfoSlice';
 import { fetchCategories } from '../../store/categoriesSlice';
 import NotFoundPage from '../../pages/NotFoundPage';
 import Preloader from '../Preloader/Preloader';
+import Fallback from '../Fallback/Fallback';
 import {
   setInnerHeight,
   setIsLoadingFalse,
@@ -33,6 +34,7 @@ import { clearShoppingList, getActiveShoppingList } from '../../store/shoppingSl
 import { IShoppingList } from '../../types';
 import { throttle } from '../../utils/utils';
 import UploadBillPopup from '../UploadBillPopup/UploadBillPopup';
+import ErrorBoundary from '../../utils/errorBoundary';
 
 function App() {
   const appStatus = useAppSelector((state) => state.app.appStatus);
@@ -93,24 +95,50 @@ function App() {
   return (
     <div className="app">
       <Routes>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/signup" element={<SignupPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="*" element={<NotFoundPage />} />
+        <Route
+          path="/"
+          element={<MainPage />}
+        />
+        <Route
+          path="/signup"
+          element={<SignupPage />}
+        />
+        <Route
+          path="/login"
+          element={<LoginPage />}
+        />
+        <Route
+          path="*"
+          element={<NotFoundPage />}
+        />
         {isUserChecked && (
-          <>
-            <Route
-              path="/items"
-              element={<ProtectedRoute><ItemsPage /></ProtectedRoute>}
-            />
-            <Route path="/items/:itemId" element={<ProtectedRoute><SingleItemPage /></ProtectedRoute>} />
-            <Route path="/history" element={<ProtectedRoute><HistoryPage /></ProtectedRoute>} />
-            <Route path="history/:shoppingListId" element={<ProtectedRoute><ShoppingListCardPage /></ProtectedRoute>} />
-            <Route path="/statistics" element={<ProtectedRoute><StatisticsPage /></ProtectedRoute>} />
-            <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
-          </>
+        <>
+          <Route
+            path="/items"
+            element={<ProtectedRoute><ItemsPage /></ProtectedRoute>}
+          />
+          <Route
+            path="/items/:itemId"
+            element={<ProtectedRoute><SingleItemPage /></ProtectedRoute>}
+          />
+          <Route
+            path="/history"
+            element={<ProtectedRoute><HistoryPage /></ProtectedRoute>}
+          />
+          <Route
+            path="history/:shoppingListId"
+            element={<ProtectedRoute><ShoppingListCardPage /></ProtectedRoute>}
+          />
+          <Route
+            path="/statistics"
+            element={<ProtectedRoute><StatisticsPage /></ProtectedRoute>}
+          />
+          <Route
+            path="/profile"
+            element={<ProtectedRoute><ProfilePage /></ProtectedRoute>}
+          />
+        </>
         )}
-
       </Routes>
       <CancelShoppingListPopup />
       {isLoading && <Preloader />}

@@ -5,7 +5,7 @@
 
 import './UploadBillPopup.css';
 import {
-  ChangeEventHandler, MouseEventHandler, useEffect, useState,
+  ChangeEventHandler, MouseEventHandler, useEffect, useMemo, useState,
 } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import {
@@ -161,7 +161,7 @@ function UploadBillPopup() {
       });
       return [...prev, {
         itemId: itemFromSL?.itemId || '',
-        itemName: itemFromSL?.itemName || '',
+        itemName: item?.itemName || '',
         itemCategoryName: itemFromSL?.itemCategoryName || '',
         categoryId: itemFromSL?.categoryId || '',
         quantity: Number(item?.itemQuantity) || 0,
@@ -330,6 +330,7 @@ function UploadBillPopup() {
     }
     return mergedSL && mergedSL?.find((i) => i?.itemName === item?.itemName?.value)?.itemId ? '' : 'upload-bill-popup__list-item_notfound';
   };
+
   return (
     <div className={`upload-bill-popup ${!showUploadBillPopup && 'upload-bill-popup_inactive'}`}>
       <div className="upload-bill-popup__inner-container">

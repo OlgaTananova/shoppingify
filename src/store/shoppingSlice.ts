@@ -90,6 +90,12 @@ const shoppingSlice = createSlice({
     updateUploadedItems(state, action) {
       state.uploadedItems = action.payload;
     },
+    retrieveUploadedBillFromCache(state, action) {
+      state.uploadedItems = action.payload;
+    },
+    clearUploadedBillCache(state) {
+      state.uploadedItems = [];
+    },
   },
   extraReducers(builder) {
     builder
@@ -290,6 +296,8 @@ export const {
   closeUploadBillForm,
   clearUploadedItems,
   updateUploadedItems,
+  retrieveUploadedBillFromCache,
+  clearUploadedBillCache,
 } = shoppingSlice.actions;
 
 export default shoppingSlice.reducer;

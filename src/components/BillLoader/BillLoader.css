@@ -1,8 +1,16 @@
-.upload-bill-sector {
+.upload-bill-sector,.upload-bill-chooseSection {
   display: flex;
   margin: 0 auto;
   width: 90%;
   gap: 15px;
+}
+
+.upload-bill-chooseSection {
+  display: flex;
+  margin: 0 auto;
+  width: 90%;
+  gap: 15px;
+  justify-content: center;
 }
 
 .upload-bill-button {
@@ -16,6 +24,7 @@
   background-size: contain;
   background-color: var(--light-orange-color);
 }
+
 .upload-bill-heading {
   text-align: center;
   margin: 0;
@@ -58,11 +67,37 @@
   border-radius: 10px;
 }
 
+.upload-bill-chooseSection__button {
+  border: none;
+  background-color: var(--orange-color);
+  color: var(--white-color);
+  font-size: 14px;
+  padding: 10px 15px;
+  border-radius: 10px;
+  width: 150px;
+}
+
+.upload-bill-chooseSection__button:hover {
+  opacity: .7;
+  cursor: pointer;
+}
+
+@media  screen and (max-width: 675px) {
+  .upload-bill-chooseSection__button {
+    width: 120px;
+    font-size: 12px;
+  }
+}
+
 @media screen and (max-width: 375px) {
   .upload-bill-heading {
     font-size: 14px;
   }
   .upload-bill-form__input::file-selector-button, .upload-bill-form__submit-btn {
     font-size: 12px;
+  }
+  .upload-bill-chooseSection__button {
+    font-size: 10px;
+    padding: 5px;
   }
 }

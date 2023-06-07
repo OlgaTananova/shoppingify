@@ -17,8 +17,7 @@ function Header() {
         </span>
         <span className="header__heading-body">
           {' '}
-          allows you take your shopping list
-          wherever you go
+          &mdash; Your Essential Shopping Companion On-the-Go
         </span>
         {' '}
 

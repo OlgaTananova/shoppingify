@@ -22,7 +22,10 @@ export default function ExpensesByMonth() {
       const sortedExpenses = shoppingLists.reduce((prev, value) => {
         // generate a string with the month and year
         const monthAndYear = () => {
-          const date = new Date(value.date);
+          let date = new Date(value.date);
+          if (Number.isNaN(date.getTime())) {
+            date = new Date();
+          }
           return `${new Intl.DateTimeFormat('en-Us', { month: 'short' }).format(date)} ${date.getFullYear()}`;
         };
         // if the month and year does not exist in the object, create it

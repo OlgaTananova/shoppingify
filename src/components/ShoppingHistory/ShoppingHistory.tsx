@@ -9,8 +9,11 @@ function ShoppingHistory() {
   const innerHeight = useAppSelector((state) => state.app.innerHeight);
   const shoppingListByDate = useMemo(() => shoppingLists.length !== 0 && shoppingLists.reduce((prev: IShoppingListByDate, value: IShoppingList) => {
     const monthAndYear = () => {
-      const date = new Date(value.date);
-      return `${new Intl.DateTimeFormat('en-Us', { month: 'long' }).format(date)} ${date.getFullYear()}`;
+      let date = new Date(value.date);
+      if (Number.isNaN(date.getTime())) {
+        date = new Date();
+      }
+      return `${new Intl.DateTimeFormat('en-Us', { month: 'short' }).format(date)} ${date.getFullYear()}`;
     };
     if (!prev[monthAndYear()]) {
       // eslint-disable-next-line no-param-reassign
@@ -35,7 +38,10 @@ function ShoppingHistory() {
         >
           <p className="shopping-history__month-and-year">{list[0]}</p>
           {list[1].map((l: IShoppingList) => {
-            const modifiedDate = new Date(l.date);
+            let modifiedDate = new Date(l.date);
+            if (Number.isNaN(modifiedDate.getTime())) {
+              modifiedDate = new Date();
+            }
             return (
               <Link
                 to={`/history/${l._id}`}

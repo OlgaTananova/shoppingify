@@ -4,7 +4,7 @@ import {
 } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useForm from '../../utils/useForm';
-import { useAppSelector } from '../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 
 function SearchForm() {
   const initialValues = useMemo(() => ({
@@ -19,6 +19,7 @@ function SearchForm() {
   const [autoCompleteItemsNames, setAutoCompleteItemsNames] = useState<string[]>(autoCompleteItems.map((item) => item[0]));
   const [error, setError] = useState<string>('');
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     setAutoCompleteItemsNames(autoCompleteItems.map((item) => item[0]));

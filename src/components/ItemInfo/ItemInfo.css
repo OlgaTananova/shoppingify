@@ -130,7 +130,7 @@
 @media screen and (max-width: 680px) {
   .item-info {
     grid-column: 2/4;
-    z-index: 3;
+    z-index: 6;
     background-color: var(--grey-color);
   }
   .item-info__container {
