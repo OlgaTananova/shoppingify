@@ -79,7 +79,7 @@ function ShoppingItem({ item }: { item: IShoppingItem }) {
     // function to delete item from shopping list
   const deleteItemHandleClick: MouseEventHandler = () => {
     dispatch(setIsLoadingTrue());
-    dispatch(deleteExistingItemFromSL({ shoppingListId: activeShoppingList, itemId: item.itemId })).unwrap()
+    dispatch(deleteExistingItemFromSL({ shoppingListId: activeShoppingList, itemId: item.itemId, _id: item._id })).unwrap()
       .catch((err) => {
         setShowErrorTrue(err.message);
       })
@@ -94,6 +94,7 @@ function ShoppingItem({ item }: { item: IShoppingItem }) {
     dispatch(updateItemQtyInExistingSL({
       shoppingListId: activeShoppingList,
       itemId: item.itemId,
+      _id: item._id,
       quantity: editItemQtyForm.values['item-qty'].value,
       pricePerUnit: item.pricePerUnit,
     })).unwrap()
@@ -121,7 +122,9 @@ function ShoppingItem({ item }: { item: IShoppingItem }) {
   const updateItemStateHandleClick: MouseEventHandler = () => {
     const status = item.status === 'pending' ? 'completed' : 'pending';
     dispatch(setIsLoadingTrue());
-    dispatch(updateItemStatusExistingSL({ shoppingListId: activeShoppingList, itemId: item.itemId, status })).unwrap()
+    dispatch(updateItemStatusExistingSL({
+      shoppingListId: activeShoppingList, itemId: item.itemId, status, _id: item._id,
+    })).unwrap()
       .catch((err) => {
         setShowErrorTrue(err.message);
       })
@@ -133,7 +136,9 @@ function ShoppingItem({ item }: { item: IShoppingItem }) {
   const handleEditItemUnitsClick: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     dispatch(setIsLoadingTrue());
-    dispatch(updateUnitsOfItemInSL({ shoppingListId: activeShoppingList, itemId: item.itemId, units: editItemUnitsForm.values['item-units'].value })).unwrap()
+    dispatch(updateUnitsOfItemInSL({
+      shoppingListId: activeShoppingList, itemId: item.itemId, _id: item._id, units: editItemUnitsForm.values['item-units'].value,
+    })).unwrap()
       .catch((err) => {
         setShowErrorTrue(err.message);
       })
@@ -147,7 +152,7 @@ function ShoppingItem({ item }: { item: IShoppingItem }) {
     e.preventDefault();
     dispatch(setIsLoadingTrue());
     dispatch(updatePricePerUnitOfItemInSL({
-      shoppingListId: activeShoppingList, itemId: item.itemId, pricePerUnit: editItemPricePerUnitForm.values['price-per-unit'].value, quantity: item.quantity,
+      shoppingListId: activeShoppingList, itemId: item.itemId, _id: item._id, pricePerUnit: editItemPricePerUnitForm.values['price-per-unit'].value, quantity: item.quantity,
     })).unwrap()
       .catch((err) => {
         setShowErrorTrue(err.message);

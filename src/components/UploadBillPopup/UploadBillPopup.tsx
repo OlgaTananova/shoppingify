@@ -209,7 +209,7 @@ function UploadBillPopup() {
     } else if (mergedSL.length === 0 || mergedSL.some((item) => item.itemId === '')) {
       dispatch(setShowErrorTrue('Please add all the items to the shopping list before merging the bill'));
     } else if (mergedSL.length !== itemsFromSL?.length) {
-      dispatch(setShowErrorTrue('Please add all the items to the shopping list before merging the bill'));
+      dispatch(setShowErrorTrue('Please add all the items to the shopping list before merging the bill!'));
     } else {
       dispatch(setIsLoadingTrue());
       dispatch(mergeList({

@@ -13,6 +13,7 @@ export interface IShoppingItem {
   units?: string,
   pricePerUnit?: number,
   price?: number,
+  _id?: string
 }
 
 export interface IUploadedShoppingItem {
@@ -130,6 +131,7 @@ export interface IAddItemToShoppingListPayload {
 }
 
 export interface IDeleteItemFromShoppingListPayload {
+  _id: string | undefined
   itemId: string | undefined
   shoppingListId: string | undefined
 }
