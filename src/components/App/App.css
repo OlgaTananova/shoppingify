@@ -20,8 +20,8 @@
   min-width: 320px;
   margin: 0 auto;
   background-color: var(--grey-color);
-  color: rgb(0,0,0);
-  font-family: 'Quicksand', Arial, sans-serif;
+  color: rgb(0, 0, 0);
+  font-family: "Quicksand", Arial, sans-serif;
   font-weight: 500;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
@@ -65,8 +65,3 @@
     grid-template-columns: 70px 1fr 1fr;
   }
 }
-
-
-
-
-

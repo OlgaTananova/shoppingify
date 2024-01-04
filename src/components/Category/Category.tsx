@@ -1,7 +1,5 @@
 import './Category.css';
-import {
-  MouseEventHandler, useEffect, useRef, useState,
-} from 'react';
+import { MouseEventHandler, useEffect, useRef, useState } from 'react';
 import Item from '../Item/Item';
 import ShowMoreBtn from '../ShowMoreBtn/ShowMoreBtn';
 import { NUMBER_OF_ADD_ITEMS, NUMBER_OF_ITEMS } from '../../constants';
@@ -58,12 +56,19 @@ function Category({ category }: { category: ICategory }) {
   }, []);
 
   const handleShowMoreBtnClick: MouseEventHandler = () => {
-    setShowedItems(itemsInCategory.slice(0, showedItems.length + numberOfItemsInRow));
+    setShowedItems(
+      itemsInCategory.slice(0, showedItems.length + numberOfItemsInRow),
+    );
   };
 
   const handleShowLessClick: MouseEventHandler = () => {
-    const itemsToSubtract = showedItems.length % numberOfItemsInRow === 0 ? numberOfItemsInRow : showedItems.length % numberOfItemsInRow;
-    setShowedItems(itemsInCategory.slice(0, showedItems.length - (itemsToSubtract || 0)));
+    const itemsToSubtract =
+      showedItems.length % numberOfItemsInRow === 0
+        ? numberOfItemsInRow
+        : showedItems.length % numberOfItemsInRow;
+    setShowedItems(
+      itemsInCategory.slice(0, showedItems.length - (itemsToSubtract || 0)),
+    );
   };
 
   return (
@@ -71,19 +76,17 @@ function Category({ category }: { category: ICategory }) {
       <h3 className="category__heading">{category.category}</h3>
       <ul className="category__item-list">
         {showedItems.map((item) => (
-          <Item
-            key={item._id}
-            item={item}
-          />
+          <Item key={item._id} item={item} />
         ))}
       </ul>
       <div className="category__buttons">
-        {showedItems.length < itemsInCategory.length
-          ? <ShowMoreBtn onClick={handleShowMoreBtnClick} />
-          : null}
-        {showedItems.length > numberOfItemsInRow && showedItems.length <= itemsInCategory.length
-          ? <ShowLessBtn onClick={handleShowLessClick} />
-          : null}
+        {showedItems.length < itemsInCategory.length ? (
+          <ShowMoreBtn onClick={handleShowMoreBtnClick} />
+        ) : null}
+        {showedItems.length > numberOfItemsInRow &&
+        showedItems.length <= itemsInCategory.length ? (
+          <ShowLessBtn onClick={handleShowLessClick} />
+        ) : null}
       </div>
     </div>
   );

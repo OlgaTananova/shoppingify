@@ -13,7 +13,7 @@
   cursor: pointer;
 }
 
-.category__item-link{
+.category__item-link {
   display: flex;
 }
 
@@ -36,15 +36,15 @@
   padding: 0;
   border: none;
   background-color: var(--white-color);
-  background-image: url('../../images/add_FILL0_wght400_GRAD0_opsz48.svg');
+  background-image: url("../../images/add_FILL0_wght400_GRAD0_opsz48.svg");
   background-position: center;
   background-size: cover;
-  transition: all .3ms ease;
+  transition: all 0.3ms ease;
 }
 
 .category__item-button:hover {
   cursor: pointer;
-  opacity: .7;
+  opacity: 0.7;
 }
 
 @media screen and (max-width: 1005px) {

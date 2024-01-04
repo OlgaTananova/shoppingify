@@ -31,7 +31,7 @@
 }
 
 .profile-form__input {
-  border: 2px solid #BDBDBD;
+  border: 2px solid #bdbdbd;
   border-radius: 12px;
   padding: 17px 21px;
   font-size: 14px;
@@ -45,7 +45,7 @@
 .profile-form__input:focus {
   outline: none;
   -webkit-appearance: none;
-  box-shadow: -.3px -.3px 2px 2px var(--orange-color);
+  box-shadow: -0.3px -0.3px 2px 2px var(--orange-color);
   border: none;
 }
 
@@ -70,7 +70,7 @@
 
 @media screen and (max-width: 740px) {
   .profile {
-   grid-column: 2/3;
+    grid-column: 2/3;
     grid-row: 1/4;
   }
 }

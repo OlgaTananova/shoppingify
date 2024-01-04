@@ -28,7 +28,7 @@
 }
 
 .edit-item-form__input {
-  border: 2px solid #BDBDBD;
+  border: 2px solid #bdbdbd;
   border-radius: 12px;
   padding: 17px 21px;
   font-size: 14px;
@@ -39,7 +39,7 @@
   outline: none;
   border: none;
   -webkit-appearance: none;
-  box-shadow: -.3px -.3px 2px 2px var(--orange-color);
+  box-shadow: -0.3px -0.3px 2px 2px var(--orange-color);
 }
 
 .edit-item-form__label:focus-within {
@@ -81,11 +81,11 @@
 .edit-item-form__btn_type_submit {
   background-color: var(--orange-color);
   color: var(--white-color);
-  opacity: .8;
+  opacity: 0.8;
 }
 
 .edit-item-form__btn:hover {
-  opacity: .5;
+  opacity: 0.5;
   cursor: pointer;
 }
 
@@ -132,7 +132,7 @@
   }
 }
 
-@media  screen and (max-width: 680px) {
+@media screen and (max-width: 680px) {
   .edit-item-form {
     background-color: var(--grey-color);
   }

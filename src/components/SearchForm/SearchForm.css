@@ -15,11 +15,11 @@
   border: none;
   position: relative;
   overflow: hidden;
-  background-image: url('../../images/search_FILL0_wght400_GRAD0_opsz48.svg');
+  background-image: url("../../images/search_FILL0_wght400_GRAD0_opsz48.svg");
   background-repeat: no-repeat;
   background-size: 18px 18px;
   background-position: 19px 17px;
-  transition: all .3ms ease;
+  transition: all 0.3ms ease;
   grid-column: 3/4;
   grid-row: 1/2;
   box-sizing: border-box;
@@ -32,7 +32,7 @@
 .search-items-input:focus {
   outline: none;
   -webkit-appearance: none;
-  box-shadow: -.3px -.3px 2px 2px var(--orange-color);
+  box-shadow: -0.3px -0.3px 2px 2px var(--orange-color);
 }
 
 .search-items-form__error {
@@ -42,7 +42,7 @@
   margin: 0 15px;
 }
 
-@media  screen and (max-width: 1005px) {
+@media screen and (max-width: 1005px) {
   .search-items-input {
     width: 220px;
   }

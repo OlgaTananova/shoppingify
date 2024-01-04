@@ -1,9 +1,16 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import {
-  ICreateUserPayload, ILoginPayload, IUpdateUserPayload, IUserInitialState,
+  ICreateUserPayload,
+  ILoginPayload,
+  IUpdateUserPayload,
+  IUserInitialState,
 } from '../types';
 import {
-  createUser, login, verifyUser, logout, updateUser,
+  createUser,
+  login,
+  verifyUser,
+  logout,
+  updateUser,
 } from '../utils/apiUsers';
 
 const initialState: IUserInitialState = {
@@ -98,17 +105,31 @@ const profileSlice = createSlice({
       });
   },
 });
-export const createNewUser = createAsyncThunk('user/createUser', async (values: ICreateUserPayload) => createUser(values));
+export const createNewUser = createAsyncThunk(
+  'user/createUser',
+  async (values: ICreateUserPayload) => createUser(values),
+);
 
-export const logIn = createAsyncThunk('user/login', async (values: ILoginPayload) => login(values));
+export const logIn = createAsyncThunk(
+  'user/login',
+  async (values: ILoginPayload) => login(values),
+);
 
-export const checkUser = createAsyncThunk('user/verifyUser', async () => verifyUser());
+export const checkUser = createAsyncThunk('user/verifyUser', async () =>
+  verifyUser(),
+);
 
 export const logOut = createAsyncThunk('user/logout', async () => logout());
 
-export const updateUserProfile = createAsyncThunk('user/updateUser', async (values: IUpdateUserPayload) => updateUser(values));
+export const updateUserProfile = createAsyncThunk(
+  'user/updateUser',
+  async (values: IUpdateUserPayload) => updateUser(values),
+);
 export const {
-  setEditProfileTrue, setEditProfileFalse, setIsLoggedInFalse, setIsLoggedInTrue,
+  setEditProfileTrue,
+  setEditProfileFalse,
+  setIsLoggedInFalse,
+  setIsLoggedInTrue,
 } = profileSlice.actions;
 
 export default profileSlice.reducer;

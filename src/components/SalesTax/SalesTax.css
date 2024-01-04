@@ -15,7 +15,7 @@
   font-size: 13px;
   font-weight: 700;
   line-height: 1.25;
-  transition: all .3ms ease;
+  transition: all 0.3ms ease;
 }
 
 .shopping-list__edit-item-editSalesTaxForm-input {
@@ -34,6 +34,6 @@
 .shopping-list__edit-item-editSalesTaxForm-input:focus {
   outline: none;
 }
-.shopping-list__edit-item-editSalesTaxForm-input:focus-visible{
+.shopping-list__edit-item-editSalesTaxForm-input:focus-visible {
   outline: 2px solid var(--orange-color);
 }

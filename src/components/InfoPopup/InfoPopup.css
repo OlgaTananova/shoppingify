@@ -4,7 +4,7 @@
   top: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, .3);
+  background-color: rgba(0, 0, 0, 0.3);
   display: none;
   pointer-events: none;
 }
@@ -35,7 +35,7 @@
   height: 27px;
   background-repeat: no-repeat;
   background-position: center;
-  background-image: url('../../images/close_FILL0_wght400_GRAD0_opsz48.svg');
+  background-image: url("../../images/close_FILL0_wght400_GRAD0_opsz48.svg");
   background-size: cover;
   padding: 0;
   border: none;
@@ -43,12 +43,12 @@
   position: absolute;
   top: 10px;
   right: 10px;
-  transition: opacity .3s ease;
+  transition: opacity 0.3s ease;
 }
 
 .infopopup__close-button:hover {
   cursor: pointer;
-  opacity: .7;
+  opacity: 0.7;
 }
 
 .infopopup__message {
@@ -65,14 +65,14 @@
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  background-image: url('../../images/infopopup_icon_fail.svg');
+  background-image: url("../../images/infopopup_icon_fail.svg");
 }
 
 .infopopup__icon_type_success {
-  background-image: url('../../images/done_icon_orange.svg');
+  background-image: url("../../images/done_icon_orange.svg");
 }
 
-@media  screen and (max-width: 740px) {
+@media screen and (max-width: 740px) {
   .infopopup {
     z-index: 10;
   }
@@ -82,6 +82,4 @@
   .infopopup__container {
     width: 90%;
   }
-
 }
-

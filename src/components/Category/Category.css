@@ -4,7 +4,7 @@
   flex-direction: column;
   gap: 18px;
   background-color: var(--grey-color);
-  }
+}
 
 .category__heading {
   font-size: 18px;
@@ -50,4 +50,3 @@
     grid-template-columns: repeat(auto-fill, 80px);
   }
 }
-

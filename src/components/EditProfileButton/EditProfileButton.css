@@ -6,12 +6,12 @@
   line-height: 1.25;
   box-shadow: 0 2px 12px rgb(0 0 0 / 5%);
   border-radius: 12px;
-  transition: all .3ms ease;
+  transition: all 0.3ms ease;
 }
 
 .profile-form__button:hover {
   cursor: pointer;
-  opacity: .7;
+  opacity: 0.7;
 }
 
 .profile-form__button_type_edit {

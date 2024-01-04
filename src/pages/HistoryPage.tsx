@@ -7,7 +7,7 @@ function HistoryPage() {
   return (
     <>
       <Sidebar />
-      <ShoppingHistory />
+      {/* <ShoppingHistory /> */}
       <Shopping />
     </>
   );

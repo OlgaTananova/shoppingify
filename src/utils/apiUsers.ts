@@ -1,9 +1,13 @@
 import { baseUrl } from '../constants';
 import { checkResponse } from './utils';
-import { ICreateUserPayload, ILoginPayload, IUpdateUserPayload } from '../types';
+import {
+  ICreateUserPayload,
+  ILoginPayload,
+  IUpdateUserPayload,
+} from '../types';
 
 export const createUser = async (values: ICreateUserPayload) => {
-  const newUser = await fetch(`${baseUrl}/signup`, {
+  const newUser = await fetch(`${baseUrl}/Auth/register`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -15,7 +19,7 @@ export const createUser = async (values: ICreateUserPayload) => {
 };
 
 export const login = async (values: ILoginPayload) => {
-  const authorized = await fetch(`${baseUrl}/login`, {
+  const authorized = await fetch(`${baseUrl}/Auth/login`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -27,7 +31,7 @@ export const login = async (values: ILoginPayload) => {
 };
 
 export const verifyUser = async () => {
-  const user = await fetch(`${baseUrl}/users/me`, {
+  const user = await fetch(`${baseUrl}/Auth/users/me`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -38,7 +42,7 @@ export const verifyUser = async () => {
 };
 
 export const logout = async () => {
-  const response = await fetch(`${baseUrl}/logout`, {
+  const response = await fetch(`${baseUrl}/Auth/logout`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -49,7 +53,7 @@ export const logout = async () => {
 };
 
 export const updateUser = async (values: IUpdateUserPayload) => {
-  const updatedUser = await fetch(`${baseUrl}/users/me`, {
+  const updatedUser = await fetch(`${baseUrl}/Auth/users/me`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',

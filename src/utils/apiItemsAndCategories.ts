@@ -24,7 +24,7 @@ export const getItems = async () => {
   return checkResponse(categories);
 };
 
-export const createCategory = async (category:string) => {
+export const createCategory = async (category: string) => {
   const newCategory = await fetch(`${baseUrl}/categories`, {
     method: 'POST',
     headers: {

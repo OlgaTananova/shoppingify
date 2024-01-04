@@ -9,7 +9,8 @@ function AuthForm({
   submitButtonName,
   linkToPagePhrase,
   linkToPageButton,
-  linkToPage, onSubmit,
+  linkToPage,
+  onSubmit,
   isValid,
 }: AuthFormProps) {
   return (
@@ -22,7 +23,9 @@ function AuthForm({
       <h3 className="auth-form__heading">{heading}</h3>
       {children}
       <button
-        className={`auth-form__submit-btn ${!isValid && 'auth-form__submit-btn_inactive'}`}
+        className={`auth-form__submit-btn ${
+          !isValid && 'auth-form__submit-btn_inactive'
+        }`}
         disabled={!isValid}
         type="submit"
       >
@@ -30,10 +33,7 @@ function AuthForm({
       </button>
       <p className="auth-form__link">
         {linkToPagePhrase}
-        <Link
-          className="auth-form__link-auth"
-          to={`/${linkToPage}`}
-        >
+        <Link className="auth-form__link-auth" to={`/${linkToPage}`}>
           {linkToPageButton}
         </Link>
       </p>

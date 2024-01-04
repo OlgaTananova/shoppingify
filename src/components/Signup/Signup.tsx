@@ -6,23 +6,30 @@ import AuthInput from '../AuthInput/AuthInput';
 import useForm from '../../utils/useForm';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { createNewUser, logIn } from '../../store/profileSlice';
-import { setIsLoadingFalse, setIsLoadingTrue, setShowErrorTrue } from '../../store/appSlice';
+import {
+  setIsLoadingFalse,
+  setIsLoadingTrue,
+  setShowErrorTrue,
+} from '../../store/appSlice';
 
 function Signup() {
-  const initialValues = useMemo(() => ({
-    name: {
-      value: '',
-      required: true,
-    },
-    email: {
-      value: '',
-      required: true,
-    },
-    password: {
-      value: '',
-      required: true,
-    },
-  }), []);
+  const initialValues = useMemo(
+    () => ({
+      name: {
+        value: '',
+        required: true,
+      },
+      email: {
+        value: '',
+        required: true,
+      },
+      password: {
+        value: '',
+        required: true,
+      },
+    }),
+    [],
+  );
 
   const form = useForm(initialValues);
   const dispatch = useAppDispatch();
@@ -32,20 +39,24 @@ function Signup() {
   const handleSignupFormSubmit: FormEventHandler = (e) => {
     e.preventDefault();
     dispatch(setIsLoadingTrue());
-    dispatch(createNewUser({
-      name: form.values.name.value,
-      email: form.values.email.value,
-      password: form.values.password.value,
-    })).unwrap()
+    dispatch(
+      createNewUser({
+        name: form.values.name.value,
+        email: form.values.email.value,
+        password: form.values.password.value,
+      }),
+    )
+      .unwrap()
       .then(() => {
-        dispatch(logIn({
-          email: form.values.email.value,
-          password: form.values.password.value,
-        }))
-          .then(() => {
-            form.resetForm();
-            navigate('/items');
-          });
+        dispatch(
+          logIn({
+            email: form.values.email.value,
+            password: form.values.password.value,
+          }),
+        ).then(() => {
+          form.resetForm();
+          navigate('/items');
+        });
       })
       .catch((err) => {
         dispatch(setShowErrorTrue(err.message));

@@ -7,20 +7,26 @@ import useForm from '../../utils/useForm';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { logIn } from '../../store/profileSlice';
 import {
-  onLogin, setIsLoadingFalse, setIsLoadingTrue, setShowErrorTrue,
+  onLogin,
+  setIsLoadingFalse,
+  setIsLoadingTrue,
+  setShowErrorTrue,
 } from '../../store/appSlice';
 
 function Login() {
-  const initialValues = useMemo(() => ({
-    email: {
-      value: '',
-      required: true,
-    },
-    password: {
-      value: '',
-      required: true,
-    },
-  }), []);
+  const initialValues = useMemo(
+    () => ({
+      email: {
+        value: '',
+        required: true,
+      },
+      password: {
+        value: '',
+        required: true,
+      },
+    }),
+    [],
+  );
   const form = useForm(initialValues);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -29,7 +35,13 @@ function Login() {
   const handleLoginFormSubmit: FormEventHandler = (e) => {
     e.preventDefault();
     dispatch(setIsLoadingTrue());
-    dispatch(logIn({ email: form.values.email.value, password: form.values.password.value })).unwrap()
+    dispatch(
+      logIn({
+        email: form.values.email.value,
+        password: form.values.password.value,
+      }),
+    )
+      .unwrap()
       .then(() => {
         dispatch(onLogin());
         form.resetForm();
@@ -49,7 +61,7 @@ function Login() {
         name="login"
         isValid={form.isValid}
         onSubmit={handleLoginFormSubmit}
-        heading={'It\'s great to see you again!'}
+        heading={"It's great to see you again!"}
         submitButtonName="Log in"
         linkToPagePhrase="Not a member yet? "
         linkToPageButton="Sign up"

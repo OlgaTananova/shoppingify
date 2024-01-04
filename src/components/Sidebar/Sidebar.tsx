@@ -3,7 +3,10 @@ import Logo from '../Logo/Logo';
 import Navbar from '../Navbar/Navbar';
 import './Sidebar.css';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { setShowMobileSLFalse, setShowMobileSLTrue } from '../../store/appSlice';
+import {
+  setShowMobileSLFalse,
+  setShowMobileSLTrue,
+} from '../../store/appSlice';
 
 function Sidebar() {
   const innerHeight = useAppSelector((state) => state.app.innerHeight);
@@ -24,10 +27,7 @@ function Sidebar() {
   }, [activeShoppingList]);
 
   return (
-    <nav
-      className="sidebar"
-      style={{ height: `${innerHeight}px` }}
-    >
+    <nav className="sidebar" style={{ height: `${innerHeight}px` }}>
       <Logo />
       <Navbar />
       <button

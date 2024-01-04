@@ -1,17 +1,21 @@
-import {
-  createSlice,
-  createAsyncThunk,
-  PayloadAction,
-} from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import {
   IAddItemToShoppingListPayload,
   ICreateShoppingListPayload,
-  IDeleteItemFromShoppingListPayload, IFullShoppingItem, IMergeBillPayload, IMergeListPayload, IShoppingItem,
-  IShoppingListInitialState, IUpdateItemPricePerUnitInShoppingList,
+  IDeleteItemFromShoppingListPayload,
+  IFullShoppingItem,
+  IMergeBillPayload,
+  IMergeListPayload,
+  IShoppingItem,
+  IShoppingListInitialState,
+  IUpdateItemPricePerUnitInShoppingList,
   IUpdateItemQtyInShoppingList,
-  IUpdateItemStatusInShoppingList, IUpdateItemUnitsInShoppingList, IUpdateSalesTaxPayload,
+  IUpdateItemStatusInShoppingList,
+  IUpdateItemUnitsInShoppingList,
+  IUpdateSalesTaxPayload,
   IUpdateSLHeadingPayload,
-  IUpdateSLStatusPayload, IUploadedShoppingItem,
+  IUpdateSLStatusPayload,
+  IUploadedShoppingItem,
 } from '../types';
 import {
   createShoppingList,
@@ -25,7 +29,9 @@ import {
   mergeShoppingLists,
   uploadShoppingList,
   updateItemUnitsInShoppingList,
-  updateItemPricePerUnitInShoppingList, updateSalesTaxInShoppingList, deleteShoppingList,
+  updateItemPricePerUnitInShoppingList,
+  updateSalesTaxInShoppingList,
+  deleteShoppingList,
 } from '../utils/apiShoppingLists';
 
 const initialState: IShoppingListInitialState = {
@@ -44,7 +50,10 @@ const initialState: IShoppingListInitialState = {
   salesTax: 0,
 };
 
-const changeState = (state: IShoppingListInitialState, action: PayloadAction<IShoppingListInitialState>) => {
+const changeState = (
+  state: IShoppingListInitialState,
+  action: PayloadAction<IShoppingListInitialState>,
+) => {
   state.heading = action.payload.heading;
   state.date = action.payload.date;
   state.owner = action.payload.owner;
@@ -160,8 +169,9 @@ const shoppingSlice = createSlice({
         state.requestStatus = 'loading';
       })
       .addCase(updateExistingSLHeading.fulfilled, (state, action) => {
+        const newHeading = action.payload.updatedShoppingList.heading;
         state.requestStatus = 'succeeded';
-        state.heading = action.payload.heading;
+        state.heading = newHeading;
       })
       .addCase(updateExistingSLHeading.rejected, (state, action) => {
         state.requestStatus = 'failed';
@@ -171,8 +181,9 @@ const shoppingSlice = createSlice({
         state.requestStatus = 'loading';
       })
       .addCase(updateSLStatus.fulfilled, (state, action) => {
+        const newStatus = action.payload.updatedShoppingList.status;
         state.requestStatus = 'succeeded';
-        state.status = action.payload.status;
+        state.status = newStatus;
       })
       .addCase(updateSLStatus.rejected, (state, action) => {
         state.requestStatus = 'failed';
@@ -241,8 +252,9 @@ const shoppingSlice = createSlice({
         state.requestStatus = 'loading';
       })
       .addCase(updateSalesTaxInSL.fulfilled, (state, action) => {
+        const newSalesTax = action.payload.updatedShoppingList.salesTax;
         state.requestStatus = 'succeeded';
-        state.salesTax = action.payload.salesTax;
+        state.salesTax = newSalesTax;
         state.error = null;
       })
       .addCase(updateSalesTaxInSL.rejected, (state, action) => {
@@ -255,7 +267,7 @@ const shoppingSlice = createSlice({
       .addCase(deleteSL.fulfilled, (state, action) => {
         state.requestStatus = 'succeeded';
         state.error = null;
-        // changeState(state, action);
+        changeState(state, action);
       })
       .addCase(deleteSL.rejected, (state, action) => {
         state.requestStatus = 'failed';
@@ -264,27 +276,76 @@ const shoppingSlice = createSlice({
   },
 });
 
-export const createNewShoppingList = createAsyncThunk('shoppingList/createShoppingList', async (values: ICreateShoppingListPayload) => createShoppingList(values));
+export const createNewShoppingList = createAsyncThunk(
+  'shoppingList/createShoppingList',
+  async (values: ICreateShoppingListPayload) => createShoppingList(values),
+);
 
-export const addNewItemToShoppingList = createAsyncThunk('shoppingList/addItemToShoppingList', async (values: IAddItemToShoppingListPayload) => addItemToShoppingList(values));
-export const deleteExistingItemFromSL = createAsyncThunk('shoppingList/deleteItemFromSL', async (values: IDeleteItemFromShoppingListPayload) => deleteItemFromShoppingList(values));
+export const addNewItemToShoppingList = createAsyncThunk(
+  'shoppingList/addItemToShoppingList',
+  async (values: IAddItemToShoppingListPayload) =>
+    addItemToShoppingList(values),
+);
+export const deleteExistingItemFromSL = createAsyncThunk(
+  'shoppingList/deleteItemFromSL',
+  async (values: IDeleteItemFromShoppingListPayload) =>
+    deleteItemFromShoppingList(values),
+);
 
-export const updateItemQtyInExistingSL = createAsyncThunk('shoppingList/updItemQty', async (values: IUpdateItemQtyInShoppingList) => updateItemQtyInShoppingList(values));
+export const updateItemQtyInExistingSL = createAsyncThunk(
+  'shoppingList/updItemQty',
+  async (values: IUpdateItemQtyInShoppingList) =>
+    updateItemQtyInShoppingList(values),
+);
 
-export const updateItemStatusExistingSL = createAsyncThunk('shoppingList/updItemStatus', async (values: IUpdateItemStatusInShoppingList) => updateItemStatusInShoppingList(values));
+export const updateItemStatusExistingSL = createAsyncThunk(
+  'shoppingList/updItemStatus',
+  async (values: IUpdateItemStatusInShoppingList) =>
+    updateItemStatusInShoppingList(values),
+);
 
-export const updateExistingSLHeading = createAsyncThunk('shoppingList/updSLHeading', async (values: IUpdateSLHeadingPayload) => updateShoppingListHeading(values));
+export const updateExistingSLHeading = createAsyncThunk(
+  'shoppingList/updSLHeading',
+  async (values: IUpdateSLHeadingPayload) => updateShoppingListHeading(values),
+);
 
-export const updateSLStatus = createAsyncThunk('shoppingList/updSLStatus', async (values: IUpdateSLStatusPayload) => updateShoppingListStatus(values));
+export const updateSLStatus = createAsyncThunk(
+  'shoppingList/updSLStatus',
+  async (values: IUpdateSLStatusPayload) => updateShoppingListStatus(values),
+);
 
-export const uploadBillAndSL = createAsyncThunk('shoppingList/uploadBillAndSL', async (values: FormData) => uploadBillAndGetShoppingList(values));
+export const uploadBillAndSL = createAsyncThunk(
+  'shoppingList/uploadBillAndSL',
+  async (values: FormData) => uploadBillAndGetShoppingList(values),
+);
 
-export const mergeList = createAsyncThunk('shoppingList/mergeShoppingList', async (values: IMergeListPayload) => mergeShoppingLists(values));
-export const mergeBill = createAsyncThunk('shoppingList/mergeList', async (values: IMergeBillPayload) => uploadShoppingList(values));
-export const updateUnitsOfItemInSL = createAsyncThunk('shoppingList/updateUnitsOfItemInSL', async (values: IUpdateItemUnitsInShoppingList) => updateItemUnitsInShoppingList(values));
-export const updatePricePerUnitOfItemInSL = createAsyncThunk('shoppingList/updatePricePerUnitOfItemInSL', async (values: IUpdateItemPricePerUnitInShoppingList) => updateItemPricePerUnitInShoppingList(values));
-export const updateSalesTaxInSL = createAsyncThunk('shoppingList/updateSalesTaxInSL', async (values: IUpdateSalesTaxPayload) => updateSalesTaxInShoppingList(values));
-export const deleteSL = createAsyncThunk('shoppingList/deleteSL', async (values:{ id: string }) => deleteShoppingList(values));
+export const mergeList = createAsyncThunk(
+  'shoppingList/mergeShoppingList',
+  async (values: IMergeListPayload) => mergeShoppingLists(values),
+);
+export const mergeBill = createAsyncThunk(
+  'shoppingList/mergeList',
+  async (values: IMergeBillPayload) => uploadShoppingList(values),
+);
+export const updateUnitsOfItemInSL = createAsyncThunk(
+  'shoppingList/updateUnitsOfItemInSL',
+  async (values: IUpdateItemUnitsInShoppingList) =>
+    updateItemUnitsInShoppingList(values),
+);
+export const updatePricePerUnitOfItemInSL = createAsyncThunk(
+  'shoppingList/updatePricePerUnitOfItemInSL',
+  async (values: IUpdateItemPricePerUnitInShoppingList) =>
+    updateItemPricePerUnitInShoppingList(values),
+);
+export const updateSalesTaxInSL = createAsyncThunk(
+  'shoppingList/updateSalesTaxInSL',
+  async (values: IUpdateSalesTaxPayload) =>
+    updateSalesTaxInShoppingList(values),
+);
+export const deleteSL = createAsyncThunk(
+  'shoppingList/deleteSL',
+  async (values: { id: string }) => deleteShoppingList(values),
+);
 export const {
   closeAddItemForm,
   openAddItemForm,

@@ -13,7 +13,6 @@ const rootReducer = combineReducers({
   shoppingHistory: shoppingHistoryReducer,
   categories: categoryListReducer,
   app: appReducer,
-
 });
 
 export function setupStore() {

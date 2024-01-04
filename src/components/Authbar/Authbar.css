@@ -18,11 +18,11 @@
   color: var(--white-color);
   padding: 20px 0;
   text-decoration: none;
-  transition: all .3ms ease;
+  transition: all 0.3ms ease;
 }
 
 .auth-bar__link:hover {
-  opacity: .7;
+  opacity: 0.7;
 }
 
 .auth-bar__link_type_login {

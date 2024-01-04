@@ -3,11 +3,18 @@
 */
 import './BillLoader.css';
 import {
-  ChangeEvent, FormEvent, MouseEventHandler, useEffect, useState,
+  ChangeEvent,
+  FormEvent,
+  MouseEventHandler,
+  useEffect,
+  useState,
 } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import {
-  setIsLoadingFalse, setIsLoadingTrue, setShowErrorTrue, showUploadBillPopup,
+  setIsLoadingFalse,
+  setIsLoadingTrue,
+  setShowErrorTrue,
+  showUploadBillPopup,
 } from '../../store/appSlice';
 import {
   clearUploadedBillCache,
@@ -19,7 +26,9 @@ import {
 
 export default function BillLoader() {
   const [file, setFile] = useState<File | null>(null);
-  const isUploadBillFormOpened = useAppSelector((state) => state.shopping.isUploadBillFormOpened);
+  const isUploadBillFormOpened = useAppSelector(
+    (state) => state.shopping.isUploadBillFormOpened,
+  );
   const dispatch = useAppDispatch();
   const [cachedBill, setCachedBill] = useState<string | null>(null);
 
@@ -59,7 +68,8 @@ export default function BillLoader() {
     const formData = new FormData();
     formData.append('file', file);
     dispatch(setIsLoadingTrue());
-    dispatch(uploadBillAndSL(formData)).unwrap()
+    dispatch(uploadBillAndSL(formData))
+      .unwrap()
       .then((data) => {
         localStorage.setItem('uploadedBill', JSON.stringify(data));
         dispatch(showUploadBillPopup());
@@ -90,7 +100,14 @@ export default function BillLoader() {
   return (
     <>
       <div className="upload-bill-sector">
-        <button type="button" onClick={handleUploadBillButtonClick} aria-label="Upload bill button" className="upload-bill-button">{}</button>
+        <button
+          type="button"
+          onClick={handleUploadBillButtonClick}
+          aria-label="Upload bill button"
+          className="upload-bill-button"
+        >
+          {}
+        </button>
         <h3 className="upload-bill-heading">Upload your bill</h3>
       </div>
       {(() => {
@@ -109,19 +126,29 @@ export default function BillLoader() {
                   type="file"
                   onChange={handleFileChange}
                 />
-                <button
-                  type="submit"
-                  className="upload-bill-form__submit-btn"
-                >
+                <button type="submit" className="upload-bill-form__submit-btn">
                   Upload
                 </button>
               </form>
             );
-          } if (isUploadBillFormOpened && cachedBill) {
+          }
+          if (isUploadBillFormOpened && cachedBill) {
             return (
               <div className="upload-bill-chooseSection">
-                <button onClick={handleCachedBillClick} className="upload-bill-chooseSection__button" type="button">Retrieve your cached bill</button>
-                <button onClick={handleClearUploadedBillCache} className="upload-bill-chooseSection__button" type="button">Upload a new bill</button>
+                <button
+                  onClick={handleCachedBillClick}
+                  className="upload-bill-chooseSection__button"
+                  type="button"
+                >
+                  Retrieve your cached bill
+                </button>
+                <button
+                  onClick={handleClearUploadedBillCache}
+                  className="upload-bill-chooseSection__button"
+                  type="button"
+                >
+                  Upload a new bill
+                </button>
               </div>
             );
           }

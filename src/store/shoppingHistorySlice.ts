@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { IShoppingListsInitialState } from '../types';
+import { IShoppingList, IShoppingListsInitialState } from '../types';
 import { getShoppingLists } from '../utils/apiShoppingLists';
 
 const initialState: IShoppingListsInitialState = {
@@ -32,6 +32,9 @@ const shoppingHistorySlice = createSlice({
   },
 });
 
-export const getAllShoppingLists = createAsyncThunk('shoppingHistory/getShoppingLists', async () => getShoppingLists());
+export const getAllShoppingLists = createAsyncThunk(
+  'shoppingHistory/getShoppingLists',
+  async () => getShoppingLists(),
+);
 export const { onUpdateShoppingLists } = shoppingHistorySlice.actions;
 export default shoppingHistorySlice.reducer;

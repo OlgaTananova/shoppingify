@@ -23,7 +23,7 @@
 .auth-form__input:focus {
   outline: none;
   -webkit-appearance: none;
-  box-shadow: -.3px -.3px 2px 2px var(--orange-color);
+  box-shadow: -0.3px -0.3px 2px 2px var(--orange-color);
   border: none;
 }
 
@@ -40,7 +40,7 @@
 }
 
 @media screen and (max-width: 475px) {
-  .auth-form__input{
+  .auth-form__input {
     padding: 10px;
   }
 }

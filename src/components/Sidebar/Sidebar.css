@@ -15,7 +15,7 @@
   border-radius: 50%;
   border: none;
   background-color: var(--orange-color);
-  background-image: url('../../images/shopping_cart_FILL0_wght400_GRAD0_opsz48.svg');
+  background-image: url("../../images/shopping_cart_FILL0_wght400_GRAD0_opsz48.svg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: 20px;
@@ -40,13 +40,13 @@
   text-align: center;
   color: var(--white-color);
   border-radius: 4px;
-  font-family: 'Quicksand', Arial, sans-serif;
-  transition: opacity .3s ease;
+  font-family: "Quicksand", Arial, sans-serif;
+  transition: opacity 0.3s ease;
 }
 
 .sidebar__shopping-cart:hover {
   cursor: pointer;
-  opacity: .7;
+  opacity: 0.7;
 }
 
 @media screen and (max-width: 740px) {

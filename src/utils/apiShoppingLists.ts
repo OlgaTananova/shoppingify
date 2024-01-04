@@ -3,17 +3,23 @@ import { baseUrl } from '../constants';
 import {
   IAddItemToShoppingListPayload,
   ICreateShoppingListPayload,
-  IDeleteItemFromShoppingListPayload, IFullShoppingItem, IMergeBillPayload, IMergeListPayload,
-  IShoppingItem, IUpdateItemPricePerUnitInShoppingList,
+  IDeleteItemFromShoppingListPayload,
+  IFullShoppingItem,
+  IMergeBillPayload,
+  IMergeListPayload,
+  IShoppingItem,
+  IUpdateItemPricePerUnitInShoppingList,
   IUpdateItemQtyInShoppingList,
-  IUpdateItemStatusInShoppingList, IUpdateItemUnitsInShoppingList, IUpdateSalesTaxPayload,
+  IUpdateItemStatusInShoppingList,
+  IUpdateItemUnitsInShoppingList,
+  IUpdateSalesTaxPayload,
   IUpdateSLHeadingPayload,
   IUpdateSLStatusPayload,
   IUploadedShoppingItem,
 } from '../types';
 
 export const getShoppingLists = async () => {
-  const shoppingLists = await fetch(`${baseUrl}/shoppinglists`, {
+  const shoppingLists = await fetch(`${baseUrl}/ShoppingLists`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -23,8 +29,10 @@ export const getShoppingLists = async () => {
   return checkResponse(shoppingLists);
 };
 
-export const createShoppingList = async (values: ICreateShoppingListPayload) => {
-  const newShoppingList = await fetch(`${baseUrl}/shoppinglists`, {
+export const createShoppingList = async (
+  values: ICreateShoppingListPayload,
+) => {
+  const newShoppingList = await fetch(`${baseUrl}/ShoppingLists`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -35,8 +43,10 @@ export const createShoppingList = async (values: ICreateShoppingListPayload) => 
   return checkResponse(newShoppingList);
 };
 
-export const addItemToShoppingList = async (values: IAddItemToShoppingListPayload) => {
-  const updatedShoppingList = await fetch(`${baseUrl}/shoppinglists`, {
+export const addItemToShoppingList = async (
+  values: IAddItemToShoppingListPayload,
+) => {
+  const updatedShoppingList = await fetch(`${baseUrl}/ShoppingLists`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -47,8 +57,10 @@ export const addItemToShoppingList = async (values: IAddItemToShoppingListPayloa
   return checkResponse(updatedShoppingList);
 };
 
-export const deleteItemFromShoppingList = async (values: IDeleteItemFromShoppingListPayload) => {
-  const updatedShoppingList = await fetch(`${baseUrl}/shoppinglists`, {
+export const deleteItemFromShoppingList = async (
+  values: IDeleteItemFromShoppingListPayload,
+) => {
+  const updatedShoppingList = await fetch(`${baseUrl}/ShoppingLists`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -59,8 +71,10 @@ export const deleteItemFromShoppingList = async (values: IDeleteItemFromShopping
   return checkResponse(updatedShoppingList);
 };
 
-export const updateItemQtyInShoppingList = async (values: IUpdateItemQtyInShoppingList) => {
-  const updatedShoppingList = await fetch(`${baseUrl}/shoppinglists/updqty`, {
+export const updateItemQtyInShoppingList = async (
+  values: IUpdateItemQtyInShoppingList,
+) => {
+  const updatedShoppingList = await fetch(`${baseUrl}/ShoppingLists/updqty`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
@@ -71,39 +85,54 @@ export const updateItemQtyInShoppingList = async (values: IUpdateItemQtyInShoppi
   return checkResponse(updatedShoppingList);
 };
 
-export const updateItemStatusInShoppingList = async (values: IUpdateItemStatusInShoppingList) => {
-  const updatedShoppingList = await fetch(`${baseUrl}/shoppinglists/updstatus`, {
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json',
+export const updateItemStatusInShoppingList = async (
+  values: IUpdateItemStatusInShoppingList,
+) => {
+  const updatedShoppingList = await fetch(
+    `${baseUrl}/ShoppingLists/updstatus`,
+    {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify(values),
     },
-    credentials: 'include',
-    body: JSON.stringify(values),
-  });
+  );
   return checkResponse(updatedShoppingList);
 };
 
-export const updateShoppingListHeading = async (values: IUpdateSLHeadingPayload) => {
-  const updatedShoppingList = await fetch(`${baseUrl}/shoppinglists/updheading`, {
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json',
+export const updateShoppingListHeading = async (
+  values: IUpdateSLHeadingPayload,
+) => {
+  const updatedShoppingList = await fetch(
+    `${baseUrl}/ShoppingLists/updheading`,
+    {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify(values),
     },
-    credentials: 'include',
-    body: JSON.stringify(values),
-  });
+  );
   return checkResponse(updatedShoppingList);
 };
 
-export const updateShoppingListStatus = async (values: IUpdateSLStatusPayload) => {
-  const updatedShoppingList = await fetch(`${baseUrl}/shoppinglists/updslstatus`, {
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json',
+export const updateShoppingListStatus = async (
+  values: IUpdateSLStatusPayload,
+) => {
+  const updatedShoppingList = await fetch(
+    `${baseUrl}/ShoppingLists/updslstatus`,
+    {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify(values),
     },
-    credentials: 'include',
-    body: JSON.stringify(values),
-  });
+  );
   return checkResponse(updatedShoppingList);
 };
 
@@ -141,7 +170,7 @@ export const uploadShoppingList = async (values: IMergeListPayload) => {
 };
 
 export const deleteShoppingList = async (values: { id: string }) => {
-  const shoppingList = await fetch(`${baseUrl}/shoppinglists/deleteList`, {
+  const shoppingList = await fetch(`${baseUrl}/ShoppingLists/${values.id}`, {
     method: 'DELETE',
     credentials: 'include',
     headers: {
@@ -152,39 +181,54 @@ export const deleteShoppingList = async (values: { id: string }) => {
   return checkResponse(shoppingList);
 };
 
-export const updateItemUnitsInShoppingList = async (values: IUpdateItemUnitsInShoppingList) => {
-  const updatedShoppingList = await fetch(`${baseUrl}/shoppinglists/updItemUnits`, {
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json',
+export const updateItemUnitsInShoppingList = async (
+  values: IUpdateItemUnitsInShoppingList,
+) => {
+  const updatedShoppingList = await fetch(
+    `${baseUrl}/ShoppingLists/updItemUnits`,
+    {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify(values),
     },
-    credentials: 'include',
-    body: JSON.stringify(values),
-  });
+  );
   return checkResponse(updatedShoppingList);
 };
 
-export const updateItemPricePerUnitInShoppingList = async (values: IUpdateItemPricePerUnitInShoppingList) => {
-  const updatedShoppingList = await fetch(`${baseUrl}/shoppinglists/updItemPrice`, {
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json',
+export const updateItemPricePerUnitInShoppingList = async (
+  values: IUpdateItemPricePerUnitInShoppingList,
+) => {
+  const updatedShoppingList = await fetch(
+    `${baseUrl}/ShoppingLists/updItemPrice`,
+    {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify(values),
     },
-    credentials: 'include',
-    body: JSON.stringify(values),
-  });
+  );
   return checkResponse(updatedShoppingList);
 };
 
-export const updateSalesTaxInShoppingList = async (values: IUpdateSalesTaxPayload) => {
-  const updatedShoppingList = await fetch(`${baseUrl}/shoppinglists/updSalesTax`, {
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json',
+export const updateSalesTaxInShoppingList = async (
+  values: IUpdateSalesTaxPayload,
+) => {
+  const updatedShoppingList = await fetch(
+    `${baseUrl}/ShoppingLists/updSalesTax`,
+    {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify(values),
     },
-    credentials: 'include',
-    body: JSON.stringify(values),
-  });
+  );
 
   return checkResponse(updatedShoppingList);
 };

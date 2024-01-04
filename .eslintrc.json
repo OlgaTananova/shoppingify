@@ -4,37 +4,19 @@
     "es2021": true
   },
   "parser": "@typescript-eslint/parser",
-  "extends": ["airbnb",
-    "airbnb-typescript"
-  ],
+  "extends": ["airbnb-typescript"],
   "parserOptions": {
-    "files": ["*.ts", "*.tsx"],
     "ecmaFeatures": {
       "jsx": true
     },
     "ecmaVersion": "latest",
-    "sourceType": "module",
-    "extends": ["airbnb",
-      "airbnb-typescript"
-    ],
-    "project": ["./tsconfig.json"]
+    "files": ["*.ts", "*.tsx"],
+    "project": ["./tsconfig.json"],
+    "sourceType": "module"
   },
-  "plugins": [
-    "react",
-    "@typescript-eslint",
-    "import"
-  ],
+  "plugins": ["react", "@typescript-eslint", "import"],
   "rules": {
-    "import/extensions": [
-      "error",
-      "ignorePackages",
-      {
-        "js": "never",
-        "ts": "never",
-        "tsx": "never",
-        "jsx": "never"
-      }
-    ],
+    "import/extensions": "off",
     "import/no-extraneous-dependencies": [
       "error",
       {
@@ -46,6 +28,7 @@
     "react/react-in-jsx-scope": "off",
     "no-use-before-define": "off",
     "@typescript-eslint/no-use-before-define": "off",
+    "@typescript-eslint/quotes": "off",
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": "off",
     "no-unused-expressions": "off",
@@ -59,6 +42,8 @@
     "no-param-reassign": "off",
     "import/prefer-default-export": "off",
     "no-nested-ternary": "off",
-    "@typescript-eslint/no-nested-ternary": "off"
+    "@typescript-eslint/no-nested-ternary": "off",
+    "@typescript-eslint/object-curly-spacing": "off",
+    "@typescript-eslint/indent": "off"
   }
 }

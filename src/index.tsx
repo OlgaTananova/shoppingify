@@ -13,11 +13,15 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
 
-store.dispatch(checkUser()).unwrap().then(() => {
-  store.dispatch(onLogin());
-}).catch(() => {
-  store.dispatch(setIsUserCheckedTrue());
-});
+store
+  .dispatch(checkUser())
+  .unwrap()
+  .then(() => {
+    store.dispatch(onLogin());
+  })
+  .catch(() => {
+    store.dispatch(setIsUserCheckedTrue());
+  });
 
 root.render(
   <React.StrictMode>

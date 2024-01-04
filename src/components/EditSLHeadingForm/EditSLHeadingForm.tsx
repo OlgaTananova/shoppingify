@@ -1,55 +1,75 @@
 import './EditSLHeadingForm.css';
 import {
-  ChangeEventHandler, FormEventHandler, MouseEventHandler, useEffect, useState,
+  ChangeEventHandler,
+  FormEventHandler,
+  MouseEventHandler,
+  useEffect,
+  useState,
 } from 'react';
 import {
   setIsEditShoppingListFalse,
   setIsEditShoppingListTrue,
 } from '../../store/shoppingSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import {
-  setIsToDeleteSL, setShowCancelSLTrue,
-} from '../../store/appSlice';
+import { setIsToDeleteSL, setShowCancelSLTrue } from '../../store/appSlice';
 
 // @ts-ignore
 // @ts-ignore
 function EditSLHeadingForm({
-  value, onChange, error, required, onSubmit, isValid,
+  value,
+  onChange,
+  error,
+  required,
+  onSubmit,
+  isValid,
 }: {
-  value: string,
-  onChange: ChangeEventHandler,
-  error: string,
-  required: boolean,
-  onSubmit: FormEventHandler, isValid: boolean
+  value: string;
+  onChange: ChangeEventHandler;
+  error: string;
+  required: boolean;
+  onSubmit: FormEventHandler;
+  isValid: boolean;
 }) {
-  const isEditShoppingList = useAppSelector((state) => state.shopping.isEditShoppingList);
+  const isEditShoppingList = useAppSelector(
+    (state) => state.shopping.isEditShoppingList,
+  );
   const shoppingList = useAppSelector((state) => state.shopping);
   const shoppingListItems = useAppSelector((state) => state.shopping.items);
   const itemsInItems = useAppSelector((state) => state.items.items);
   const dispatch = useAppDispatch();
-  const [showEditHeadingButton, setShowEditHeadingButton] = useState<boolean>(false);
-  const [showCopyToClipboardMessage, setShowCopyToClipboardMessage] = useState<boolean>(false);
+  const [showEditHeadingButton, setShowEditHeadingButton] =
+    useState<boolean>(false);
+  const [showCopyToClipboardMessage, setShowCopyToClipboardMessage] =
+    useState<boolean>(false);
   const [shoppingListToClipboard, setShoppingListToClipBoard] = useState([]);
   const handleEditShoppingListClick: MouseEventHandler = () => {
     !isEditShoppingList
       ? dispatch(setIsEditShoppingListTrue())
       : dispatch(setIsEditShoppingListFalse());
   };
-    // update shoppingListToClipboard if shoppingList has been changed
+  // update shoppingListToClipboard if shoppingList has been changed
   useEffect(() => {
     // @ts-ignore
-    setShoppingListToClipBoard(() => (shoppingList!.length !== 0
-      ? shoppingListItems!.reduce((prev, item) => {
-        const itemInItems = itemsInItems.find((i) => i._id === item!.itemId);
-        const name = itemInItems!.name || 'Unknown item';
-        prev.push(name.concat(' ', item!.quantity.toString()));
-        return prev;
-      }, [] as unknown as [string])
-      : []));
+    setShoppingListToClipBoard(() =>
+      shoppingListItems && shoppingListItems.length !== 0
+        ? shoppingListItems.reduce(
+            (prev, item) => {
+              const itemInItems = itemsInItems.find(
+                (i) => i._id === item!.itemId,
+              );
+              const name = itemInItems ? itemInItems!.name : 'Unknown item';
+              prev.push(name.concat(' ', item!.quantity.toString()));
+              return prev;
+            },
+            [] as unknown as [string],
+          )
+        : [],
+    );
   }, [shoppingListItems]);
 
   const copyToClipboardClick: MouseEventHandler = () => {
-    navigator.clipboard.writeText(shoppingListToClipboard.join(', \n'))
+    navigator.clipboard
+      .writeText(shoppingListToClipboard.join(', \n'))
       .then(() => {
         setShowCopyToClipboardMessage(true);
         setTimeout(() => {
@@ -80,7 +100,9 @@ function EditSLHeadingForm({
             minLength={2}
             maxLength={30}
             onFocus={() => setShowEditHeadingButton(true)}
-            onBlur={() => setTimeout(() => setShowEditHeadingButton(false), 1000)}
+            onBlur={() =>
+              setTimeout(() => setShowEditHeadingButton(false), 1000)
+            }
             onChange={onChange}
             required={required}
             name="shopping-list-heading"
@@ -88,7 +110,10 @@ function EditSLHeadingForm({
           <button
             type="submit"
             className={`shopping-list__edit-heading-btn 
-                    ${showEditHeadingButton && 'shopping-list__edit-heading-btn_visible'}
+                    ${
+                      showEditHeadingButton &&
+                      'shopping-list__edit-heading-btn_visible'
+                    }
                     ${!isValid && 'shopping-list__edit-heading-btn_disabled'}`}
             disabled={!isValid}
           >

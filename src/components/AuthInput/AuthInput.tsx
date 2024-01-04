@@ -2,7 +2,14 @@ import './AuthInput.css';
 import { AuthInputProps } from '../../types';
 
 function AuthInput({
-  name, type, placeholder, required, error, value, onChange, ...rest
+  name,
+  type,
+  placeholder,
+  required,
+  error,
+  value,
+  onChange,
+  ...rest
 }: AuthInputProps) {
   return (
     <label className="auth-form__label">
@@ -17,7 +24,7 @@ function AuthInput({
         onChange={onChange}
         {...rest}
       />
-      { error && <span className="auth-form__input-error">{error}</span>}
+      {error && <span className="auth-form__input-error">{error}</span>}
     </label>
   );
 }

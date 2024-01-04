@@ -8,7 +8,10 @@ interface ErrorBoundaryState {
   hasError: boolean;
 }
 
-export default class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
+export default class ErrorBoundary extends React.Component<
+  ErrorBoundaryProps,
+  ErrorBoundaryState
+> {
   constructor(props: ErrorBoundaryProps) {
     super(props);
     this.state = {
@@ -20,8 +23,7 @@ export default class ErrorBoundary extends React.Component<ErrorBoundaryProps, E
     return { hasError: true };
   }
 
-  componentDidCatch(error: Error, info: ErrorInfo): void {
-  }
+  componentDidCatch(error: Error, info: ErrorInfo): void {}
 
   handleFallback: MouseEventHandler = () => {
     this.setState({
@@ -32,7 +34,7 @@ export default class ErrorBoundary extends React.Component<ErrorBoundaryProps, E
   render(): ReactNode {
     // eslint-disable-next-line react/destructuring-assignment
     if (this.state.hasError) {
-      return (<Fallback onFallback={this.handleFallback} />);
+      return <Fallback onFallback={this.handleFallback} />;
     }
     // eslint-disable-next-line react/destructuring-assignment
     return this.props.children;

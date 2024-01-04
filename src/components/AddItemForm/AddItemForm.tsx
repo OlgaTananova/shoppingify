@@ -4,28 +4,35 @@ import useForm from '../../utils/useForm';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { closeAddItemForm } from '../../store/shoppingSlice';
 import { addNewItem } from '../../store/itemInfoSlice';
-import { addItemToCategory } from '../../store/categoriesSlice';
-import { setIsLoadingFalse, setIsLoadingTrue, setShowErrorTrue } from '../../store/appSlice';
+import { addOrDeleteItemToCategory } from '../../store/categoriesSlice';
+import {
+  setIsLoadingFalse,
+  setIsLoadingTrue,
+  setShowErrorTrue,
+} from '../../store/appSlice';
 
 function AddItemForm() {
-  const initialValues = useMemo(() => ({
-    name: {
-      value: '',
-      required: true,
-    },
-    note: {
-      value: '',
-      required: false,
-    },
-    image: {
-      value: '',
-      required: false,
-    },
-    categoryId: {
-      value: '',
-      required: true,
-    },
-  }), []);
+  const initialValues = useMemo(
+    () => ({
+      name: {
+        value: '',
+        required: true,
+      },
+      note: {
+        value: '',
+        required: false,
+      },
+      image: {
+        value: '',
+        required: false,
+      },
+      categoryId: {
+        value: '',
+        required: true,
+      },
+    }),
+    [],
+  );
 
   const categories = useAppSelector((state) => state.categories.categories);
   const scroll = useAppSelector((state) => state.app.scroll);
@@ -40,11 +47,17 @@ function AddItemForm() {
     const note = form.values.note.value;
     const image = form.values.image.value;
     const categoryId = form.values.categoryId.value;
-    dispatch(addNewItem({
-      name, note, image, categoryId,
-    })).unwrap()
+    dispatch(
+      addNewItem({
+        name,
+        note,
+        image,
+        categoryId,
+      }),
+    )
+      .unwrap()
       .then((data) => {
-        dispatch(addItemToCategory(data.category));
+        dispatch(addOrDeleteItemToCategory(data.category));
         form.resetForm();
         dispatch(closeAddItemForm());
       })
@@ -112,8 +125,8 @@ function AddItemForm() {
             placeholder="Enter a url"
             onChange={form.handleChange}
             value={form.values.image.value}
-              // pattern={'/(https|http):\\/\\/(www.)?[a-zA-Z0-9-_]+\\.
-              // [a-zA-Z]+(\\/[a-zA-Z0-9-._/~:@!$&\'()*+,;=]*$)?/'}
+            // pattern={'/(https|http):\\/\\/(www.)?[a-zA-Z0-9-_]+\\.
+            // [a-zA-Z]+(\\/[a-zA-Z0-9-._/~:@!$&\'()*+,;=]*$)?/'}
             name="image"
           />
           <span className="add-item-form__error">{form.errors.image}</span>
@@ -131,10 +144,7 @@ function AddItemForm() {
             onChange={form.handleChange}
             required
           >
-            <option
-              className="add-item-form__option"
-              value=""
-            >
+            <option className="add-item-form__option" value="">
               Enter a category
             </option>
             {categories.map((category) => (
@@ -160,7 +170,9 @@ function AddItemForm() {
             Cancel
           </button>
           <button
-            className={`add-item-form__btn ${!form.isValid ? 'add-item-form__btn_disabled' : ''} add-item-form__btn_type_submit`}
+            className={`add-item-form__btn ${
+              !form.isValid ? 'add-item-form__btn_disabled' : ''
+            } add-item-form__btn_type_submit`}
             type="submit"
             disabled={!form.isValid}
           >

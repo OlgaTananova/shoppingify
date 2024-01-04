@@ -17,7 +17,7 @@
 
 .shopping-list-card__date {
   width: 130px;
-  background-image: url('../../images/calendar_month_FILL0_wght400_GRAD0_opsz48.svg');
+  background-image: url("../../images/calendar_month_FILL0_wght400_GRAD0_opsz48.svg");
   background-size: 18px 20px;
   background-repeat: no-repeat;
   background-position: left;
@@ -29,12 +29,13 @@
   box-sizing: border-box;
 }
 
-.shopping-list-card__category-section{
+.shopping-list-card__category-section {
   display: flex;
   gap: 15px;
 }
 
-.shopping-list-card__category, .shopping-list-card__category-total {
+.shopping-list-card__category,
+.shopping-list-card__category-total {
   margin: 20px 0 30px 0;
   font-size: 18px;
   line-height: 1.25;
@@ -83,7 +84,8 @@
   color: var(--orange-color);
 }
 
-.shopping-list-card__item-pricePerUnit, .shopping-list-card__item-price {
+.shopping-list-card__item-pricePerUnit,
+.shopping-list-card__item-price {
   font-size: 12px;
   line-height: 1.25;
 }
@@ -99,7 +101,7 @@
 }
 
 .shopping-list-card__delete-btn:hover {
-  opacity: .7;
+  opacity: 0.7;
   cursor: pointer;
 }
 
@@ -113,28 +115,31 @@
   .shopping-list-card__date {
     margin: 10px 0;
   }
-  .shopping-list-card__category, .shopping-list-card__category-total {
+  .shopping-list-card__category,
+  .shopping-list-card__category-total {
     font-size: 16px;
     margin: 10px 0;
   }
   .shopping-list-card__item {
     width: 150px;
     padding: 10px;
-    gap:0;
+    gap: 0;
   }
   .shopping-list-card__item-name {
     max-width: 70px;
     font-size: 12px;
-
   }
-  .shopping-list-card__item-qty, .shopping-list-card__item-pricePerUnit, .shopping-list-card__item-price {
+  .shopping-list-card__item-qty,
+  .shopping-list-card__item-pricePerUnit,
+  .shopping-list-card__item-price {
     font-size: 10px;
     min-width: 20px;
     margin-left: 5px;
   }
 }
 
-.shopping-list-card__salesTax, .shopping-list-card__totalSum {
+.shopping-list-card__salesTax,
+.shopping-list-card__totalSum {
   font-size: 18px;
   line-height: 1.25;
   font-weight: 700;

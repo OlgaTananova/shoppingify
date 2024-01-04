@@ -19,14 +19,17 @@
   border: 2px solid var(--orange-color);
 }
 
-.statistics__ByMonth-salesTax-section, .statistics__ByMonth-total-section {
+.statistics__ByMonth-salesTax-section,
+.statistics__ByMonth-total-section {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.statistics__ByMonth-salesTax-heading, .statistics__ByMonth-salesTax-value,
-.statistics__ByMonth-total-heading, .statistics__ByMonth-total-value {
+.statistics__ByMonth-salesTax-heading,
+.statistics__ByMonth-salesTax-value,
+.statistics__ByMonth-total-heading,
+.statistics__ByMonth-total-value {
   font-size: 14px;
   line-height: 1.25;
   font-weight: 700;
@@ -50,6 +53,4 @@
     width: 85%;
     gap: 15px;
   }
-
 }
-

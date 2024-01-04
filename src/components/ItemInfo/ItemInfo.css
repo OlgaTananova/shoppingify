@@ -18,7 +18,7 @@
   width: 55px;
   background-color: var(--grey-color);
   border: none;
-  background-image: url('../../images/arrow_back_FILL0_wght400_GRAD0_opsz48.svg');
+  background-image: url("../../images/arrow_back_FILL0_wght400_GRAD0_opsz48.svg");
   background-repeat: no-repeat;
   background-position: left;
   background-size: 17px;
@@ -29,12 +29,12 @@
   text-align: right;
   padding: 0;
   margin-bottom: 35px;
-  transition: all .3ms ease;
+  transition: all 0.3ms ease;
 }
 
 .item-info__return-btn:hover {
   cursor: pointer;
-  opacity: .7;
+  opacity: 0.7;
 }
 
 .item-info__img {
@@ -86,12 +86,12 @@
   font-size: 16px;
   line-height: 1.25;
   padding: 20px 0;
-  transition: all .3ms ease;
+  transition: all 0.3ms ease;
 }
 
 .item-info__btn:hover {
   cursor: pointer;
-  opacity: .7;
+  opacity: 0.7;
 }
 
 .item-info__btn_delete {
@@ -125,7 +125,6 @@
     grid-row: 1/4;
   }
 }
-
 
 @media screen and (max-width: 680px) {
   .item-info {

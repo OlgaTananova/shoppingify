@@ -26,7 +26,9 @@ function InfoPopup() {
         </button>
         <p className="infopopup__message">{errors.error}</p>
         <div
-          className={`infopopup__icon ${infoMessage && 'infopopup__icon_type_success'}`}
+          className={`infopopup__icon ${
+            infoMessage && 'infopopup__icon_type_success'
+          }`}
           aria-label="Icon"
         >
           {}

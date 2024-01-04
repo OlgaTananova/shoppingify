@@ -13,16 +13,16 @@
   border: 3px solid var(--orange-color);
   border-radius: 4px;
   margin: 0 16px 0 0;
-  transition: all .3ms ease;
+  transition: all 0.3ms ease;
 }
 
-.shopping-list__item-checkbox:hover{
-  opacity: .7;
+.shopping-list__item-checkbox:hover {
+  opacity: 0.7;
   cursor: pointer;
 }
 
 .shopping-list__item-checkbox_checked {
-  background-image: url('../../images/done_FILL0_wght400_GRAD0_opsz48.svg');
+  background-image: url("../../images/done_FILL0_wght400_GRAD0_opsz48.svg");
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
@@ -59,7 +59,7 @@
   font-size: 13px;
   font-weight: 700;
   line-height: 1.25;
-  transition: all .3ms ease;
+  transition: all 0.3ms ease;
 }
 .shopping-list__item-action-button_total {
   display: flex;
@@ -67,7 +67,7 @@
   margin-right: 8px;
 }
 .shopping-list__item-action-button:hover {
-  opacity: .7;
+  opacity: 0.7;
   cursor: pointer;
 }
 
@@ -89,11 +89,11 @@
   align-items: center;
 }
 
-.shopping-list__edit-item_editQtyForm{
+.shopping-list__edit-item_editQtyForm {
   width: 200px;
 }
 
-.shopping-list__edit-item-input-error{
+.shopping-list__edit-item-input-error {
   position: absolute;
   top: calc(100% + 5px);
   left: 0;
@@ -131,19 +131,18 @@
   border-radius: 12px;
   border: none;
   background-color: var(--white-color);
-  opacity: .8;
+  opacity: 0.8;
   background-position: center;
   background-repeat: no-repeat;
   background-size: 32px 32px;
 }
 
-.shopping-list__edit-item-action-button_submit{
-  background-image: url('../../images/done_icon_orange.svg');
+.shopping-list__edit-item-action-button_submit {
+  background-image: url("../../images/done_icon_orange.svg");
 }
 
-
 .shopping-list__edit-item-action-button_delete {
-  background-image: url('../../images/delete_FILL0_wght400_GRAD0_opsz48.svg');
+  background-image: url("../../images/delete_FILL0_wght400_GRAD0_opsz48.svg");
 }
 
 .shopping-list__edit-item-action-button_cancel {
@@ -170,11 +169,11 @@
 }
 
 .shopping-list__change-qty_decrease {
-  background-image: url('../../images/remove_FILL0_wght400_GRAD0_opsz48.svg');
+  background-image: url("../../images/remove_FILL0_wght400_GRAD0_opsz48.svg");
 }
 
 .shopping-list__change-qty_increase {
-  background-image: url('../../images/add_FILL0_wght400_GRAD0_opsz48.svg');
+  background-image: url("../../images/add_FILL0_wght400_GRAD0_opsz48.svg");
 }
 
 .shopping-list__item-quantity_edit {
@@ -225,7 +224,8 @@
   .shopping-list__edit-item-editUnitsForm-input {
     width: 60px;
   }
-  .shopping-list__edit-item_editQtyForm > .shopping-list__edit-item-action-button {
+  .shopping-list__edit-item_editQtyForm
+    > .shopping-list__edit-item-action-button {
     width: 25px;
     background-size: 20px 20px;
   }

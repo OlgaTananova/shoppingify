@@ -24,7 +24,7 @@
 
 @media screen and (max-width: 680px) {
   .categories {
-    grid-column: 2/4 ;
+    grid-column: 2/4;
   }
 }
 

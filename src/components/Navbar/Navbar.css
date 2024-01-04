@@ -20,11 +20,11 @@
   background-repeat: no-repeat;
   position: relative;
   z-index: 2;
-  transition: all .3s ease;
+  transition: all 0.3s ease;
 }
 
 .navbar__link_type_items {
-  background-image: url('../../images/list_FILL0_wght400_GRAD0_opsz48.svg');
+  background-image: url("../../images/list_FILL0_wght400_GRAD0_opsz48.svg");
 }
 
 .navbar__link::after {
@@ -66,19 +66,19 @@
 }
 
 .navbar__link_type_items {
-  background-image: url('../../images/list_FILL0_wght400_GRAD0_opsz48.svg');
+  background-image: url("../../images/list_FILL0_wght400_GRAD0_opsz48.svg");
 }
 
 .navbar__link_type_history {
-  background-image: url('../../images/refresh_FILL0_wght400_GRAD0_opsz48.svg');
+  background-image: url("../../images/refresh_FILL0_wght400_GRAD0_opsz48.svg");
 }
 
 .navbar__link_type_statistics {
-  background-image: url('../../images/insert_chart_FILL0_wght400_GRAD0_opsz48.svg');
+  background-image: url("../../images/insert_chart_FILL0_wght400_GRAD0_opsz48.svg");
 }
 
 .navbar__link_type_profile {
-  background-image: url('../../images/account_circle_FILL0_wght400_GRAD0_opsz48.svg');
+  background-image: url("../../images/account_circle_FILL0_wght400_GRAD0_opsz48.svg");
 }
 
 .navbar__navlink {

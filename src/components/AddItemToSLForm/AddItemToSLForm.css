@@ -21,11 +21,11 @@
 }
 
 .shopping-list__add-item-form:focus-within {
-  box-shadow: -.3px -.3px 2px 2px var(--orange-color);
+  box-shadow: -0.3px -0.3px 2px 2px var(--orange-color);
 }
 
 .shopping-list__add-item-form_empty:focus-within {
-  box-shadow: -.3px -.3px 2px 2px var(--grey-color2);
+  box-shadow: -0.3px -0.3px 2px 2px var(--grey-color2);
 }
 
 .shopping-list__add-item-input {
@@ -50,7 +50,7 @@
   font-size: 16px;
   line-height: 1.2;
   color: var(--white-color);
-  transition: all .3ms ease;
+  transition: all 0.3ms ease;
 }
 
 .shopping-list__add-item-submit-btn_empty {
@@ -59,7 +59,7 @@
 
 .shopping-list__add-item-submit-btn:hover {
   cursor: pointer;
-  opacity: .7;
+  opacity: 0.7;
 }
 
 .shopping-list__add-item-form-container_editSL {
@@ -74,13 +74,12 @@
   padding: 15px 0;
   border: none;
   border-radius: 12px;
-  transition: all .3ms ease;
-
+  transition: all 0.3ms ease;
 }
 
 .shopping-list__complete-btn:hover {
   cursor: pointer;
-  opacity: .7;
+  opacity: 0.7;
 }
 
 .shopping-list__complete-btn_cancel {
@@ -147,6 +146,4 @@
     width: 90%;
     margin: 0 auto;
   }
-
 }
-

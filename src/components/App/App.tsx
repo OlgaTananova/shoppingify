@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
 import './App.css';
-import {
-  Routes, Route, useNavigate,
-} from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import CancelShoppingListPopup from '../CancelShoppingListPopup/CancelShoppingListPopup';
 import MainPage from '../../pages/MainPage';
 import ItemsPage from '../../pages/ItemsPage';
@@ -20,7 +18,7 @@ import { fetchItems } from '../../store/itemInfoSlice';
 import { fetchCategories } from '../../store/categoriesSlice';
 import NotFoundPage from '../../pages/NotFoundPage';
 import Preloader from '../Preloader/Preloader';
-import Fallback from '../Fallback/Fallback';
+
 import {
   setInnerHeight,
   setIsLoadingFalse,
@@ -30,7 +28,10 @@ import {
 } from '../../store/appSlice';
 import InfoPopup from '../InfoPopup/InfoPopup';
 import { getAllShoppingLists } from '../../store/shoppingHistorySlice';
-import { clearShoppingList, getActiveShoppingList } from '../../store/shoppingSlice';
+import {
+  clearShoppingList,
+  getActiveShoppingList,
+} from '../../store/shoppingSlice';
 import { IShoppingList } from '../../types';
 import { throttle } from '../../utils/utils';
 import UploadBillPopup from '../UploadBillPopup/UploadBillPopup';
@@ -59,24 +60,27 @@ function App() {
   useEffect(() => {
     const win: Window = window;
     win.addEventListener('scroll', onScroll);
-    return (() => window.removeEventListener('scroll', onScroll)
-    );
+    return () => window.removeEventListener('scroll', onScroll);
   }, [onScroll]);
 
   useEffect(() => {
     window.addEventListener('resize', onResize);
-    return (() => window.removeEventListener('resize', onResize));
+    return () => window.removeEventListener('resize', onResize);
   });
 
   useEffect(() => {
     if (userIsLoggedIn && appStatus === 'idle') {
       dispatch(setIsLoadingTrue());
-      Promise.all([dispatch(checkUser()).unwrap(),
+      Promise.all([
+        dispatch(checkUser()).unwrap(),
         dispatch(fetchCategories()).unwrap(),
         dispatch(fetchItems()).unwrap(),
-        dispatch(getAllShoppingLists()).unwrap()])
+        dispatch(getAllShoppingLists()).unwrap(),
+      ])
         .then((data) => {
-          const activeShoppingList = data[3].find((list: IShoppingList) => list.status === 'active');
+          const activeShoppingList = data[3].find(
+            (list: IShoppingList) => list.status === 'active',
+          );
           if (activeShoppingList) {
             dispatch(getActiveShoppingList(activeShoppingList));
           } else {
@@ -95,55 +99,67 @@ function App() {
   return (
     <div className="app">
       <Routes>
-        <Route
-          path="/"
-          element={<MainPage />}
-        />
-        <Route
-          path="/signup"
-          element={<SignupPage />}
-        />
-        <Route
-          path="/login"
-          element={<LoginPage />}
-        />
-        <Route
-          path="*"
-          element={<NotFoundPage />}
-        />
+        <Route path="/" element={<MainPage />} />
+        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="*" element={<NotFoundPage />} />
         {isUserChecked && (
-        <>
-          <Route
-            path="/items"
-            element={<ProtectedRoute><ItemsPage /></ProtectedRoute>}
-          />
-          <Route
-            path="/items/:itemId"
-            element={<ProtectedRoute><SingleItemPage /></ProtectedRoute>}
-          />
-          <Route
-            path="/history"
-            element={<ProtectedRoute><HistoryPage /></ProtectedRoute>}
-          />
-          <Route
-            path="history/:shoppingListId"
-            element={<ProtectedRoute><ShoppingListCardPage /></ProtectedRoute>}
-          />
-          <Route
-            path="/statistics"
-            element={<ProtectedRoute><StatisticsPage /></ProtectedRoute>}
-          />
-          <Route
-            path="/profile"
-            element={<ProtectedRoute><ProfilePage /></ProtectedRoute>}
-          />
-        </>
+          <>
+            <Route
+              path="/items"
+              element={
+                <ProtectedRoute>
+                  <ItemsPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/items/:itemId"
+              element={
+                <ProtectedRoute>
+                  <SingleItemPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/history"
+              element={
+                <ProtectedRoute>
+                  <HistoryPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="history/:shoppingListId"
+              element={
+                <ProtectedRoute>
+                  <ShoppingListCardPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/statistics"
+              element={
+                <ProtectedRoute>
+                  <StatisticsPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute>
+                  <ProfilePage />
+                </ProtectedRoute>
+              }
+            />
+          </>
         )}
       </Routes>
       <CancelShoppingListPopup />
       {isLoading && <Preloader />}
       <InfoPopup />
-      <UploadBillPopup />
+      { /*<UploadBillPopup />*/ }
     </div>
   );
 }

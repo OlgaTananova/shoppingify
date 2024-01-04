@@ -13,27 +13,23 @@ function Navbar() {
   return (
     <nav className="navbar">
       <ul className="navbar__links">
-        <li
-          className="navbar__link navbar__link_type_items"
-          title="items"
-        >
+        <li className="navbar__link navbar__link_type_items" title="items">
           <NavLink
             to="/items"
             onClick={handleLinkClick}
             title="items"
-            className={({ isActive }: { isActive: boolean }) => `navbar__navlink ${isActive
-              ? 'navbar__navlink_active' : ''}`}
+            className={({ isActive }: { isActive: boolean }) =>
+              `navbar__navlink ${isActive ? 'navbar__navlink_active' : ''}`
+            }
           />
         </li>
-        <li
-          className="navbar__link navbar__link_type_history"
-          title="history"
-        >
+        <li className="navbar__link navbar__link_type_history" title="history">
           <NavLink
             to="/history"
             onClick={handleLinkClick}
-            className={({ isActive }: { isActive: boolean }) => `navbar__navlink ${isActive
-              ? 'navbar__navlink_active' : ''}`}
+            className={({ isActive }: { isActive: boolean }) =>
+              `navbar__navlink ${isActive ? 'navbar__navlink_active' : ''}`
+            }
             title="history"
           />
         </li>
@@ -44,19 +40,18 @@ function Navbar() {
           <NavLink
             to="/statistics"
             onClick={handleLinkClick}
-            className={({ isActive }: { isActive: boolean }) => `navbar__navlink ${isActive
-              ? 'navbar__navlink_active' : ''}`}
+            className={({ isActive }: { isActive: boolean }) =>
+              `navbar__navlink ${isActive ? 'navbar__navlink_active' : ''}`
+            }
           />
         </li>
-        <li
-          className="navbar__link navbar__link_type_profile"
-          title="profile"
-        >
+        <li className="navbar__link navbar__link_type_profile" title="profile">
           <NavLink
             to="/profile"
             onClick={handleLinkClick}
-            className={({ isActive }: { isActive: boolean }) => `navbar__navlink ${isActive
-              ? 'navbar__navlink_active' : ''}`}
+            className={({ isActive }: { isActive: boolean }) =>
+              `navbar__navlink ${isActive ? 'navbar__navlink_active' : ''}`
+            }
           />
         </li>
       </ul>

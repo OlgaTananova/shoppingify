@@ -2,17 +2,17 @@
   width: 150px;
   border: none;
   background-color: var(--orange-color);
-  opacity: .7;
+  opacity: 0.7;
   font-size: 12px;
   color: var(--white-color);
   padding: 10px 10px;
   border-radius: 12px;
   align-self: center;
-  transition: all .3ms ease;
+  transition: all 0.3ms ease;
 }
 
 .category__show-moreorless-btn:hover {
-  opacity: .5;
+  opacity: 0.5;
   cursor: pointer;
 }
 
@@ -20,5 +20,4 @@
   .category__show-moreorless-btn {
     width: 120px;
   }
-
 }

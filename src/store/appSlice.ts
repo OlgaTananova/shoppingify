@@ -88,8 +88,24 @@ const appSlice = createSlice({
 });
 
 export const {
-  setIsLoadingFalse, setIsLoadingTrue, setShowErrorFalse, setShowErrorTrue,
-  setIsUserCheckedTrue, setIsUserCheckedFalse, setShowMobileSLFalse, onLogout, setShowMobileSLTrue, onLogin, setShowCancelSLFalse,
-  setShowCancelSLTrue, setScroll, setLogoHeight, setInnerHeight, showUploadBillPopup, closeUploadBillPopup, setInfoMessage, setIsToDeleteSL,
+  setIsLoadingFalse,
+  setIsLoadingTrue,
+  setShowErrorFalse,
+  setShowErrorTrue,
+  setIsUserCheckedTrue,
+  setIsUserCheckedFalse,
+  setShowMobileSLFalse,
+  onLogout,
+  setShowMobileSLTrue,
+  onLogin,
+  setShowCancelSLFalse,
+  setShowCancelSLTrue,
+  setScroll,
+  setLogoHeight,
+  setInnerHeight,
+  showUploadBillPopup,
+  closeUploadBillPopup,
+  setInfoMessage,
+  setIsToDeleteSL,
 } = appSlice.actions;
 export default appSlice.reducer;

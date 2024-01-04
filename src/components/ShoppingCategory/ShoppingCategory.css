@@ -3,7 +3,7 @@
 }
 .shopping-list__category-header {
   display: flex;
-  gap: 20px
+  gap: 20px;
 }
 
 .shopping-list__category-heading {

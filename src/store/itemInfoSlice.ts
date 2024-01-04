@@ -1,7 +1,14 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { IAddItemPayload, IItemInitialState, IUpdateItemPayload } from '../types';
 import {
-  addItem, getItems, deleteItem, updateItem,
+  IAddItemPayload,
+  IItemInitialState,
+  IUpdateItemPayload,
+} from '../types';
+import {
+  addItem,
+  getItems,
+  deleteItem,
+  updateItem,
 } from '../utils/apiItemsAndCategories';
 
 const initialState: IItemInitialState = {
@@ -54,7 +61,9 @@ const ItemInfoSlice = createSlice({
       })
       .addCase(deleteExistingItem.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.items = state.items.filter((item) => item._id !== action.payload.item._id);
+        state.items = state.items.filter(
+          (item) => item._id !== action.payload.item._id,
+        );
       })
       .addCase(deleteExistingItem.rejected, (state, action) => {
         state.status = 'failed';
@@ -79,14 +88,26 @@ const ItemInfoSlice = createSlice({
   },
 });
 
-export const fetchItems = createAsyncThunk('items/getItems', async () => getItems());
+export const fetchItems = createAsyncThunk('items/getItems', async () =>
+  getItems(),
+);
 
-export const addNewItem = createAsyncThunk('items/addItem', async (value: IAddItemPayload) => addItem(value));
+export const addNewItem = createAsyncThunk(
+  'items/addItem',
+  async (value: IAddItemPayload) => addItem(value),
+);
 
-export const deleteExistingItem = createAsyncThunk('items/deleteItem', async (id: string) => deleteItem(id));
+export const deleteExistingItem = createAsyncThunk(
+  'items/deleteItem',
+  async (id: string) => deleteItem(id),
+);
 
-export const updateExistingItem = createAsyncThunk('items/updateItem', async (values: IUpdateItemPayload) => updateItem(values));
+export const updateExistingItem = createAsyncThunk(
+  'items/updateItem',
+  async (values: IUpdateItemPayload) => updateItem(values),
+);
 
-export const { onLogoutItemsSlice, setIsEditItemFalse, setIsEditItemTrue } = ItemInfoSlice.actions;
+export const { onLogoutItemsSlice, setIsEditItemFalse, setIsEditItemTrue } =
+  ItemInfoSlice.actions;
 
 export default ItemInfoSlice.reducer;

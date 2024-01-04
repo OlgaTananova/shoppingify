@@ -5,7 +5,7 @@
   box-sizing: border-box;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: .5fr 1fr;
+  grid-template-rows: 0.5fr 1fr;
   column-gap: 30px;
   row-gap: 30px;
   padding-top: 30px;
@@ -40,7 +40,7 @@
 }
 
 .statistics__top-unit::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 0;
@@ -90,11 +90,13 @@
 }
 
 @media screen and (max-width: 1024px) {
-  .statistics__top-section-heading, .statistics__ByMonth-heading {
+  .statistics__top-section-heading,
+  .statistics__ByMonth-heading {
     font-size: 20px;
   }
 
-  .statistics__top-section, .statistics__byMonth {
+  .statistics__top-section,
+  .statistics__byMonth {
     padding: 15px;
   }
 
@@ -103,7 +105,8 @@
     font-size: 20px;
   }
 
-  .statistics__top-section-heading, .statistics__ByMonth-heading {
+  .statistics__top-section-heading,
+  .statistics__ByMonth-heading {
     margin: 0;
   }
 
@@ -115,7 +118,8 @@
     align-items: center;
   }
 
-  .statistics__top-section, .statistics__byMonth {
+  .statistics__top-section,
+  .statistics__byMonth {
     width: 85%;
     gap: 15px;
   }
