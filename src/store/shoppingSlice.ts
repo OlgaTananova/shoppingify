@@ -113,7 +113,6 @@ const shoppingSlice = createSlice({
       })
       .addCase(createNewShoppingList.fulfilled, (state, action) => {
         state.requestStatus = 'succeeded';
-        changeState(state, action);
         state.isUploadBillFormOpened = false;
       })
       .addCase(createNewShoppingList.rejected, (state, action) => {
@@ -125,7 +124,6 @@ const shoppingSlice = createSlice({
       })
       .addCase(addNewItemToShoppingList.fulfilled, (state, action) => {
         state.requestStatus = 'succeeded';
-        changeState(state, action);
         state.isUploadBillFormOpened = false;
       })
       .addCase(addNewItemToShoppingList.rejected, (state, action) => {

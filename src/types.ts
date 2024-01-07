@@ -16,7 +16,7 @@ export interface IShoppingItem {
   units?: string;
   pricePerUnit?: number;
   price?: number;
-  _id?: string;
+  _id: string;
 }
 
 export interface IUploadedShoppingItem {
@@ -126,23 +126,21 @@ export interface ICreateShoppingListPayload {
 }
 
 export interface IAddItemToShoppingListPayload {
-  categoryId: string | undefined;
-  itemId: string | undefined;
+  categoryId: string;
+  itemId: string;
   quantity?: string;
   status?: 'completed' | 'pending';
-  shoppingListId: string | undefined;
+  shoppingListId: string;
 }
 
 export interface IDeleteItemFromShoppingListPayload {
-  _id: string | undefined;
-  itemId: string | undefined;
-  shoppingListId: string | undefined;
+  shoppingListItemId: string;
+  shoppingListId: string;
 }
 
 export interface IUpdateItemQtyInShoppingList
   extends IDeleteItemFromShoppingListPayload {
   quantity: number;
-  pricePerUnit?: number;
 }
 
 export interface IUpdateItemStatusInShoppingList
@@ -158,11 +156,10 @@ export interface IUpdateItemUnitsInShoppingList
 export interface IUpdateItemPricePerUnitInShoppingList
   extends IDeleteItemFromShoppingListPayload {
   pricePerUnit: number;
-  quantity?: number;
 }
 
 export interface IUpdateSLHeadingPayload {
-  shoppingListId: string | undefined;
+  shoppingListId: string;
   heading: string;
 }
 

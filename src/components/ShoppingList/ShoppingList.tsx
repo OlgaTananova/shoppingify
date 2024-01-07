@@ -96,7 +96,7 @@ function ShoppingList() {
     dispatch(setIsLoadingTrue());
     dispatch(
       updateExistingSLHeading({
-        shoppingListId,
+        shoppingListId: shoppingListId || "",
         heading: editSLHeadingForm.values['shopping-list-heading'].value,
       }),
     )
