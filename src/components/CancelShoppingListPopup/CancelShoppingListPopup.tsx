@@ -10,16 +10,13 @@ import {
 } from '../../store/appSlice';
 import {
     clearShoppingList,
-    deleteSL,
     getActiveShoppingList,
     setIsEditShoppingListFalse,
     updateSLStatus,
 } from '../../store/shoppingSlice';
 import {
-    getAllShoppingLists,
-    onUpdateShoppingLists,
+    deleteSL, onUpdateActiveShoppingList,
 } from '../../store/shoppingHistorySlice';
-import {IShoppingList} from '../../types';
 
 function CancelShoppingListPopup() {
     const showCancelSLPopup = useAppSelector((state) => state.app.showCancelSL);
@@ -27,6 +24,7 @@ function CancelShoppingListPopup() {
         (state) => state.app.isToDeleteSL,
     );
     const activeShoppingList = useAppSelector((state) => state.shopping);
+    const shoppingLists = useAppSelector((state) => state.shoppingHistory.shoppingLists);
     const dispatch = useAppDispatch();
 
     const handleCloseClick: MouseEventHandler = () => {
@@ -34,59 +32,47 @@ function CancelShoppingListPopup() {
         dispatch(setShowCancelSLFalse());
         dispatch(setIsEditShoppingListFalse());
     };
-    const handleCancelSLClick: MouseEventHandler = () => {
-        dispatch(setIsLoadingTrue());
-        dispatch(
-            updateSLStatus({
-                shoppingListId: activeShoppingList._id,
-                status: 'cancelled',
-            }),
-        )
-            .unwrap()
-            .then((data) => {
-                dispatch(onUpdateShoppingLists(data.allShoppingLists));
-                dispatch(clearShoppingList());
-                const activeSL = data.allShoppingLists.find(
-                    (list: IShoppingList) => list.status === 'active',
-                );
-                if (activeSL) {
-                    dispatch(getActiveShoppingList(activeSL));
-                }
-            })
-            .catch((err) => {
-                dispatch(setShowErrorTrue(err.message));
-            })
-            .finally(() => {
-                dispatch(setIsLoadingFalse());
-                dispatch(setShowCancelSLFalse());
-            });
+    const handleCancelSLClick: MouseEventHandler = async () => {
+        try {
+            dispatch(setIsLoadingTrue());
+            const data = await dispatch(
+                updateSLStatus({
+                    shoppingListId: activeShoppingList._id,
+                    status: 'cancelled',
+                }),
+            )
+                .unwrap();
+            dispatch(onUpdateActiveShoppingList(data));
+            dispatch(clearShoppingList());
+            if (data.updatedShoppingList.status === "active") {
+                dispatch(getActiveShoppingList(data.updatedShoppingList));
+            }
+        } catch (err) {
+            const errorMessage = err instanceof Error ? err.message : "Unknown error occurred.";
+            dispatch(setShowErrorTrue(errorMessage));
+        } finally {
+            dispatch(setIsLoadingFalse());
+            dispatch(setShowCancelSLFalse());
+        }
     };
-    const handleDeleteSLClick: MouseEventHandler = () => {
+    const handleDeleteSLClick: MouseEventHandler = async () => {
         if (activeShoppingList.status !== 'active') {
             dispatch(
                 setShowErrorTrue("You don't have an active shopping list to delete."),
             );
         } else {
-            dispatch(setIsLoadingTrue());
-            dispatch(deleteSL({id: activeShoppingList?._id || ''}))
-                .unwrap()
-                .then((data) => {
-                    dispatch(onUpdateShoppingLists(data.remainingShoppingLists));
-                    dispatch(clearShoppingList());
-                    const activeSL = data.remainingShoppingLists.find(
-                        (list: IShoppingList) => list.status === 'active',
-                    );
-                    if (activeSL) {
-                        dispatch(getActiveShoppingList(activeSL));
-                    }
-                })
-                .catch((err) => {
-                    dispatch(setShowErrorTrue(err.message));
-                })
-                .finally(() => {
-                    dispatch(setIsLoadingFalse());
-                    dispatch(setShowCancelSLFalse());
-                });
+            try {
+                dispatch(setIsLoadingTrue());
+                await dispatch(deleteSL({id: activeShoppingList?._id || ''}))
+                    .unwrap();
+                dispatch(clearShoppingList());
+            } catch (err) {
+                const errMessage = err instanceof Error ? err.message : "Unknown error occurred.";
+                dispatch(setShowErrorTrue(errMessage));
+            } finally {
+                dispatch(setIsLoadingFalse());
+                dispatch(setShowCancelSLFalse());
+            }
         }
     };
     return (

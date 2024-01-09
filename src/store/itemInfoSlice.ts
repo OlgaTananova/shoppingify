@@ -62,7 +62,7 @@ const ItemInfoSlice = createSlice({
       .addCase(deleteExistingItem.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.items = state.items.filter(
-          (item) => item._id !== action.payload.item._id,
+          (item) => item._id !== action.payload.deletedItem._id,
         );
       })
       .addCase(deleteExistingItem.rejected, (state, action) => {

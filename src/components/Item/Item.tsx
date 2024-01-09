@@ -10,7 +10,7 @@ import {
     setShowErrorTrue,
 } from '../../store/appSlice';
 import {
-    addNewItemToShoppingList,
+    addNewItemToShoppingList, clearShoppingList,
     createNewShoppingList, getActiveShoppingList,
 } from '../../store/shoppingSlice';
 import {onAddNewShoppingList, onUpdateActiveShoppingList} from "../../store/shoppingHistorySlice";
@@ -31,7 +31,9 @@ function Item({item}: { item: IItem }) {
                         categoryId: item.categoryId,
                     })).unwrap();
                 dispatch(onAddNewShoppingList(data));
-                dispatch(getActiveShoppingList(data.addedShoppingList));
+                if (data.addedShoppingList.status === "active") {
+                    dispatch(getActiveShoppingList(data.addedShoppingList));
+                }
             } catch (err) {
                 const errorMessage = err instanceof Error ? err.message : "Unknown error occurred.";
                 dispatch(setShowErrorTrue(errorMessage));
@@ -39,8 +41,8 @@ function Item({item}: { item: IItem }) {
                 dispatch(setIsLoadingFalse());
             }
         } else {
-            dispatch(setIsLoadingTrue());
             try {
+                dispatch(setIsLoadingTrue());
                 if (activeShoppingList._id) {
                     const data = await dispatch(
                         addNewItemToShoppingList({
@@ -49,7 +51,10 @@ function Item({item}: { item: IItem }) {
                             shoppingListId: activeShoppingList._id || "",
                         })).unwrap();
                     dispatch(onUpdateActiveShoppingList(data));
-                    dispatch(getActiveShoppingList(data.updatedShoppingList));
+                    dispatch(clearShoppingList());
+                    if (data.updatedShoppingList.status === "active") {
+                        dispatch(getActiveShoppingList(data.updatedShoppingList));
+                    }
                 } else {
                     dispatch(setShowErrorTrue("There is no active shopping list."));
                     dispatch(setIsLoadingFalse());

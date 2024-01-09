@@ -1,6 +1,6 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {IShoppingList, IShoppingListsInitialState} from '../types';
-import {getShoppingLists} from '../utils/apiShoppingLists';
+import {deleteShoppingList, getShoppingLists} from '../utils/apiShoppingLists';
 
 const initialState: IShoppingListsInitialState = {
     shoppingLists: [],
@@ -18,7 +18,8 @@ const shoppingHistorySlice = createSlice({
         onUpdateActiveShoppingList(state, action) {
             state.shoppingLists = state.shoppingLists.map((sl: IShoppingList) => {
                 if (sl._id === action.payload.updatedShoppingList._id) {
-                    return action.payload.updatedShoppingList;
+                    sl =  action.payload.updatedShoppingList;
+                    return sl;
                 }
                 return sl;
             });
@@ -39,6 +40,20 @@ const shoppingHistorySlice = createSlice({
             .addCase(getAllShoppingLists.rejected, (state, action) => {
                 state.status = 'failed';
                 state.error = action.error.message;
+            })
+            .addCase(deleteSL.pending, (state) => {
+                state.status = 'loading';
+            })
+            .addCase(deleteSL.fulfilled, (state, action) => {
+                state.status = 'succeeded';
+                state.error = null;
+                state.shoppingLists = state.shoppingLists.filter((sl) => {
+                    return sl._id !== action.payload.deletedShoppingList._id;
+                });
+            })
+            .addCase(deleteSL.rejected, (state, action) => {
+                state.status = 'failed';
+                state.error = action.error.message;
             });
     },
 });
@@ -46,6 +61,11 @@ const shoppingHistorySlice = createSlice({
 export const getAllShoppingLists = createAsyncThunk(
     'shoppingHistory/getShoppingLists',
     async () => getShoppingLists(),
+);
+
+export const deleteSL = createAsyncThunk(
+    'shoppingList/deleteSL',
+    async (values: { id: string }) => deleteShoppingList(values),
 );
 export const {onUpdateShoppingLists, onUpdateActiveShoppingList, onAddNewShoppingList} = shoppingHistorySlice.actions;
 export default shoppingHistorySlice.reducer;

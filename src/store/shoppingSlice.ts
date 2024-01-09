@@ -179,9 +179,7 @@ const shoppingSlice = createSlice({
         state.requestStatus = 'loading';
       })
       .addCase(updateSLStatus.fulfilled, (state, action) => {
-        const newStatus = action.payload.updatedShoppingList.status;
         state.requestStatus = 'succeeded';
-        state.status = newStatus;
       })
       .addCase(updateSLStatus.rejected, (state, action) => {
         state.requestStatus = 'failed';
@@ -258,18 +256,6 @@ const shoppingSlice = createSlice({
       .addCase(updateSalesTaxInSL.rejected, (state, action) => {
         state.requestStatus = 'failed';
         state.error = action.error.message;
-      })
-      .addCase(deleteSL.pending, (state) => {
-        state.requestStatus = 'loading';
-      })
-      .addCase(deleteSL.fulfilled, (state, action) => {
-        state.requestStatus = 'succeeded';
-        state.error = null;
-        changeState(state, action);
-      })
-      .addCase(deleteSL.rejected, (state, action) => {
-        state.requestStatus = 'failed';
-        state.error = action.error.message;
       });
   },
 });
@@ -339,10 +325,6 @@ export const updateSalesTaxInSL = createAsyncThunk(
   'shoppingList/updateSalesTaxInSL',
   async (values: IUpdateSalesTaxPayload) =>
     updateSalesTaxInShoppingList(values),
-);
-export const deleteSL = createAsyncThunk(
-  'shoppingList/deleteSL',
-  async (values: { id: string }) => deleteShoppingList(values),
 );
 export const {
   closeAddItemForm,

@@ -19,7 +19,11 @@ import {
     getActiveShoppingList,
 } from '../../store/shoppingSlice';
 import EditItemForm from '../EditItemForm/EditItemForm';
-import {onAddNewShoppingList, onUpdateShoppingLists} from '../../store/shoppingHistorySlice';
+import {
+    onAddNewShoppingList,
+    onUpdateActiveShoppingList,
+    onUpdateShoppingLists,
+} from '../../store/shoppingHistorySlice';
 import {IShoppingList} from '../../types';
 
 function ItemInfo() {
@@ -41,36 +45,31 @@ function ItemInfo() {
     };
 
     // Handler to delete the item
-    const handleDeleteClick: MouseEventHandler = (event) => {
-        dispatch(setIsLoadingTrue());
-        if (itemId != null) {
-            // api call
-            dispatch(deleteExistingItem(itemId))
-                .unwrap()
-                .then((data) => {
-                    // delete item from the category
-                    dispatch(addOrDeleteItemToCategory(data.updatedCategory));
-                    return data;
-                })
-                // update the shopping lists
-                .then((data) => {
-                    dispatch(onUpdateShoppingLists(data.updatedShoppingLists));
-                    const updActiveShoppingList = data.updatedShoppingLists.find(
-                        (list: IShoppingList) => list._id === activeShoppingList._id,
-                    );
-                    if (updActiveShoppingList) {
-                        dispatch(getActiveShoppingList(updActiveShoppingList));
-                    } else {
-                        dispatch(clearShoppingList());
-                    }
-                    navigate('/items');
-                })
-                .catch((err) => {
-                    dispatch(setShowErrorTrue(err.message));
-                })
-                .finally(() => {
-                    dispatch(setIsLoadingFalse());
-                });
+    const handleDeleteClick: MouseEventHandler = async (event) => {
+        try {
+            dispatch(setIsLoadingTrue());
+            if (itemId == null) {
+                dispatch(setShowErrorTrue("The item with the id was not found."));
+                return;
+            } else {
+                const data = await dispatch(deleteExistingItem(itemId)).unwrap();
+                dispatch(addOrDeleteItemToCategory(data.updatedCategory));
+                dispatch(onUpdateShoppingLists(data.updatedShoppingLists));
+                const updActiveShoppingList = data.updatedShoppingLists.find(
+                    (list: IShoppingList) => list._id === activeShoppingList._id && list.status === "active",
+                );
+                if (updActiveShoppingList) {
+                    dispatch(getActiveShoppingList(updActiveShoppingList));
+                } else {
+                    dispatch(clearShoppingList());
+                }
+                navigate('/items');
+            }
+        } catch (err) {
+            const errMessage = err instanceof Error ? err.message : "Unknown error occurred.";
+            dispatch(setShowErrorTrue(errMessage));
+        } finally {
+            dispatch(setIsLoadingFalse());
         }
     };
 
@@ -84,7 +83,9 @@ function ItemInfo() {
 
                 })).unwrap();
                 dispatch(onAddNewShoppingList(data));
-                dispatch(getActiveShoppingList(data.addedShoppingList));
+                if (data.addedShoppingList.status === "active") {
+                    dispatch(getActiveShoppingList(data.addedShoppingList));
+                }
                 navigate("/items");
             } catch (err) {
                 const errorMessage = err instanceof Error ? err.message : "Unknown error occurred.";
@@ -100,8 +101,11 @@ function ItemInfo() {
                     categoryId: category._id,
                     itemId: item._id,
                 })).unwrap();
-                dispatch(onUpdateShoppingLists(data));
-                dispatch(getActiveShoppingList(data.updatedShoppingList));
+                dispatch(onUpdateActiveShoppingList(data));
+                dispatch(clearShoppingList());
+                if (data.updatedShoppingList.status === "active") {
+                    dispatch(getActiveShoppingList(data.updatedShoppingList));
+                }
                 navigate("/items");
             } catch (err) {
                 const errorMessage = err instanceof Error ? err.message : "Unknown error occurred.";

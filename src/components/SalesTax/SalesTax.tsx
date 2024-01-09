@@ -8,7 +8,7 @@ import {
     setShowErrorTrue,
 } from '../../store/appSlice';
 import {clearShoppingList, getActiveShoppingList, updateSalesTaxInSL} from '../../store/shoppingSlice';
-import {onUpdateShoppingLists} from "../../store/shoppingHistorySlice";
+import {onUpdateActiveShoppingList, onUpdateShoppingLists} from "../../store/shoppingHistorySlice";
 import {IShoppingList} from "../../types";
 
 export default function SalesTax() {
@@ -37,31 +37,29 @@ export default function SalesTax() {
         });
     }, [salesTax]);
 
-    const handleUpdateSalesTaxSubmitForm: FormEventHandler = (e) => {
-        e.preventDefault();
-        dispatch(setIsLoadingTrue());
-        dispatch(
-            updateSalesTaxInSL({
-                salesTax: editSalesTaxForm.values['sales-tax'].value,
-                shoppingListId,
-            }),
-        )
-            .unwrap()
-            .then((data) => {
-                dispatch(onUpdateShoppingLists(data.allShoppingLists));
-                dispatch(clearShoppingList());
-                const activeSL = data.allShoppingLists.find((sl: IShoppingList) => sl.status === 'active');
-                if (activeSL) {
-                    dispatch(getActiveShoppingList(activeSL));
-                }
-            })
-            .catch((err) => {
-                dispatch(setShowErrorTrue(err.message));
-            })
-            .finally(() => {
-                dispatch(setIsLoadingFalse());
-                setIsEditSalesTaxOpened(false);
-            });
+    const handleUpdateSalesTaxSubmitForm: FormEventHandler = async (e) => {
+        try {
+            e.preventDefault();
+            dispatch(setIsLoadingTrue());
+            const data = await dispatch(
+                updateSalesTaxInSL({
+                    salesTax: editSalesTaxForm.values['sales-tax'].value,
+                    shoppingListId,
+                }),
+            )
+                .unwrap();
+            dispatch(onUpdateActiveShoppingList(data));
+            dispatch(clearShoppingList());
+            if (data.updatedShoppingList.status === "active") {
+                dispatch(getActiveShoppingList(data.updatedShoppingList));
+            }
+        } catch (err) {
+            const errMessage = err instanceof Error ? err.message : "Unknown error occurred.";
+            dispatch(setShowErrorTrue(errMessage));
+        } finally {
+            dispatch(setIsLoadingFalse());
+            setIsEditSalesTaxOpened(false);
+        }
     };
 
     return (
