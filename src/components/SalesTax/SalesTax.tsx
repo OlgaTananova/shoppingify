@@ -46,11 +46,10 @@ export default function SalesTax() {
                     salesTax: editSalesTaxForm.values['sales-tax'].value,
                     shoppingListId,
                 }),
-            )
-                .unwrap();
+            ).unwrap();
             dispatch(onUpdateActiveShoppingList(data));
-            dispatch(clearShoppingList());
             if (data.updatedShoppingList.status === "active") {
+                dispatch(clearShoppingList());
                 dispatch(getActiveShoppingList(data.updatedShoppingList));
             }
         } catch (err) {

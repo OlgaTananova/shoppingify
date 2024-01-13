@@ -158,6 +158,10 @@ export interface IUpdateItemPricePerUnitInShoppingList
   pricePerUnit: number;
 }
 
+export interface IUpdateItemPriceInShoppingList extends  IDeleteItemFromShoppingListPayload {
+  price: number
+}
+
 export interface IUpdateSLHeadingPayload {
   shoppingListId: string;
   heading: string;

@@ -36,6 +36,7 @@ const shoppingHistorySlice = createSlice({
             .addCase(getAllShoppingLists.fulfilled, (state, action) => {
                 state.status = 'succeeded';
                 state.shoppingLists = action.payload;
+                state.error = null;
             })
             .addCase(getAllShoppingLists.rejected, (state, action) => {
                 state.status = 'failed';

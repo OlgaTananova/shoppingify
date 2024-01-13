@@ -101,8 +101,8 @@ function ShoppingList() {
                 heading: editSLHeadingForm.values['shopping-list-heading'].value,
             })).unwrap();
             dispatch(onUpdateActiveShoppingList(data));
-            dispatch(clearShoppingList());
             if (data.updatedShoppingList.status === "active") {
+                dispatch(clearShoppingList());
                 dispatch(getActiveShoppingList(data.updatedShoppingList));
             }
         } catch (err) {

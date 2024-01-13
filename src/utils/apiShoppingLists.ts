@@ -7,7 +7,7 @@ import {
   IFullShoppingItem,
   IMergeBillPayload,
   IMergeListPayload,
-  IShoppingItem,
+  IShoppingItem, IUpdateItemPriceInShoppingList,
   IUpdateItemPricePerUnitInShoppingList,
   IUpdateItemQtyInShoppingList,
   IUpdateItemStatusInShoppingList,
@@ -202,7 +202,7 @@ export const updateItemPricePerUnitInShoppingList = async (
   values: IUpdateItemPricePerUnitInShoppingList,
 ) => {
   const updatedShoppingList = await fetch(
-    `${baseUrl}/ShoppingLists/updItemPrice`,
+    `${baseUrl}/ShoppingLists/updItemPricePerUnit`,
     {
       method: 'PATCH',
       headers: {
@@ -212,6 +212,18 @@ export const updateItemPricePerUnitInShoppingList = async (
       body: JSON.stringify(values),
     },
   );
+  return checkResponse(updatedShoppingList);
+};
+
+export const updateItemPriceInShoppingList = async (values: IUpdateItemPriceInShoppingList) => {
+  const updatedShoppingList = await fetch(`${baseUrl}/ShoppingLists/updItemPrice`, {
+    method: "PATCH",
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include',
+    body: JSON.stringify(values),
+  });
   return checkResponse(updatedShoppingList);
 };
 

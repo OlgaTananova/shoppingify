@@ -14,13 +14,15 @@ import {
     setShowErrorTrue,
 } from '../../store/appSlice';
 import {
-    deleteExistingItemFromSL,
+    clearShoppingList,
+    deleteExistingItemFromSL, getActiveShoppingList,
     updateItemQtyInExistingSL,
     updateItemStatusExistingSL,
     updatePricePerUnitOfItemInSL,
     updateUnitsOfItemInSL,
 } from '../../store/shoppingSlice';
 import useForm from '../../utils/useForm';
+import {onUpdateActiveShoppingList, onUpdateShoppingLists} from "../../store/shoppingHistorySlice";
 
 function ShoppingItem({item}: { item: IShoppingItem }) {
     const [isEditQtyMenuOpened, setIsEditQtyMenuOpened] = useState(false);
@@ -120,25 +122,32 @@ function ShoppingItem({item}: { item: IShoppingItem }) {
 
     };
     // function to update item quantity in shopping list
-    const changeItemQtySubmitHandler: FormEventHandler = (e) => {
-        e.preventDefault();
-        dispatch(setIsLoadingTrue());
-        dispatch(
-            updateItemQtyInExistingSL({
-                shoppingListId: activeShoppingList || "",
-                shoppingListItemId: item._id,
-                quantity: editItemQtyForm.values['item-qty'].value,
-            }),
-        )
-            .unwrap()
-            .catch((err) => {
-                setShowErrorTrue(err.message);
-            })
-            .finally(() => {
-                dispatch(setIsLoadingFalse());
-                setIsEditQtyMenuOpened(false);
-            });
+    const changeItemQtySubmitHandler: FormEventHandler = async (e) => {
+        try {
+            e.preventDefault();
+            dispatch(setIsLoadingTrue());
+            const data = await dispatch(
+                updateItemQtyInExistingSL({
+                    shoppingListId: activeShoppingList || "",
+                    shoppingListItemId: item._id,
+                    quantity: editItemQtyForm.values['item-qty'].value,
+                }),
+            ).unwrap();
+            dispatch(onUpdateActiveShoppingList(data));
+            if (data.updatedShoppingList.status === "active") {
+                dispatch(clearShoppingList());
+                dispatch(getActiveShoppingList(data.updatedShoppingList));
+            }
+
+        } catch (err) {
+            const errMessage = err instanceof Error ? err.message : "Unknown error occurred.";
+            dispatch(setShowErrorTrue(errMessage));
+        } finally {
+            dispatch(setIsLoadingFalse());
+            setIsEditQtyMenuOpened(false);
+        }
     };
+
     // function to increment item quantity in the form
     const incrementItemQtyHandleClick: MouseEventHandler = () => {
         editItemQtyForm.setValues({
@@ -166,65 +175,78 @@ function ShoppingItem({item}: { item: IShoppingItem }) {
         });
     };
     // function to update item status in shopping list
-    const updateItemStateHandleClick: MouseEventHandler = () => {
+    const updateItemStateHandleClick: MouseEventHandler = async () => {
         const status = item.status === 'pending' ? 'completed' : 'pending';
-        dispatch(setIsLoadingTrue());
-        dispatch(
-            updateItemStatusExistingSL({
-                shoppingListId: activeShoppingList || "",
-                status,
-                shoppingListItemId: item._id,
-            }),
-        )
-            .unwrap()
-            .catch((err) => {
-                setShowErrorTrue(err.message);
-            })
-            .finally(() => {
-                dispatch(setIsLoadingFalse());
-            });
+        try {
+            dispatch(setIsLoadingTrue());
+            const data = await dispatch(
+                updateItemStatusExistingSL({
+                    shoppingListId: activeShoppingList || "",
+                    status,
+                    shoppingListItemId: item._id,
+                }),
+            ).unwrap();
+            dispatch(onUpdateShoppingLists(data));
+            if (data.updatedShoppingList.status === "active") {
+                dispatch(clearShoppingList());
+                dispatch(getActiveShoppingList(data.updatedShoppingList));
+            }
+        } catch (err) {
+            const errorMessage = err instanceof Error ? err.message : "Unknown error occurred.";
+            dispatch(setShowErrorTrue(errorMessage));
+        } finally {
+            dispatch(setIsLoadingFalse());
+        }
     };
     // function to update item units in shopping list
-    const handleEditItemUnitsClick: FormEventHandler<HTMLFormElement> = (e) => {
-        e.preventDefault();
-        dispatch(setIsLoadingTrue());
-        dispatch(
-            updateUnitsOfItemInSL({
-                shoppingListId: activeShoppingList || "",
-                shoppingListItemId: item._id,
-                units: editItemUnitsForm.values['item-units'].value,
-            }),
-        )
-            .unwrap()
-            .catch((err) => {
-                setShowErrorTrue(err.message);
-            })
-            .finally(() => {
-                dispatch(setIsLoadingFalse());
-                setIsEditUnitsMenuOpened(false);
-            });
+    const handleEditItemUnitsClick: FormEventHandler<HTMLFormElement> = async (e) => {
+        try {
+            e.preventDefault();
+            dispatch(setIsLoadingTrue());
+            const data = await dispatch(
+                updateUnitsOfItemInSL({
+                    shoppingListId: activeShoppingList || "",
+                    shoppingListItemId: item._id,
+                    units: editItemUnitsForm.values['item-units'].value,
+                }),
+            ).unwrap();
+            dispatch(onUpdateActiveShoppingList(data));
+            if (data.updatedShoppingList.status === "active") {
+                dispatch(clearShoppingList());
+                dispatch(getActiveShoppingList(data.updatedShoppingList));
+            }
+        } catch (err) {
+            const errorMessage = err instanceof Error ? err.message : "Unknown error occurred.";
+            dispatch(setShowErrorTrue(errorMessage));
+        } finally {
+            dispatch(setIsLoadingFalse());
+            setIsEditUnitsMenuOpened(false);
+        }
     };
     // function to update item price per unit in shopping list
-    const handleEditItemPricePerUnitClick: FormEventHandler<HTMLFormElement> = (
-        e,
-    ) => {
-        e.preventDefault();
-        dispatch(setIsLoadingTrue());
-        dispatch(
-            updatePricePerUnitOfItemInSL({
-                shoppingListId: activeShoppingList || "",
-                shoppingListItemId: item._id,
-                pricePerUnit: editItemPricePerUnitForm.values['price-per-unit'].value,
-            }),
-        )
-            .unwrap()
-            .catch((err) => {
-                setShowErrorTrue(err.message);
-            })
-            .finally(() => {
-                dispatch(setIsLoadingFalse());
-                setIsEditPriceMenuOpened(false);
-            });
+    const handleEditItemPricePerUnitClick: FormEventHandler<HTMLFormElement> = async (e) => {
+        try {
+            e.preventDefault();
+            dispatch(setIsLoadingTrue());
+            const data = await dispatch(
+                updatePricePerUnitOfItemInSL({
+                    shoppingListId: activeShoppingList || "",
+                    shoppingListItemId: item._id,
+                    pricePerUnit: editItemPricePerUnitForm.values['price-per-unit'].value,
+                }),
+            ).unwrap();
+            dispatch(onUpdateShoppingLists(data));
+            if (data.updatedShoppingList.status === "active") {
+                dispatch(clearShoppingList());
+                dispatch(getActiveShoppingList(data.updatedShoppingList));
+            }
+        } catch (err) {
+            const errorMessage = err instanceof Error ? err.message : "Unknown error occurred.";
+            dispatch(setShowErrorTrue(errorMessage));
+        } finally {
+            dispatch(setIsLoadingFalse());
+            setIsEditPriceMenuOpened(false);
+        }
     };
 
     return (
