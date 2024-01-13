@@ -60,7 +60,7 @@ export const addItemToShoppingList = async (
 export const deleteItemFromShoppingList = async (
   values: IDeleteItemFromShoppingListPayload,
 ) => {
-  const updatedShoppingList = await fetch(`${baseUrl}/ShoppingLists`, {
+  const updatedShoppingList = await fetch(`${baseUrl}/ShoppingLists/deleteItem`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',

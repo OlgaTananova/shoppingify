@@ -17,7 +17,7 @@ import {
     clearShoppingList,
     deleteExistingItemFromSL, getActiveShoppingList,
     updateItemQtyInExistingSL,
-    updateItemStatusExistingSL,
+    updateItemStatusExistingSL, updatePriceOfItemInSL,
     updatePricePerUnitOfItemInSL,
     updateUnitsOfItemInSL,
 } from '../../store/shoppingSlice';
@@ -27,6 +27,7 @@ import {onUpdateActiveShoppingList, onUpdateShoppingLists} from "../../store/sho
 function ShoppingItem({item}: { item: IShoppingItem }) {
     const [isEditQtyMenuOpened, setIsEditQtyMenuOpened] = useState(false);
     const [isEditUnitsMenuOpened, setIsEditUnitsMenuOpened] = useState(false);
+    const [isEditPricePerUnitMenuOpened, setIsEditPricePerUnitMenuOpened] = useState(false);
     const [isEditPriceMenuOpened, setIsEditPriceMenuOpened] = useState(false);
     const items = useAppSelector((state) => state.items.items);
     const activeShoppingList = useAppSelector((state) => state.shopping._id);
@@ -58,10 +59,18 @@ function ShoppingItem({item}: { item: IShoppingItem }) {
         }),
         [],
     );
+    const initialValuesForPrice = useMemo(() => ({
+        'price': {
+            value: 0,
+            required: true,
+        },
+    }), []);
     const editItemUnitsForm = useForm(initialValuesForUnits);
     const editItemPricePerUnitForm = useForm(initialValuesForPricePerUnit);
     const editItemQtyForm = useForm(initialValuesForQty);
+    const editItemPriceForm = useForm(initialValuesForPrice);
     const itemInItems = () => items.find((i) => i._id === item.itemId);
+
     // function to update item units in the form
     useEffect(() => {
         editItemUnitsForm.setValues({
@@ -74,13 +83,22 @@ function ShoppingItem({item}: { item: IShoppingItem }) {
         editItemPricePerUnitForm.setValues({
             'price-per-unit': {value: item?.pricePerUnit || 0, required: true},
         });
-    }, [item.pricePerUnit, isEditPriceMenuOpened]);
+    }, [item.pricePerUnit, isEditPricePerUnitMenuOpened]);
     // function to update item quantity in the form
     useEffect(() => {
         editItemQtyForm.setValues({
             'item-qty': {value: item?.quantity, required: true},
         });
     }, [item.quantity, isEditQtyMenuOpened]);
+    //function to update item's price in the form
+    useEffect(() => {
+        // @ts-ignore
+        editItemPriceForm.setValues({
+            'price': {value: item?.price || 0, required: true},
+        });
+    }, [item.price, isEditPriceMenuOpened]);
+
+    /* Functions to open and close update item's bars */
     // function to open and close edit qty menu
     const openEditQtyBarHandleClick: MouseEventHandler = () => {
         setIsEditQtyMenuOpened(!isEditQtyMenuOpened);
@@ -95,23 +113,35 @@ function ShoppingItem({item}: { item: IShoppingItem }) {
             editItemUnitsForm.resetForm();
         }
     };
-    // function to open and close edit price menu
-    const openEditPriceBarHandleClick: MouseEventHandler = () => {
-        setIsEditPriceMenuOpened(!isEditPriceMenuOpened);
-        if (!isEditPriceMenuOpened) {
+    // function to open and close edit price per unit menu
+    const openEditPricePerUnitBarHandleClick: MouseEventHandler = () => {
+        setIsEditPricePerUnitMenuOpened(!isEditPricePerUnitMenuOpened);
+        if (!isEditPricePerUnitMenuOpened) {
             editItemPricePerUnitForm.resetForm();
         }
     };
+    // function to open and close the edit price menu bar
+    const openEditPriceBarHandleClick: MouseEventHandler = () => {
+        setIsEditPriceMenuOpened(!isEditPriceMenuOpened);
+        if (!isEditPriceMenuOpened) {
+            editItemPriceForm.resetForm();
+        }
+    };
+
+    /* Functions to manipulate the item's data */
     // function to delete item from shopping list
     const deleteItemHandleClick: MouseEventHandler = async () => {
-        dispatch(setIsLoadingTrue());
         try {
-            if (activeShoppingList) {
-                await dispatch(
-                    deleteExistingItemFromSL({
-                        shoppingListId: activeShoppingList || "",
-                        shoppingListItemId: item._id,
-                    })).unwrap();
+            dispatch(setIsLoadingTrue());
+            const data = await dispatch(
+                deleteExistingItemFromSL({
+                    shoppingListId: activeShoppingList || "",
+                    shoppingListItemId: item._id,
+                })).unwrap();
+            dispatch(onUpdateActiveShoppingList(data));
+            if (data.updatedShoppingList.status === "active") {
+                dispatch(clearShoppingList());
+                dispatch(getActiveShoppingList(data.updatedShoppingList));
             }
         } catch (err) {
             const errorMessage = err instanceof Error ? err.message : 'An unknown error occurred';
@@ -235,7 +265,30 @@ function ShoppingItem({item}: { item: IShoppingItem }) {
                     pricePerUnit: editItemPricePerUnitForm.values['price-per-unit'].value,
                 }),
             ).unwrap();
-            dispatch(onUpdateShoppingLists(data));
+            dispatch(onUpdateActiveShoppingList(data));
+            if (data.updatedShoppingList.status === "active") {
+                dispatch(clearShoppingList());
+                dispatch(getActiveShoppingList(data.updatedShoppingList));
+            }
+        } catch (err) {
+            const errorMessage = err instanceof Error ? err.message : "Unknown error occurred.";
+            dispatch(setShowErrorTrue(errorMessage));
+        } finally {
+            dispatch(setIsLoadingFalse());
+            setIsEditPricePerUnitMenuOpened(false);
+        }
+    };
+    // function to update  the item's price in the shopping list
+    const handleEditItemPriceClick: FormEventHandler<HTMLFormElement> = async (e) => {
+        try {
+            e.preventDefault();
+            dispatch(setIsLoadingTrue());
+            const data = await dispatch(updatePriceOfItemInSL({
+                shoppingListId: activeShoppingList || "",
+                shoppingListItemId: item._id,
+                price: editItemPriceForm.values.price.value,
+            })).unwrap();
+            dispatch(onUpdateActiveShoppingList(data));
             if (data.updatedShoppingList.status === "active") {
                 dispatch(clearShoppingList());
                 dispatch(getActiveShoppingList(data.updatedShoppingList));
@@ -279,13 +332,15 @@ function ShoppingItem({item}: { item: IShoppingItem }) {
                 >{`${item.units}`}</button>
                 <button
                     type="button"
-                    onClick={openEditPriceBarHandleClick}
+                    onClick={openEditPricePerUnitBarHandleClick}
                     className="shopping-list__item-action-button"
                 >{`$${item.pricePerUnit?.toFixed(2)}`}</button>
-                <span
-                    className="shopping-list__item-action-button shopping-list__item-action-button_total">{`$${item.price?.toFixed(
+                <button
+                    type="button"
+                    onClick={openEditPriceBarHandleClick}
+                    className="shopping-list__item-action-button">{`$${item.price?.toFixed(
                     2,
-                )}`}</span>
+                )}`}</button>
             </div>
             {isEditQtyMenuOpened ? (
                 <form
@@ -382,7 +437,7 @@ function ShoppingItem({item}: { item: IShoppingItem }) {
                     </button>
                 </form>
             ) : null}
-            {isEditPriceMenuOpened ? (
+            {isEditPricePerUnitMenuOpened ? (
                 <form
                     onSubmit={handleEditItemPricePerUnitClick}
                     className="shopping-list__edit-item"
@@ -410,7 +465,7 @@ function ShoppingItem({item}: { item: IShoppingItem }) {
                         {}
                     </button>
                     <button
-                        onClick={openEditPriceBarHandleClick}
+                        onClick={openEditPricePerUnitBarHandleClick}
                         className="shopping-list__edit-item-action-button shopping-list__edit-item-action-button_cancel"
                         type="button"
                     >
@@ -418,6 +473,42 @@ function ShoppingItem({item}: { item: IShoppingItem }) {
                     </button>
                 </form>
             ) : null}
+            {isEditPriceMenuOpened ? (
+                    <form
+                        onSubmit={handleEditItemPriceClick}
+                        className="shopping-list__edit-item"
+                        noValidate
+                        name="shopping-list__edit-item-ediPriceForm">
+                        <input
+                            required
+                            name="price"
+                            value={editItemPriceForm.values.price.value}
+                            onChange={editItemPriceForm.handleChange}
+                            className="shopping-list__edit-item-editPriceForm-input"
+                            type="number"
+                        />
+                        {editItemPriceForm.errors.price && (
+                            <span
+                                className="shopping-list__edit-item-input-error shopping-list__edit-item-editPriceForm-error">
+                                {editItemPricePerUnitForm.errors.price}
+                            </span>
+                        )}
+                        <button
+                            className="shopping-list__edit-item-action-button shopping-list__edit-item-action-button_submit"
+                            type="submit"
+                        >
+                            {}
+                        </button>
+                        <button
+                            onClick={openEditPriceBarHandleClick}
+                            className="shopping-list__edit-item-action-button shopping-list__edit-item-action-button_cancel"
+                            type="button"
+                        >
+                            {}
+                        </button>
+                    </form>
+                )
+                : null}
         </div>
     );
 }

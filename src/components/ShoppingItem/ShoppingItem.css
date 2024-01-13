@@ -71,11 +71,6 @@
   cursor: pointer;
 }
 
-.shopping-list__item-action-button_total:hover {
-  opacity: 1;
-  cursor: auto;
-}
-
 .shopping-list__edit-item {
   position: absolute;
   right: 0;
@@ -101,7 +96,7 @@
   font-size: 10px;
 }
 
-.shopping-list__edit-item-editUnitsForm-input {
+.shopping-list__edit-item-editUnitsForm-input, .shopping-list__edit-item-editPriceForm-input {
   width: 80px;
   height: 45px;
   border: none;
@@ -113,15 +108,15 @@
   text-align: center;
   padding: 0;
 }
-.shopping-list__edit-item-editUnitsForm-input:hover {
+.shopping-list__edit-item-editUnitsForm-input, .shopping-list__edit-item-editPriceForm-input:hover {
   cursor: pointer;
 }
 
-.shopping-list__edit-item-editUnitsForm-input:focus {
+.shopping-list__edit-item-editUnitsForm-input, .shopping-list__edit-item-editPriceForm-input:focus {
   outline: none;
 }
 
-.shopping-list__edit-item-editUnitsForm-input:focus-visible {
+.shopping-list__edit-item-editUnitsForm-input, .shopping-list__edit-item-editPriceForm-input:focus-visible {
   outline: 2px solid var(--orange-color);
 }
 
