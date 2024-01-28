@@ -5,7 +5,6 @@ import {
   ICreateShoppingListPayload,
   IDeleteItemFromShoppingListPayload,
   IFullShoppingItem,
-  IMergeBillPayload,
   IMergeListPayload,
   IShoppingItem, IUpdateItemPriceInShoppingList,
   IUpdateItemPricePerUnitInShoppingList,
@@ -15,7 +14,7 @@ import {
   IUpdateSalesTaxPayload,
   IUpdateSLHeadingPayload,
   IUpdateSLStatusPayload,
-  IUploadedShoppingItem,
+  IUploadedShoppingItem, IUploadListPayload,
 } from '../types';
 
 export const getShoppingLists = async () => {
@@ -145,7 +144,7 @@ export const uploadBillAndGetShoppingList = async (values: FormData) => {
   return checkResponse(shoppingList);
 };
 
-export const mergeShoppingLists = async (values: IMergeBillPayload) => {
+export const mergeShoppingLists = async (values: IMergeListPayload) => {
   const mergedShoppingList = await fetch(`${baseUrl}/merge-lists`, {
     method: 'POST',
     headers: {
@@ -157,7 +156,7 @@ export const mergeShoppingLists = async (values: IMergeBillPayload) => {
   return checkResponse(mergedShoppingList);
 };
 
-export const uploadShoppingList = async (values: IMergeListPayload) => {
+export const uploadShoppingList = async (values: IUploadListPayload) => {
   const shoppingList = await fetch(`${baseUrl}/upload-list`, {
     method: 'POST',
     credentials: 'include',

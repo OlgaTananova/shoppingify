@@ -25,8 +25,13 @@ export interface IUploadedShoppingItem {
   itemUnits: string;
   itemPricePerUnit: string;
   itemPrice: string;
-  salesTax?: string;
-  dateOfPurchase?: string;
+  databaseItemName: string;
+}
+
+export interface IUploadedBill{
+  salesTax: number;
+  dateOfPurchase: string;
+  items: [IUploadedShoppingItem?]
 }
 
 export interface IUploadedShoppingItemInitialState {
@@ -50,6 +55,10 @@ export interface IUploadedShoppingItemInitialState {
     value: number;
     required: boolean;
   };
+  databaseItemName: {
+    value: string;
+    required: boolean;
+  }
 }
 
 export interface IUploadedShoppingItemErrors {
@@ -68,6 +77,9 @@ export interface IUploadedShoppingItemErrors {
   itemPrice: {
     error: string;
   };
+  databaseItemName: {
+    error: string;
+  }
 }
 export interface IFullShoppingItem extends IShoppingItem {
   itemName?: string;
@@ -81,8 +93,19 @@ export interface IMergeListPayload {
   _id?: string;
 }
 
-export interface IMergeBillPayload {
-  items: IShoppingItem[];
+export interface IUploadListItemPayload {
+  categoryId: string;
+  itemId: string;
+  itemName?: string;
+  quantity: number;
+  status: 'completed' | 'pending' | string;
+  units: string;
+  pricePerUnit?: number;
+  price?: number;
+}
+
+export interface IUploadListPayload {
+  items: IUploadListItemPayload[];
   salesTax: number;
   date: string;
 }
@@ -107,7 +130,7 @@ export interface IShoppingListInitialState extends IShoppingList {
   requestStatus: 'idle' | 'loading' | 'succeeded' | 'failed';
   isUploadBillFormOpened?: boolean;
   error: string | unknown | null;
-  uploadedItems?: [IUploadedShoppingItem?];
+  uploadedBill: IUploadedBill;
 }
 
 export interface IShoppingListsInitialState {

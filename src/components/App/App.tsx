@@ -159,7 +159,7 @@ function App() {
       <CancelShoppingListPopup />
       {isLoading && <Preloader />}
       <InfoPopup />
-      { /*<UploadBillPopup />*/ }
+      <UploadBillPopup />
     </div>
   );
 }
