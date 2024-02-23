@@ -77,22 +77,23 @@ function ShoppingItem({item}: { item: IShoppingItem }) {
             'item-units': {value: item?.units || '', required: true},
         });
     }, [item.units, isEditUnitsMenuOpened]);
+
     // function to update item price per unit in the form
     useEffect(() => {
-        // @ts-ignore
         editItemPricePerUnitForm.setValues({
             'price-per-unit': {value: item?.pricePerUnit || 0, required: true},
         });
     }, [item.pricePerUnit, isEditPricePerUnitMenuOpened]);
+
     // function to update item quantity in the form
     useEffect(() => {
         editItemQtyForm.setValues({
             'item-qty': {value: item?.quantity, required: true},
         });
     }, [item.quantity, isEditQtyMenuOpened]);
+
     //function to update item's price in the form
     useEffect(() => {
-        // @ts-ignore
         editItemPriceForm.setValues({
             'price': {value: item?.price || 0, required: true},
         });
@@ -106,6 +107,7 @@ function ShoppingItem({item}: { item: IShoppingItem }) {
             editItemQtyForm.resetForm();
         }
     };
+
     // function to open and close edit units menu
     const openEditUnitsBarHandleClick: MouseEventHandler = () => {
         setIsEditUnitsMenuOpened(!isEditUnitsMenuOpened);
@@ -113,6 +115,7 @@ function ShoppingItem({item}: { item: IShoppingItem }) {
             editItemUnitsForm.resetForm();
         }
     };
+
     // function to open and close edit price per unit menu
     const openEditPricePerUnitBarHandleClick: MouseEventHandler = () => {
         setIsEditPricePerUnitMenuOpened(!isEditPricePerUnitMenuOpened);
@@ -120,6 +123,7 @@ function ShoppingItem({item}: { item: IShoppingItem }) {
             editItemPricePerUnitForm.resetForm();
         }
     };
+
     // function to open and close the edit price menu bar
     const openEditPriceBarHandleClick: MouseEventHandler = () => {
         setIsEditPriceMenuOpened(!isEditPriceMenuOpened);
@@ -151,6 +155,7 @@ function ShoppingItem({item}: { item: IShoppingItem }) {
         }
 
     };
+
     // function to update item quantity in shopping list
     const changeItemQtySubmitHandler: FormEventHandler = async (e) => {
         try {
@@ -187,6 +192,7 @@ function ShoppingItem({item}: { item: IShoppingItem }) {
             },
         });
     };
+
     // function to decrement item quantity in the form
     const decrementItemQtyHandleClick: MouseEventHandler = () => {
         if (item.quantity === 1) {
@@ -204,6 +210,7 @@ function ShoppingItem({item}: { item: IShoppingItem }) {
             },
         });
     };
+
     // function to update item status in shopping list
     const updateItemStateHandleClick: MouseEventHandler = async () => {
         const status = item.status === 'pending' ? 'completed' : 'pending';
@@ -228,6 +235,7 @@ function ShoppingItem({item}: { item: IShoppingItem }) {
             dispatch(setIsLoadingFalse());
         }
     };
+
     // function to update item units in shopping list
     const handleEditItemUnitsClick: FormEventHandler<HTMLFormElement> = async (e) => {
         try {
@@ -253,6 +261,7 @@ function ShoppingItem({item}: { item: IShoppingItem }) {
             setIsEditUnitsMenuOpened(false);
         }
     };
+
     // function to update item price per unit in shopping list
     const handleEditItemPricePerUnitClick: FormEventHandler<HTMLFormElement> = async (e) => {
         try {
@@ -278,6 +287,7 @@ function ShoppingItem({item}: { item: IShoppingItem }) {
             setIsEditPricePerUnitMenuOpened(false);
         }
     };
+
     // function to update  the item's price in the shopping list
     const handleEditItemPriceClick: FormEventHandler<HTMLFormElement> = async (e) => {
         try {
