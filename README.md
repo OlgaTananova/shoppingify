@@ -22,6 +22,9 @@ Shoppingify is a dynamic shopping list application designed to seamlessly integr
 
 - **Insightful Shopping Analytics**: With Shoppingify, you can access detailed statistics related to your shopping history. This includes a total of purchased items grouped by month, year, and category, as well as your top-purchased items and categories, giving you an understanding of your shopping habits and expenditure.
 
+## Demo
+
+
 ## Technologies (front-end part)
 
 - **React**: The code follows a structured approach by organizing it into functional components. To manage the state and lifecycle of components, various hooks are employed. Custom hooks are utilized to extend the functionality of the application, such as form validation.
