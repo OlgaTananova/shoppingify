@@ -23,7 +23,7 @@ function Header() {
         <span className="header__heading-name">Shoppingify</span>
         <span className="header__heading-body">
           {' '}
-          &mdash; Your Essential Shopping Companion On-the-Go
+          &mdash; Your Shopping Companion
         </span>{' '}
       </h1>
     </header>
