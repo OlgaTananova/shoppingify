@@ -22,7 +22,7 @@ import {
     updateUnitsOfItemInSL,
 } from '../../store/shoppingSlice';
 import useForm from '../../utils/useForm';
-import {onUpdateActiveShoppingList, onUpdateShoppingLists} from "../../store/shoppingHistorySlice";
+import {onUpdateActiveShoppingList} from "../../store/shoppingHistorySlice";
 
 function ShoppingItem({item}: { item: IShoppingItem }) {
     const [isEditQtyMenuOpened, setIsEditQtyMenuOpened] = useState(false);
@@ -223,7 +223,7 @@ function ShoppingItem({item}: { item: IShoppingItem }) {
                     shoppingListItemId: item._id,
                 }),
             ).unwrap();
-            dispatch(onUpdateShoppingLists(data));
+            dispatch(onUpdateActiveShoppingList(data));
             if (data.updatedShoppingList.status === "active") {
                 dispatch(clearShoppingList());
                 dispatch(getActiveShoppingList(data.updatedShoppingList));

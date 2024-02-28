@@ -12,9 +12,9 @@ import {
     setIsLoadingTrue,
     setShowErrorTrue,
 } from '../../store/appSlice';
-import {addNewItemToShoppingList, getActiveShoppingList} from '../../store/shoppingSlice';
+import {addNewItemToShoppingList, clearShoppingList, getActiveShoppingList} from '../../store/shoppingSlice';
 import {IAddItemToShoppingListPayload} from "../../types";
-import {onUpdateShoppingLists} from "../../store/shoppingHistorySlice";
+import {onUpdateActiveShoppingList} from "../../store/shoppingHistorySlice";
 
 function AddItemToActiveShoppingListForm() {
     const activeShoppingList = useAppSelector((state) => state.shopping);
@@ -89,8 +89,11 @@ function AddItemToActiveShoppingListForm() {
             dispatch(setIsLoadingTrue());
             const data = await dispatch(
                 addNewItemToShoppingList(newShoppingListItem)).unwrap();
-            dispatch(onUpdateShoppingLists(data));
-            dispatch(getActiveShoppingList(data.updatedShoppingList));
+            dispatch(onUpdateActiveShoppingList(data));
+            if (data.updatedShoppingList.status === "active") {
+                dispatch(clearShoppingList());
+                dispatch(getActiveShoppingList(data.updatedShoppingList));
+            }
             addItemForm.resetForm();
         } catch (err) {
             const errorMessage = err instanceof Error ? err.message : 'An unknown error occurred';

@@ -68,5 +68,5 @@ export const deleteSL = createAsyncThunk(
     'shoppingList/deleteSL',
     async (values: { id: string }) => deleteShoppingList(values),
 );
-export const {onUpdateShoppingLists, onUpdateActiveShoppingList, onAddNewShoppingList} = shoppingHistorySlice.actions;
+export const {onUpdateActiveShoppingList, onAddNewShoppingList, onUpdateShoppingLists} = shoppingHistorySlice.actions;
 export default shoppingHistorySlice.reducer;

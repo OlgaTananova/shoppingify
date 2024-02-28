@@ -17,7 +17,7 @@ import {
 } from '../../store/appSlice';
 import image from '../../images/undraw_shopping_app_flsj 1.svg';
 import SalesTax from '../SalesTax/SalesTax';
-import {onUpdateActiveShoppingList, onUpdateShoppingLists} from "../../store/shoppingHistorySlice";
+import {onUpdateActiveShoppingList} from "../../store/shoppingHistorySlice";
 
 function ShoppingList() {
     const shoppingLists = useAppSelector((state) => state.shoppingHistory.shoppingLists);

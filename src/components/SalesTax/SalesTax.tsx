@@ -8,8 +8,7 @@ import {
     setShowErrorTrue,
 } from '../../store/appSlice';
 import {clearShoppingList, getActiveShoppingList, updateSalesTaxInSL} from '../../store/shoppingSlice';
-import {onUpdateActiveShoppingList, onUpdateShoppingLists} from "../../store/shoppingHistorySlice";
-import {IShoppingList} from "../../types";
+import {onUpdateActiveShoppingList} from "../../store/shoppingHistorySlice";
 
 export default function SalesTax() {
     const salesTax = useAppSelector((state) => state.shopping.salesTax);

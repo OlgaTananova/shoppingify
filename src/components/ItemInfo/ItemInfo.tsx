@@ -21,8 +21,7 @@ import {
 import EditItemForm from '../EditItemForm/EditItemForm';
 import {
     onAddNewShoppingList,
-    onUpdateActiveShoppingList,
-    onUpdateShoppingLists,
+    onUpdateActiveShoppingList, onUpdateShoppingLists,
 } from '../../store/shoppingHistorySlice';
 import {IShoppingList} from '../../types';
 
